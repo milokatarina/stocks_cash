@@ -1,0 +1,66 @@
+{
+  "env": {
+    "production": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "entry",
+            "corejs": 3,
+            "targets": {
+              "browsers": [
+                ">2%",
+                "not dead",
+                "ie >= 11"
+              ]
+            }
+          }
+        ],
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        [
+          "babel-plugin-styled-components",
+          {
+            "displayName": false,
+            "ssr": false,
+            "pure": true,
+            "minify": true
+          }
+        ]
+      ]
+    },
+    "development": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "useBuiltIns": "entry",
+            "corejs": 3,
+            "targets": {
+              "browsers": [
+                ">2%",
+                "not dead",
+                "ie >= 11"
+              ]
+            }
+          }
+        ],
+        "@babel/preset-react"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-class-properties",
+        [
+          "babel-plugin-styled-components",
+          {
+            "displayName": true,
+            "ssr": false,
+            "pure": false,
+            "minify": false
+          }
+        ]
+      ]
+    }
+  }
+}

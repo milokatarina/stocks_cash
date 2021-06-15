@@ -1,0 +1,15 @@
+{
+    "name": "katarinamilosavljevic/project_stocks",
+    "autoload": {
+        "psr-4": {
+            "Katarinamilosavljevic\\EvApp1\\": "application/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Katarina Milosavljevic",
+            "email": "katarina.milosavljevic@fishingbooker.com"
+        }
+    ],
+    "require": {}
+}

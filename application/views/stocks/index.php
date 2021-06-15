@@ -1,0 +1,1 @@
+<div id="manage-stocks-dashboard"></div>
