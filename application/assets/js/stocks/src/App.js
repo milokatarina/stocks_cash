@@ -1,3 +1,6 @@
 import React from 'react';
 
-export const App = () => <div>Stocks</div>
+
+export const App = () => {
+    return (<div>wfwefwefwf</div>)
+}

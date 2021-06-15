@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import 'react-dates/initialize';
-import App from './App';
+import {App} from './App';
 import './config';
 import 'react-dates/lib/css/_datepicker.css';
 
