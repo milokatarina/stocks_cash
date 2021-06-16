@@ -7,7 +7,7 @@ import './config';
 import 'react-dates/lib/css/_datepicker.css';
 
 window.ManageStocks = {
-    render: (element) => {
+    render: (element, yearsRevenue) => {
         render(
             <BrowserRouter>
                 <Switch>
@@ -16,6 +16,7 @@ window.ManageStocks = {
                         render={({match}) => (
                             <App
                                 match={match}
+                                yearsRevenue={yearsRevenue}
                             />
                         )}
                     />
