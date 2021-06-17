@@ -1,22 +1,27 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
 // import { timeDay } from "d3";
 
 import {Chart} from "react-charts";
 
 import "../styles.css";
-import ResizableBox from "./ResizableBox";
 import moment from "moment";
 import {Button} from "@material-ui/core";
 
 export default function Graph({yearsRevenue}) {
+    const prepareStockAxes = () => {
+        return yearsRevenue.map((item) => {
+            return {
+                'primary': moment().year(item.year).month(0).date(1),
+                'secondary': item.stocks_revenue
+            }
+        })
+    }
     const [graphState, setGraphState] = useState('stocks');
-    const [graphData, setGraphData] = useState(yearsRevenue.map((item) => {
-        return {
-            'primary': moment().year(item.year).month(1).date(1),
-            'secondary': item.stocks_revenue
-        }
-    }))
+    const [graphData, setGraphData] = useState(prepareStockAxes())
+    useEffect(() => {
+        setGraphData(prepareStockAxes());
+    }, [yearsRevenue])
     const series = React.useMemo(
         () => ({
             showPoints: true,
@@ -40,19 +45,14 @@ export default function Graph({yearsRevenue}) {
 
     const regenerateStocksData = () => {
         setGraphState('stocks');
-        const newData = yearsRevenue.map((item) => {
-            return {
-                'primary': moment().year(item.year).month(1).date(1),
-                'secondary': item.stocks_revenue
-            }
-        })
+        const newData = prepareStockAxes();
         setGraphData(newData);
     }
     const regenerateDepositData = () => {
         setGraphState('deposit');
         const newData = yearsRevenue.map((item) => {
             return {
-                'primary': moment().year(item.year).month(1).date(1),
+                'primary': moment().year(item.year).month(0).date(1),
                 'secondary': item.deposit_revenue
             }
         })
@@ -61,10 +61,17 @@ export default function Graph({yearsRevenue}) {
 
 
     return (
-        <ResizableBox>
-            <Button onClick={() => regenerateStocksData()}>Stocks</Button>
-            <Button onClick={() => regenerateDepositData()}>Deposit</Button>
-            <Chart data={[graphData]} series={series} axes={axes} tooltip/>
-        </ResizableBox>
+        <div style={{width: '100%', height: '300px', position: 'relative'}}>
+            <div style={{marginBottom: '15px'}}>
+                <Button
+                    variant="contained"
+                    onClick={() => regenerateStocksData()}
+                    style={{marginRight: '15px'}}>
+                    Stocks
+                </Button>
+                <Button variant="contained" color="primary" onClick={() => regenerateDepositData()}>Deposit</Button>
+            </div>
+            <Chart data={[graphData]} series={10} axes={axes}/>
+        </div>
     );
 }
