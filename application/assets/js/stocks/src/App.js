@@ -6,83 +6,134 @@ import InputSlider from "./components/Slider";
 import {PieChart} from 'react-minimal-pie-chart';
 import {Button} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
+import * as CONST from './constants';
+import {EndGame} from "./containers/EndGame";
+import {Intro} from "./containers/Intro";
+import * as api from './api';
 
 export const App = ({yearsRevenue}) => {
     const initCashBalance = 1000;
-    const [currentYearRevenue, setCurrentYearRevenue] = useState(yearsRevenue[10]);
+    const initYearsRange = 20;
+    const [screenNumber, setScreenNumber] = useState(1);
+    const [lastRevenue, setLastRevenue] = useState(0);
+    const [currentYearRevenue, setCurrentYearRevenue] = useState(yearsRevenue[initYearsRange]);
     const [currentDepositBalance, setCurrentDepositBalance] = useState(500);
     const [currentStocksBalance, setCurrentStocksBalance] = useState(500);
     const [stocksPercent, setStocksPercent] = useState(50);
     const [depositPercent, setDepositPercent] = useState(50);
     const [investmentPeriods, setInvestmentPeriod] = useState([]);
     const [numberOfPeriodsPlayed, setNumberOfPeriodsPlayed] = useState(0);
+    const [currentCashBalance, setCurrentCashBalance] = useState(initCashBalance);
 
     const invest = () => {
-        setNumberOfPeriodsPlayed(numberOfPeriodsPlayed + 1);
+        const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
+        setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
+        setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
+        const lastRevenue = parseFloat((
+            currentDepositBalance * currentYearRevenue.deposit_revenue / 100
+            + currentStocksBalance * currentYearRevenue.stocks_revenue / 100).toFixed(4));
+        setLastRevenue(
+            lastRevenue
+        );
+        setCurrentCashBalance(parseFloat((currentCashBalance + lastRevenue).toFixed(4)));
     }
     const handleStocksOnChange = (newValue) => {
         setStocksPercent(newValue);
-        setCurrentStocksBalance(initCashBalance * newValue / 100)
+        setCurrentStocksBalance(currentCashBalance * newValue / 100)
         setDepositPercent(100 - newValue);
-        setCurrentDepositBalance(initCashBalance * (100 - newValue) / 100)
+        setCurrentDepositBalance(currentCashBalance * (100 - newValue) / 100)
     }
     const handleDepositOnChange = (newValue) => {
         setDepositPercent(newValue);
-        setCurrentDepositBalance(initCashBalance * newValue / 100)
+        setCurrentDepositBalance(currentCashBalance * newValue / 100)
         setStocksPercent(100 - newValue);
-        setCurrentStocksBalance(initCashBalance * (100 - newValue) / 100)
+        setCurrentStocksBalance(currentCashBalance * (100 - newValue) / 100)
     }
     const pieChartData = [
-        {title: 'Stocks', value: stocksPercent, color: '#E38627'},
-        {title: 'Deposit', value: depositPercent, color: '#C13C37'}
+        {title: CONST.STOCKS, value: stocksPercent, color: '#E38627'},
+        {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
-    return (
-        <StyledContainer>
-            <div className="mainHeader">
-                THE INVESTMENT GAME
-            </div>
-            <Grid>
-                <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                    <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height:'300px'}}>
+    if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
+        return <EndGame/>
+    }
+    switch (screenNumber) {
+        case 1:
+            // return <Intro onNextChange={(name, email, gender, age) => {
+            //     setScreenNumber(screenNumber + 1);
+            //     api.validateUser({
+            //         name, gender, age, email
+            //     })
+            // }}/>
+        default: {
+            return (
+                <StyledContainer>
+                    <div className="mainHeader" style={{
+                        borderTop: 'none',
+                        borderBottom: 'white',
+                        border: '1px solid',
+                        borderLeft: 'none',
+                        borderRight: 'none'
+                    }}>
+                        THE INVESTMENT GAME
+                    </div>
+                    <div className="mainHeader" style={{height: '100px'}}>
                         <div>
-                            <PieChart
-                                data={pieChartData}
-                                label={({dataEntry}) => dataEntry.value + " % " + dataEntry.title}
-                                labelStyle={(index) => ({
-                                    fill: '#ffff',
-                                    fontSize: '5px',
-                                    fontFamily: 'sans-serif',
-                                })}
-                                radius={42}
-                            />
+                            Revenue: {lastRevenue}
                         </div>
-                    </Col>
-                    <Col xs={12} sm={6}
-                         style={{border: '1px solid #ccc', borderLeft: 'none', padding: '15px', position: 'relative'}}>
-                        <InputSlider initCashBalance={initCashBalance} initValue={stocksPercent} name='STOCKS'
-                                     handleOnChange={handleStocksOnChange}/>
-                        <InputSlider initCashBalance={initCashBalance} initValue={depositPercent} name='DEPOSIT'
-                                     handleOnChange={handleDepositOnChange}/>
-                        <Button
-                            variant="contained"
-                            onClick={invest}
-                            color="primary"
-                            style={{position: 'absolute', bottom: '15px'}}
-                        >
-                            Invest!
-                        </Button>
-                    </Col>
-                </Row>
-            </Grid>
-            <Grid>
-                <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                    <Col xs={12} sm={6} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
-                        <Graph yearsRevenue={yearsRevenue.slice(numberOfPeriodsPlayed, numberOfPeriodsPlayed + 11)}/>
-                    </Col>
-                </Row>
-            </Grid>
-        </StyledContainer>
-    )
+                        <div>
+                            Total cash balance: {currentCashBalance}
+                        </div>
+                    </div>
+                    <Grid>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height: '300px'}}>
+                                <div>
+                                    <PieChart
+                                        data={pieChartData}
+                                        label={({dataEntry}) => dataEntry.value + " % " + dataEntry.title}
+                                        labelStyle={() => ({
+                                            fill: '#ffff',
+                                            fontSize: '5px'
+                                        })}
+                                        radius={42}
+                                    />
+                                </div>
+                            </Col>
+                            <Col xs={12} sm={6}
+                                 style={{
+                                     border: '1px solid #ccc',
+                                     borderLeft: 'none',
+                                     padding: '15px',
+                                     position: 'relative'
+                                 }}>
+                                <InputSlider initCashBalance={currentCashBalance} initValue={stocksPercent}
+                                             name='STOCKS'
+                                             handleOnChange={handleStocksOnChange}/>
+                                <InputSlider initCashBalance={currentCashBalance} initValue={depositPercent}
+                                             name='DEPOSIT'
+                                             handleOnChange={handleDepositOnChange}/>
+                                <Button
+                                    variant="contained"
+                                    onClick={invest}
+                                    color="primary"
+                                    style={{position: 'absolute', bottom: '15px'}}
+                                >
+                                    Invest!
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Grid>
+                    <Grid>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <Col xs={12} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
+                                <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}/>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </StyledContainer>
+            )
+        }
+    }
 }
 
 

@@ -29,8 +29,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@fishingbooker/core": "^1.2.15",
-    "@fishingbooker/layout": "^1.2.15",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/pro-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",

@@ -8,8 +8,11 @@
     "authors": [
         {
             "name": "Katarina Milosavljevic",
-            "email": "katarina.milosavljevic@fishingbooker.com"
+            "email": "katarina@jagodina.com"
         }
     ],
-    "require": {}
+    "require": {
+        "rougin/credo": "^0.5.0",
+        "crazycodr/standard-exceptions": "^2.4"
+    }
 }

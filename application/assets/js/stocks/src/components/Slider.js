@@ -10,8 +10,8 @@ const useStyles = makeStyles({
         width: '70%',
     },
     input: {
-        width: 42,
-    },
+        width: 42
+    }
 });
 
 export default function InputSlider({
@@ -57,10 +57,12 @@ export default function InputSlider({
                 </Grid>
                 <Grid item>
                     <Input
+
                         className={classes.input}
                         value={initCashBalance * value / 100}
                         margin="dense"
                         // onChange={handleInputChange}
+                        readOnly
                         onBlur={handleBlur}
                         inputProps={{
                             step: 10,
