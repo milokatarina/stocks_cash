@@ -1,18 +1,16 @@
 {
-    "name": "katarinamilosavljevic/project_stocks",
-    "autoload": {
-        "psr-4": {
-            "Katarinamilosavljevic\\EvApp1\\": "application/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Katarina Milosavljevic",
-            "email": "katarina@jagodina.com"
-        }
-    ],
-    "require": {
-        "rougin/credo": "^0.5.0",
-        "crazycodr/standard-exceptions": "^2.4"
+  "name": "katarinamilosavljevic/project_stocks",
+  "autoload": {
+    "psr-4": {
+      "": "application/"
     }
+  },
+  "authors": [
+    {
+      "name": "Katarina Milosavljevic",
+      "email": "katarina@jagodina.com"
+    }
+  ],
+  "require": {
+  }
 }
