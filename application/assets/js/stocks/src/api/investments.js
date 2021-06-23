@@ -5,8 +5,10 @@ const STOCKS = 'stocks';
 export const logInvestment = (
     {
         userId,
+        playId,
+        period,
         depositPercent,
-        stockPercent,
+        stocksPercent,
         initCashBalance,
         totalCashBalance
     }
@@ -15,9 +17,11 @@ export const logInvestment = (
         `${STOCKS}/logInvestment`,
         {
             params: {
+                period,
+                playId,
                 userId,
                 depositPercent,
-                stockPercent,
+                stocksPercent,
                 initCashBalance,
                 totalCashBalance
             }

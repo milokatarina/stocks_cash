@@ -2,18 +2,23 @@
 
 include APPPATH.'core/Repository/UserRepository.php';
 include APPPATH.'core/Repository/YearRevenueRepository.php';
+include APPPATH.'core/Repository/InvestmentRepository.php';
 include APPPATH.'core/Repository/PlayRepository.php';
 include APPPATH.'core/Entity/User.php';
 include APPPATH.'core/Entity/YearRevenue.php';
+include APPPATH.'core/Entity/Investment.php';
 
 class Stocks extends MY_Controller
 {
+    const MAX_PERIODS = 10;
     /** @var UserRepository */
     public $userRepository;
     /** @var YearRevenueRepository */
     public $yearRevenueRepository;
     /** @var PlayRepository */
     public $playRepository;
+    /** @var InvestmentRepository */
+    public $investmentRepository;
 
     public function __construct()
     {
@@ -22,6 +27,7 @@ class Stocks extends MY_Controller
         $this->userRepository = new UserRepository($this->db);
         $this->yearRevenueRepository = new YearRevenueRepository($this->db);
         $this->playRepository = new PlayRepository($this->db);
+        $this->investmentRepository = new InvestmentRepository($this->db);
     }
 
     public function index()
@@ -35,6 +41,27 @@ class Stocks extends MY_Controller
     public function logInvestment()
     {
         $data = $this->receiveJSON()->params;
+
+//        $userId = $data->userId;
+        $playId = $data->playId;
+        $period = $data->period;
+        $depositPercent = $data->depositPercent;
+        $stocksPercent = $data->stocksPercent;
+        $initCashBalance = $data->initCashBalance;
+        $totalCashBalance = $data->totalCashBalance;
+
+        $investment = new Investment(
+            $playId,
+            $period,
+            $initCashBalance,
+            $depositPercent,
+            $stocksPercent,
+            $totalCashBalance
+        );
+        $investmentId = $this->investmentRepository->insert($investment);
+        if ($period === self::MAX_PERIODS) {
+            $this->playRepository->update($playId, $totalCashBalance);
+        }
     }
 
     public function initGame()

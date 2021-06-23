@@ -3,43 +3,10 @@
 class PlayRepository
 {
     public $db;
-    public $user_id;
 
     public function __construct($db)
     {
         $this->db = $db;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDb()
-    {
-        return $this->db;
-    }
-
-    /**
-     * @param mixed $db
-     */
-    public function setDb($db)
-    {
-        $this->db = $db;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId($user_id)
-    {
-        $this->user_id = $user_id;
     }
 
     public function insert($user_id): int
@@ -50,5 +17,12 @@ class PlayRepository
         );
 
         return $this->db->insert_id();
+    }
+
+    public function update($play_id, $total_balance)
+    {
+        $this->db->query(
+            "UPDATE play SET total_balance={$total_balance} where id={$play_id}"
+        );
     }
 }

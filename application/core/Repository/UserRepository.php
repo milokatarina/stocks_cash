@@ -21,8 +21,4 @@ class UserRepository
 
         return $this->db->insert_id();
     }
-
-    public function getById($userId){
-
-    }
 }

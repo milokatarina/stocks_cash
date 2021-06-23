@@ -13,7 +13,7 @@ import * as api from './api';
 
 export const App = ({yearsRevenue}) => {
     const initCashBalance = 1000;
-    const initYearsRange = 20;
+    const initYearsRange = 10;
 
     const [playId, setPlayId] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -38,16 +38,16 @@ export const App = ({yearsRevenue}) => {
             lastRevenue
         );
         const initCashBalance = currentCashBalance;
-        const currentCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(4));
-        setCurrentCashBalance(currentCashBalance);
-
-
+        const calculatedCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(4));
+        setCurrentCashBalance(calculatedCashBalance);
         api.logInvestment({
             userId,
+            playId,
+            period: nextNumberOfYearsPlayed,
             depositPercent,
             stocksPercent,
             initCashBalance,
-            totalCashBalance: currentCashBalance
+            totalCashBalance: calculatedCashBalance
         })
     }
 
@@ -76,7 +76,7 @@ export const App = ({yearsRevenue}) => {
                 setScreenNumber(screenNumber + 1);
                 api.initGame({
                     name, gender, age, email
-                }).then((response)=>{
+                }).then((response) => {
                     setPlayId(response.data.data.playId);
                     setUserId(response.data.data.userId);
                 })

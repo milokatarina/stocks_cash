@@ -12,10 +12,15 @@ class InvestmentRepository
     public function insert(Investment $investment): int
     {
         $this->db->query(
-            "INSERT INTO `investment` (`name`, `gender`, `age`, `email`)
+            "INSERT INTO `investment` (`play_id`, `period`, `cash_balance`,
+                          `deposit_percent`, `stocks_percent`, `cash_balance_total`)
                         VALUES (
-                                '".$user->getName()."', '".$user->getGender()."', '".$user->getAge()."',
-                                '".$user->getEmail()."'
+                                '".$investment->getPlayId()."',
+                                '".$investment->getPeriod()."',
+                                '".$investment->getCashBalance()."',
+                                '".$investment->getDepositPercent()."',
+                                '".$investment->getStocksPercent()."',
+                                '".$investment->getCashBalanceTotal()."'
                                 )"
         );
 
