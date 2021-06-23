@@ -1,20 +1,32 @@
 <?php
 
-//include APPPATH.'Entities/EVUser.php';
+include APPPATH.'core/Repository/UserRepository.php';
+include APPPATH.'core/Repository/YearRevenueRepository.php';
+include APPPATH.'core/Repository/PlayRepository.php';
+include APPPATH.'core/Entity/User.php';
+include APPPATH.'core/Entity/YearRevenue.php';
 
 class Stocks extends MY_Controller
 {
+    /** @var UserRepository */
+    public $userRepository;
+    /** @var YearRevenueRepository */
+    public $yearRevenueRepository;
+    /** @var PlayRepository */
+    public $playRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+        $this->userRepository = new UserRepository($this->db);
+        $this->yearRevenueRepository = new YearRevenueRepository($this->db);
+        $this->playRepository = new PlayRepository($this->db);
+    }
+
     public function index()
     {
-        $this->load->database();
-        $query = $this->db->query('SELECT * FROM year_revenue');
-
-        $yearsRevenue = [];
-        foreach ($query->result() as $row) {
-            $yearsRevenue[] = $row;
-        }
-
-        $data['yearsRevenue'] = $yearsRevenue;
+        $data['yearsRevenue'] = $this->yearRevenueRepository->getAll();
         $this->load->view("stocks/index");
         $this->load->view("templates/footer/index");
         $this->load->view("stocks/index_scripts", $data);
@@ -22,27 +34,30 @@ class Stocks extends MY_Controller
 
     public function logInvestment()
     {
-        //upisi u bazu za jednoj usera i jedan period sta je uradio
+        $data = $this->receiveJSON()->params;
     }
 
-    public function validateUser()
+    public function initGame()
     {
         $data = $this->receiveJSON()->params;
-        $this->load->database();
+        $newUser = new User($data->name, $data->email, $data->gender, $data->age);
 
-        $this->db->query(
-            "INSERT INTO `user` (`name`, `gender`, `age`, `email`)
-                        VALUES (
-                                '".$data->name."', '".$data->gender."', '".$data->age."',
-                                '".$data->email."'
-                                )"
+        try {
+            $userId = $this->userRepository->insert($newUser);
+        } catch (\Exception $ex) {
+            return $this->ajaxResponse(
+                [],
+                "User with this email already played the game!"
+            );
+        }
+
+        $playId = $this->playRepository->insert($userId);
+
+        return $this->ajaxResponse(
+            [
+                'user_id' => $userId,
+                'play_id' => $playId,
+            ]
         );
-//        return $this->ajaxResponse([$user->getId()]);
-
-    }
-
-    //npr 10 pitanja
-    public function logAnswers()
-    {
     }
 }

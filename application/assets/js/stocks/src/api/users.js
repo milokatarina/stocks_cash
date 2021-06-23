@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const STOCKS = 'stocks';
 
-export const validateUser = (
+export const initGame = (
     {
         name,
         gender,
@@ -11,7 +11,7 @@ export const validateUser = (
     }
 ) => {
     return axios.post(
-        `${STOCKS}/validateUser`,
+        `${STOCKS}/initGame`,
         {
             params: {
                 name, gender, age, email

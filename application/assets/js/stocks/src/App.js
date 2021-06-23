@@ -14,6 +14,9 @@ import * as api from './api';
 export const App = ({yearsRevenue}) => {
     const initCashBalance = 1000;
     const initYearsRange = 20;
+
+    const [playId, setPlayId] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [screenNumber, setScreenNumber] = useState(1);
     const [lastRevenue, setLastRevenue] = useState(0);
     const [currentYearRevenue, setCurrentYearRevenue] = useState(yearsRevenue[initYearsRange]);
@@ -21,7 +24,6 @@ export const App = ({yearsRevenue}) => {
     const [currentStocksBalance, setCurrentStocksBalance] = useState(500);
     const [stocksPercent, setStocksPercent] = useState(50);
     const [depositPercent, setDepositPercent] = useState(50);
-    const [investmentPeriods, setInvestmentPeriod] = useState([]);
     const [numberOfPeriodsPlayed, setNumberOfPeriodsPlayed] = useState(0);
     const [currentCashBalance, setCurrentCashBalance] = useState(initCashBalance);
 
@@ -35,8 +37,20 @@ export const App = ({yearsRevenue}) => {
         setLastRevenue(
             lastRevenue
         );
-        setCurrentCashBalance(parseFloat((currentCashBalance + lastRevenue).toFixed(4)));
+        const initCashBalance = currentCashBalance;
+        const currentCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(4));
+        setCurrentCashBalance(currentCashBalance);
+
+
+        api.logInvestment({
+            userId,
+            depositPercent,
+            stocksPercent,
+            initCashBalance,
+            totalCashBalance: currentCashBalance
+        })
     }
+
     const handleStocksOnChange = (newValue) => {
         setStocksPercent(newValue);
         setCurrentStocksBalance(currentCashBalance * newValue / 100)
@@ -58,12 +72,15 @@ export const App = ({yearsRevenue}) => {
     }
     switch (screenNumber) {
         case 1:
-            // return <Intro onNextChange={(name, email, gender, age) => {
-            //     setScreenNumber(screenNumber + 1);
-            //     api.validateUser({
-            //         name, gender, age, email
-            //     })
-            // }}/>
+            return <Intro onNextChange={(name, email, gender, age) => {
+                setScreenNumber(screenNumber + 1);
+                api.initGame({
+                    name, gender, age, email
+                }).then((response)=>{
+                    setPlayId(response.data.data.playId);
+                    setUserId(response.data.data.userId);
+                })
+            }}/>
         default: {
             return (
                 <StyledContainer>

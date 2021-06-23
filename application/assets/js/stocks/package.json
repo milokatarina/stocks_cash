@@ -53,6 +53,7 @@
     "react-styled-flexboxgrid": "^3.2.1",
     "react-table": "^7.5.1",
     "styled-components": "^4.4.1",
+    "sweetalert2-react": "^0.8.3",
     "yup": "^0.31.1"
   }
 }

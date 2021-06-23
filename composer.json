@@ -1,9 +1,7 @@
 {
   "name": "katarinamilosavljevic/project_stocks",
   "autoload": {
-    "psr-4": {
-      "": "application/"
-    }
+    "psr-0": {"": "application/"}
   },
   "authors": [
     {
