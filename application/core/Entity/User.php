@@ -2,57 +2,40 @@
 
 class User
 {
-    public $name;
-    public $email;
     public $gender;
     public $age;
+    public $studies;
 
     /**
      * User constructor.
-     * @param $name
-     * @param $email
      * @param $gender
      * @param $age
+     * @param $studies
      */
-    public function __construct($name, $email, $gender, $age)
+    public function __construct($gender, $age, $studies)
     {
-        $this->name = $name;
-        $this->email = $email;
         $this->gender = $gender;
         $this->age = $age;
+        $this->studies = $studies;
     }
+
 
     /**
      * @return mixed
      */
-    public function getName()
+    public function getStudies()
     {
-        return $this->name;
+        return $this->studies;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $studies
      */
-    public function setName($name)
+    public function setStudies($studies)
     {
-        $this->name = $name;
+        $this->studies = $studies;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
 
     /**
      * @return mixed

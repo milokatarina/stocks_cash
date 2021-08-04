@@ -12,10 +12,10 @@ class UserRepository
     public function insert(User $user): int
     {
         $this->db->query(
-            "INSERT INTO `user` (`name`, `gender`, `age`, `email`)
+            "INSERT INTO `user` (`gender`, `age`, `studies`)
                         VALUES (
-                                '".$user->getName()."', '".$user->getGender()."', '".$user->getAge()."',
-                                '".$user->getEmail()."'
+                                '".$user->getGender()."', '".$user->getAge()."',
+                                '".$user->getStudies()."'
                                 )"
         );
 

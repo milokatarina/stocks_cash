@@ -64,11 +64,14 @@ class Stocks extends MY_Controller
         }
     }
 
+    public function sendRSAnswers(){
+        $data = $this->receiveJSON()->params;
+        var_dump($data);
+    }
     public function initGame()
     {
         $data = $this->receiveJSON()->params;
-        $newUser = new User($data->name, $data->email, $data->gender, $data->age);
-
+        $newUser = new User($data->gender, $data->age, $data->studies);
         try {
             $userId = $this->userRepository->insert($newUser);
         } catch (\Exception $ex) {

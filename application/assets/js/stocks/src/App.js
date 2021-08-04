@@ -1,15 +1,10 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
-import Graph from "./components/Graph";
-import {Col, Row} from "react-styled-flexboxgrid";
-import InputSlider from "./components/Slider";
-import {PieChart} from 'react-minimal-pie-chart';
-import {Button} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
 import * as CONST from './constants';
 import {EndGame} from "./containers/EndGame";
-import {Intro} from "./containers/Intro";
+import DSurvey from "./containers/DSurvey";
 import * as api from './api';
+import RSSurvey from "./containers/RSSurvey";
+import Game from "./containers/Game";
 
 export const App = ({yearsRevenue}) => {
     const initCashBalance = 1000;
@@ -70,90 +65,43 @@ export const App = ({yearsRevenue}) => {
     if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
         return <EndGame/>
     }
+    const onNextRSSurvey = ({rs11, rs12, rs13}) => {
+        console.log(rs11, rs12, rs13);
+        api.sendRSAnswers({
+            userId, rs11, rs12, rs13
+        }).then((response) => {
+            setScreenNumber(screenNumber + 1);
+        })
+    }
     switch (screenNumber) {
         case 1:
-            return <Intro onNextChange={(name, email, gender, age) => {
-                setScreenNumber(screenNumber + 1);
+            return <DSurvey onNextChange={(gender, age, studies) => {
                 api.initGame({
-                    name, gender, age, email
+                    studies, gender, age
                 }).then((response) => {
+                    setScreenNumber(screenNumber + 1);
                     setPlayId(response.data.data.playId);
                     setUserId(response.data.data.userId);
                 })
             }}/>
+        case 2:
+            return <RSSurvey
+                onNextChange={onNextRSSurvey}
+            />
         default: {
-            return (
-                <StyledContainer>
-                    <div className="mainHeader" style={{
-                        borderTop: 'none',
-                        borderBottom: 'white',
-                        border: '1px solid',
-                        borderLeft: 'none',
-                        borderRight: 'none'
-                    }}>
-                        THE INVESTMENT GAME
-                    </div>
-                    <div className="mainHeader" style={{height: '100px'}}>
-                        <div>
-                            Revenue: {lastRevenue}
-                        </div>
-                        <div>
-                            Total cash balance: {currentCashBalance}
-                        </div>
-                    </div>
-                    <Grid>
-                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height: '300px'}}>
-                                <div>
-                                    <PieChart
-                                        data={pieChartData}
-                                        label={({dataEntry}) => dataEntry.value + " % " + dataEntry.title}
-                                        labelStyle={() => ({
-                                            fill: '#ffff',
-                                            fontSize: '5px'
-                                        })}
-                                        radius={42}
-                                    />
-                                </div>
-                            </Col>
-                            <Col xs={12} sm={6}
-                                 style={{
-                                     border: '1px solid #ccc',
-                                     borderLeft: 'none',
-                                     padding: '15px',
-                                     position: 'relative'
-                                 }}>
-                                <InputSlider initCashBalance={currentCashBalance} initValue={stocksPercent}
-                                             name='STOCKS'
-                                             handleOnChange={handleStocksOnChange}/>
-                                <InputSlider initCashBalance={currentCashBalance} initValue={depositPercent}
-                                             name='DEPOSIT'
-                                             handleOnChange={handleDepositOnChange}/>
-                                <Button
-                                    variant="contained"
-                                    onClick={invest}
-                                    color="primary"
-                                    style={{position: 'absolute', bottom: '15px'}}
-                                >
-                                    Invest!
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Grid>
-                    <Grid>
-                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <Col xs={12} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
-                                <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}/>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </StyledContainer>
-            )
+            return <Game
+                lastRevenue={lastRevenue}
+                currentCashBalance={currentCashBalance}
+                pieChartData={pieChartData}
+                stocksPercent={stocksPercent}
+                handleStocksOnChange={handleStocksOnChange}
+                depositPercent={depositPercent}
+                handleDepositOnChange={handleDepositOnChange}
+                yearsRevenue={yearsRevenue}
+                numberOfPeriodsPlayed={numberOfPeriodsPlayed}
+                initYearsRange={initYearsRange}
+                invest={invest}
+            />
         }
     }
 }
-
-
-const StyledContainer = styled.div`
-  padding: 50px;
-`;

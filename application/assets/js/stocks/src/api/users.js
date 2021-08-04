@@ -4,17 +4,37 @@ const STOCKS = 'stocks';
 
 export const initGame = (
     {
-        name,
+        studies,
         gender,
         age,
-        email
     }
 ) => {
     return axios.post(
         `${STOCKS}/initGame`,
         {
             params: {
-                name, gender, age, email
+                gender, age, studies
+            }
+        }
+    );
+};
+
+export const sendRSAnswers = (
+    {
+        userId,
+        rs11,
+        rs12,
+        rs13,
+    }
+) => {
+    return axios.post(
+        `${STOCKS}/sendRSAnswers`,
+        {
+            params: {
+                user_id: userId,
+                rs11,
+                rs12,
+                rs13
             }
         }
     );
