@@ -63,7 +63,7 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
         {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
     if (numberOfPeriodsPlayedTrial === CONST.MAX_PERIODS_TRIAL) {
-        return <EndGame title="Kraj probne igre. Klikni Next da bi presao na igru." onNextClick={onScreenChange}/>
+        return <EndGame gain={currentCashBalance} title="Kraj probne igre. Klikni 'Dalje' da bi presao na igru." onNextClick={onScreenChange}/>
     }
     return (
         <StyledContainer>

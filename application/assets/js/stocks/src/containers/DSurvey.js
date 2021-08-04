@@ -51,7 +51,7 @@ const DSSurvey = ({onNextChange}) => {
                     color="primary"
                     disabled={age === null}
                 >
-                    Next
+                    Dalje
                 </StyledButton>
             </MainContent>
         </StyledContainer>

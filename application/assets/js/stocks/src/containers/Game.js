@@ -39,6 +39,8 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         const calculatedCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(2));
         setCurrentCashBalance(calculatedCashBalance);
         setIsRiskPercVisible(true);
+        setDepositPercent(50);
+        setStocksPercent(50);
         api.logInvestment({
             userId,
             playId,
@@ -68,7 +70,8 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
     if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
-        return <EndGame title="Kraj igre. Klikni Next da bi presao na upitnike." onNextClick={onScreenChange}/>
+        return <EndGame title="Kraj igre. Klikni 'Dalje' da bi presao na upitnik." onNextClick={onScreenChange}
+                        gain={currentCashBalance}/>
     }
     return (
         <StyledContainer>

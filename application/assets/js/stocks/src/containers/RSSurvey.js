@@ -60,7 +60,7 @@ const RSSurvey = ({onNextChange}) => {
                     color="primary"
                     disabled={!rs11 || !rs12 || !rs13}
                 >
-                    Next
+                    Dalje
                 </StyledButton>
             </MainContent>
         </StyledContainer>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Button} from "@material-ui/core";
 
-export const EndGame = ({onNextClick}) => (
+export const EndGame = ({onNextClick, title, gain}) => (
     <StyledContainer>
         <div className="mainHeader" style={{
             borderTop: 'none',
@@ -14,13 +14,19 @@ export const EndGame = ({onNextClick}) => (
             THE INVESTMENT GAME
         </div>
         <MainContent>
-            End of the game
+            <div style={{fontSize:'20px'}}>
+                {title}
+            </div>
+            <div style={{fontSize:'20px'}}>
+                Osvojili ste <b>{(gain - 1000).toFixed(2 ?? 0)}</b> novcanih jedinica.
+            </div>
             <Button
+                style={{marginTop:'50px'}}
                 variant="contained"
                 onClick={onNextClick}
                 color="primary"
             >
-                Next
+                Dalje
             </Button>
         </MainContent>
     </StyledContainer>
