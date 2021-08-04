@@ -6,8 +6,8 @@ import {Button} from "@material-ui/core";
 import * as CONST from '../constants';
 
 const DSSurvey = ({onNextChange}) => {
-    const [studies, setStudies] = useState(1);
-    const [gender, setGender] = useState(1);
+    const [studies, setStudies] = useState(null);
+    const [gender, setGender] = useState(null);
     const [age, setAge] = useState(null);
     return (
         <StyledContainer>
@@ -65,7 +65,7 @@ const StyledContainer = styled.div`
 
 const MainContent = styled.div`
   margin: auto;
-  padding: 10px;
+  padding: 50px;
   text-align: center;
   border: 1px solid #ccc;
   border-top: none;

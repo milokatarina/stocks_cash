@@ -8,11 +8,12 @@ import "../styles.css";
 import moment from "moment";
 import {Button} from "@material-ui/core";
 
-export default function Graph({yearsRevenue}) {
+export default function Graph({yearsRevenue, isTrial}) {
+    console.log({yearsRevenue})
     const prepareStockAxes = () => {
         return yearsRevenue.map((item) => {
             return {
-                'primary': moment().year(item.year).month(0).date(1),
+                'primary': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0).date(1),
                 'secondary': item.stocks_revenue
             }
         })

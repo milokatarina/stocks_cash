@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import {FormControl, Radio, RadioGroup, FormControlLabel} from "@material-ui/core";
 import * as CONST from "../constants";
 
-export const Auto5RadioQuestion = ({question, handleInputChange}) => {
+export const Auto5RadioQuestion = ({question, handleInputChange, value}) => {
    const answers = CONST.fiveAnswers;
 
-    const [radioValue, setRadioValue] = useState(answers[0].value);
+    const [radioValue, setRadioValue] = useState(value);
     const preparedAnswers = answers.map((item) => (<FormControlLabel value={item.value} control={<Radio/>}
                                                                      label={item.label}/>));
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Button} from "@material-ui/core";
 
-export const EndGame = () => (
+export const EndGame = ({onNextClick}) => (
     <StyledContainer>
         <div className="mainHeader" style={{
             borderTop: 'none',
@@ -14,6 +15,13 @@ export const EndGame = () => (
         </div>
         <MainContent>
             End of the game
+            <Button
+                variant="contained"
+                onClick={onNextClick}
+                color="primary"
+            >
+                Next
+            </Button>
         </MainContent>
     </StyledContainer>
 );

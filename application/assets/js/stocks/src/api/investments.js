@@ -10,7 +10,8 @@ export const logInvestment = (
         depositPercent,
         stocksPercent,
         initCashBalance,
-        totalCashBalance
+        totalCashBalance,
+        rpLastPeriod
     }
 ) => {
     return axios.post(
@@ -23,7 +24,8 @@ export const logInvestment = (
                 depositPercent,
                 stocksPercent,
                 initCashBalance,
-                totalCashBalance
+                totalCashBalance,
+                rpLastPeriod
             }
         }
     );

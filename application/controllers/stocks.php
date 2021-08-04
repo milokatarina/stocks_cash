@@ -49,6 +49,7 @@ class Stocks extends MY_Controller
         $stocksPercent = $data->stocksPercent;
         $initCashBalance = $data->initCashBalance;
         $totalCashBalance = $data->totalCashBalance;
+        $rpLastPeriod = $data->rpLastPeriod;
 
         $investment = new Investment(
             $playId,

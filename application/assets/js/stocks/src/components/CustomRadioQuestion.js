@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {FormControl, Radio, RadioGroup, FormControlLabel} from "@material-ui/core";
 
-export const CustomRadioQuestion = ({question, labels, handleInputChange}) => {
+export const CustomRadioQuestion = ({question, labels, handleInputChange, value}) => {
     const answers = labels.map((label, index) => {
         return {
             value: index + 1,
             label: label
         }
     });
-    const [radioValue, setRadioValue] = useState(answers[0].value);
+    const [radioValue, setRadioValue] = useState(value);
     const preparedAnswers = answers.map((item) => (<FormControlLabel value={item.value} control={<Radio/>}
                                                                      label={item.label}/>));
 

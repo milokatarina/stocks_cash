@@ -7,9 +7,9 @@ import {Button} from "@material-ui/core";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 
 const RSSurvey = ({onNextChange}) => {
-    const [rs11, setRs11] = useState(1);
-    const [rs12, setRs12] = useState(1);
-    const [rs13, setRs13] = useState(1);
+    const [rs11, setRs11] = useState(null);
+    const [rs12, setRs12] = useState(null);
+    const [rs13, setRs13] = useState(null);
     const [rs14, setRs14] = useState(1);
     const [rs15, setRs15] = useState(1);
 
@@ -58,6 +58,7 @@ const RSSurvey = ({onNextChange}) => {
                     variant="contained"
                     onClick={onClickNext}
                     color="primary"
+                    disabled={!rs11 || !rs12 || !rs13}
                 >
                     Next
                 </StyledButton>
@@ -72,7 +73,7 @@ const StyledContainer = styled.div`
 
 const MainContent = styled.div`
   margin: auto;
-  padding: 10px;
+  padding: 50px;
   text-align: center;
   border: 1px solid #ccc;
   border-top: none;

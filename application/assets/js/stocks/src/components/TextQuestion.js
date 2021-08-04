@@ -23,8 +23,16 @@ export const TextQuestion = ({question, handleInputChange, inputType}) => {
 };
 
 const MainContent = styled.div`
-  margin: 20px auto 20px auto;
-  padding: 10px;
+  margin: 20px auto;
+  width: 500px;
+  -webkit-transition: background-color 200ms cubic-bezier(0.0,0.0,0.2,1);
+  transition: background-color 200ms cubic-bezier(0.0,0.0,0.2,1);
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 24px;
+  page-break-inside: avoid;
+  word-wrap: break-word;
 `;
 const StyledQuestionTitle = styled.div`
   font-size: 20px;
