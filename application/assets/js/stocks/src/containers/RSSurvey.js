@@ -25,13 +25,12 @@ const RSSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                THE INVESTMENT GAME
+                IGRA INVESTICIJA
             </div>
             <MainContent>
                 <StyledIntro>
                     Na skali od 1 do 5 ocenite sledeće konstatacije. Ocena 1 Apsolutno se ne slažem, ocena 5 Apsolutno
-                    se
-                    slažem.
+                    se slažem.
                 </StyledIntro>
                 <Auto5RadioQuestion
                     question="Sklon sam ulaganju značajnih novčanih sredstava u investicije sa visokim rizikom."

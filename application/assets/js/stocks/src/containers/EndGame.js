@@ -11,14 +11,14 @@ export const EndGame = ({onNextClick, title, gain}) => (
             borderLeft: 'none',
             borderRight: 'none'
         }}>
-            THE INVESTMENT GAME
+            IGRA INVESTICIJA
         </div>
         <MainContent>
             <div style={{fontSize:'20px'}}>
                 {title}
             </div>
             <div style={{fontSize:'20px'}}>
-                Osvojili ste <b>{(gain - 1000).toFixed(2 ?? 0)}</b> novcanih jedinica.
+                Osvojili ste <b>{(gain - 1000).toFixed(2 ?? 0)}</b> novčanih jedinica.
             </div>
             <Button
                 style={{marginTop:'50px'}}

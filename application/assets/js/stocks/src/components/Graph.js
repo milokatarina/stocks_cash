@@ -68,9 +68,9 @@ export default function Graph({yearsRevenue, isTrial}) {
                     variant="contained"
                     onClick={() => regenerateStocksData()}
                     style={{marginRight: '15px'}}>
-                    Stocks
+                    AKCIJE
                 </Button>
-                <Button variant="contained" color="primary" onClick={() => regenerateDepositData()}>Deposit</Button>
+                <Button variant="contained" color="primary" onClick={() => regenerateDepositData()}>DEPOZIT</Button>
             </div>
             <Chart data={[graphData]} series={10} axes={axes}/>
         </div>

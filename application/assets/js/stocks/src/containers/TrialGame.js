@@ -31,19 +31,9 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
         setLastRevenue(
             lastRevenue
         );
-        const initCashBalance = currentCashBalance;
         const calculatedCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(2));
         console.log(calculatedCashBalance);
         setCurrentCashBalance(calculatedCashBalance);
-        // api.logInvestment({
-        //     userId,
-        //     playId,
-        //     period: nextNumberOfYearsPlayed,
-        //     depositPercent,
-        //     stocksPercent,
-        //     initCashBalance,
-        //     totalCashBalance: calculatedCashBalance
-        // })
     }
 
     const handleStocksOnChange = (newValue) => {
@@ -63,7 +53,8 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
         {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
     if (numberOfPeriodsPlayedTrial === CONST.MAX_PERIODS_TRIAL) {
-        return <EndGame gain={currentCashBalance} title="Kraj probne igre. Klikni 'Dalje' da bi presao na igru." onNextClick={onScreenChange}/>
+        return <EndGame gain={currentCashBalance} title="Probni period je gotov. Klikni 'Dalje' da bi počeo igru."
+                        onNextClick={onScreenChange}/>
     }
     return (
         <StyledContainer>
@@ -74,14 +65,14 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                THE INVESTMENT GAME - TRIAL
+                IGRA INVESTICIJA - PROBNI PERIOD
             </div>
             <div className="mainHeader" style={{height: '100px'}}>
                 <div>
-                    Revenue: {lastRevenue}
+                    Poslednji prihod: {lastRevenue}
                 </div>
                 <div>
-                    Total cash balance: {currentCashBalance}
+                    Keš balans: {currentCashBalance}
                 </div>
             </div>
             <Grid>
@@ -107,10 +98,10 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                              position: 'relative'
                          }}>
                         <InputSlider initCashBalance={currentCashBalance} initValue={stocksPercent}
-                                     name='STOCKS'
+                                     name='Akcije'
                                      handleOnChange={handleStocksOnChange}/>
                         <InputSlider initCashBalance={currentCashBalance} initValue={depositPercent}
-                                     name='DEPOSIT'
+                                     name='Depozit'
                                      handleOnChange={handleDepositOnChange}/>
                         <Button
                             variant="contained"
@@ -118,7 +109,7 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                             color="primary"
                             style={{position: 'absolute', bottom: '15px'}}
                         >
-                            Invest!
+                            INVESTIRAJ!
                         </Button>
                     </Col>
                 </Row>
@@ -126,7 +117,8 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
             <Grid>
                 <Row style={{marginLeft: '0px', marginRight: '0px'}}>
                     <Col xs={12} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
-                        <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayedTrial + initYearsRange)} isTrial/>
+                        <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayedTrial + initYearsRange)}
+                               isTrial/>
                     </Col>
                 </Row>
             </Grid>

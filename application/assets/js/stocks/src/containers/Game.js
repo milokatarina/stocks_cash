@@ -70,7 +70,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
     if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
-        return <EndGame title="Kraj igre. Klikni 'Dalje' da bi presao na upitnik." onNextClick={onScreenChange}
+        return <EndGame title="Kraj igre. Klikni 'Dalje' da bi prešao na upitnik." onNextClick={onScreenChange}
                         gain={currentCashBalance}/>
     }
     return (
@@ -82,7 +82,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                THE INVESTMENT GAME
+                IGRA INVESTICIJA
             </div>
             {isRiskPercVisible ? <Auto5RadioQuestion
                 question="Koliko rizicnim percipirate vase prethodno ulaganje"
@@ -95,10 +95,10 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                 <div>
                     <div className="mainHeader" style={{height: '100px'}}>
                         <div>
-                            Revenue: {lastRevenue}
+                            Poslednji prihod: {lastRevenue}
                         </div>
                         <div>
-                            Total cash balance: {currentCashBalance}
+                            Keš balans: {currentCashBalance}
                         </div>
                     </div>
                     <Grid>
@@ -124,10 +124,10 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                                      position: 'relative'
                                  }}>
                                 <InputSlider initCashBalance={currentCashBalance} initValue={stocksPercent}
-                                             name='STOCKS'
+                                             name='AKCIJE'
                                              handleOnChange={handleStocksOnChange}/>
                                 <InputSlider initCashBalance={currentCashBalance} initValue={depositPercent}
-                                             name='DEPOSIT'
+                                             name='DEPOZIT'
                                              handleOnChange={handleDepositOnChange}/>
                                 <Button
                                     variant="contained"
@@ -135,7 +135,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                                     color="primary"
                                     style={{position: 'absolute', bottom: '15px'}}
                                 >
-                                    Invest!
+                                    INVESTIRAJ!
                                 </Button>
                             </Col>
                         </Row>

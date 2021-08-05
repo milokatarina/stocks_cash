@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import * as CONST from './constants';
-import {EndGame} from "./containers/EndGame";
 import DSurvey from "./containers/DSurvey";
 import * as api from './api';
 import RSSurvey from "./containers/RSSurvey";

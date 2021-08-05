@@ -18,7 +18,7 @@ const DSSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                THE INVESTMENT GAME
+                IGRA INVESTICIJA
             </div>
             <MainContent>
                 <CustomRadioQuestion
