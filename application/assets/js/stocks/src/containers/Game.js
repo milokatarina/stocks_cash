@@ -103,7 +103,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                     </div>
                     <Grid>
                         <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height: '300px'}}>
+                            <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height: '400px'}}>
                                 <div>
                                     <PieChart
                                         data={pieChartData}
@@ -142,9 +142,12 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                     </Grid>
                     <Grid>
                         <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <Col xs={12} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
+                            <Col xs={6} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
                                 <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}
                                        isTrial={false}/>
+                            </Col>
+                            <Col xs={6} style={{border: '1px solid #ccc', borderLeft: 'none', borderTop: 'none',padding: '15px'}}>
+                                test
                             </Col>
                         </Row>
                     </Grid>

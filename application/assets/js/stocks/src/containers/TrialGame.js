@@ -77,7 +77,7 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
             </div>
             <Grid>
                 <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                    <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height: '300px'}}>
+                    <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height: '400px'}}>
                         <div>
                             <PieChart
                                 data={pieChartData}

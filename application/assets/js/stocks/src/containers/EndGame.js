@@ -34,7 +34,7 @@ export const EndGame = ({onNextClick, title, gain}) => (
 
 const StyledContainer = styled.div`
   padding: 50px;
-  min-height: 300px;
+  min-height: 400px;
 `;
 
 const MainContent = styled.div`

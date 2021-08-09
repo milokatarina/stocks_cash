@@ -7,7 +7,7 @@ export const TextQuestion = ({question, handleInputChange, inputType}) => {
     return (<MainContent>
             <StyledQuestionTitle>{question}</StyledQuestionTitle>
             <Input
-                style={{width: '300px'}}
+                style={{width: '400px'}}
                 value={textValue}
                 margin="dense"
                 onChange={(event) => {
