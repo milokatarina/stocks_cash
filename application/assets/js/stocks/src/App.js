@@ -6,6 +6,7 @@ import Game from "./containers/Game";
 import TrialGame from "./containers/TrialGame";
 
 export const App = ({yearsRevenue}) => {
+    console.log({yearsRevenue});
     const [screenNumber, setScreenNumber] = useState(1);
     const [playId, setPlayId] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -46,8 +47,8 @@ export const App = ({yearsRevenue}) => {
         default: {
             return <Game
                 yearsRevenue={yearsRevenue}
-                userId={1}
-                playId={1}
+                userId={7}
+                playId={7}
                 onScreenChange={onScreenChange}
             />
         }

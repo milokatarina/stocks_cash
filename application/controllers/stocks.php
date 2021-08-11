@@ -91,4 +91,24 @@ class Stocks extends MY_Controller
             ]
         );
     }
+
+    public function get_data(){
+        $query = $this->db->query('SELECT * FROM year_revenue');
+        $f = fopen('php://memory', 'w');
+        if ($query->num_rows() > 0)
+        {
+            foreach ($query->result_array() as $row)
+            {
+                fputcsv($f, $row);
+            }
+        }
+        // reset the file pointer to the start of the file
+        fseek($f, 0);
+        // tell the browser it's going to be a csv file
+        header('Content-Type: application/csv');
+        // tell the browser we want to save it instead of displaying it
+        header('Content-Disposition: attachment; filename="podaci.csv";');
+        // make php send the generated csv lines to the browser
+        fpassthru($f);
+    }
 }

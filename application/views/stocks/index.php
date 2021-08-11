@@ -1,1 +1,1 @@
-<div id="manage-stocks-dashboard"></div>
+<div id="manage-stocks-dashboard" style="width:80%; margin:0 auto;"></div>

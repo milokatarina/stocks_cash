@@ -10,6 +10,7 @@ import * as api from "../api";
 import * as CONST from "../constants";
 import {EndGame} from "./EndGame";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
+import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
 
 const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const initCashBalance = 1000;
@@ -24,14 +25,17 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const [currentCashBalance, setCurrentCashBalance] = useState(initCashBalance);
     const [rp, setRp] = useState(null);
     const [isRiskPercVisible, setIsRiskPercVisible] = useState(false);
+    const [periodYieldsData, setPeriodYieldsData] = useState([]);
 
     const invest = () => {
         const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
         setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
         setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
+        const depositBalance = currentDepositBalance * currentYearRevenue.deposit_revenue / 100;
+        const stockBalance = currentStocksBalance * currentYearRevenue.stocks_revenue / 100;
         const lastRevenue = parseFloat((
-            currentDepositBalance * currentYearRevenue.deposit_revenue / 100
-            + currentStocksBalance * currentYearRevenue.stocks_revenue / 100).toFixed(2));
+            depositBalance
+            + stockBalance).toFixed(2));
         setLastRevenue(
             lastRevenue
         );
@@ -51,6 +55,20 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
             totalCashBalance: calculatedCashBalance,
             rpLastPeriod: rp
         })
+        updatePeriodYieldsData(nextNumberOfYearsPlayed, depositBalance, stockBalance, lastRevenue);
+    }
+
+    const updatePeriodYieldsData = (
+        nextNumberOfYearsPlayed, depositBalance, stockBalance, lastRevenue
+    ) => {
+        let oldPeriodYieldData = periodYieldsData;
+        oldPeriodYieldData.push({
+            'period': nextNumberOfYearsPlayed,
+            'stock_yields': parseFloat(stockBalance.toFixed(2)),
+            'deposit_yields': parseFloat(depositBalance.toFixed(2)),
+            'cash_balance': parseFloat(lastRevenue.toFixed(2))
+        })
+        setPeriodYieldsData(oldPeriodYieldData);
     }
 
     const handleStocksOnChange = (newValue) => {
@@ -112,7 +130,9 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                                             fill: '#ffff',
                                             fontSize: '5px'
                                         })}
+                                        segmentsShift={(index) => (index === 0 ? 2 : 0.5)}
                                         radius={42}
+                                        startAngle={90}
                                     />
                                 </div>
                             </Col>
@@ -133,7 +153,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                                     variant="contained"
                                     onClick={invest}
                                     color="primary"
-                                    style={{position: 'absolute', bottom: '15px'}}
+                                    style={{position: 'absolute', bottom: '50%'}}
                                 >
                                     INVESTIRAJ!
                                 </Button>
@@ -141,13 +161,20 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                         </Row>
                     </Grid>
                     <Grid>
-                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <Col xs={6} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
-                                <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}
-                                       isTrial={false}/>
+                        <Row style={{marginLeft: '0px', marginRight: '0px', height: '500px'}}>
+                            <Col xs={8} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
+                                <div style={{marginLeft:'15px'}}>
+                                    <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}
+                                           isTrial={false}/>
+                                </div>
                             </Col>
-                            <Col xs={6} style={{border: '1px solid #ccc', borderLeft: 'none', borderTop: 'none',padding: '15px'}}>
-                                test
+                            <Col xs={4} style={{
+                                border: '1px solid #ccc',
+                                borderLeft: 'none',
+                                borderTop: 'none',
+                                padding: '15px'
+                            }}>
+                                <PeriodYieldsGraph data={periodYieldsData}/>
                             </Col>
                         </Row>
                     </Grid>

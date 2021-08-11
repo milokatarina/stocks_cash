@@ -26,15 +26,10 @@ export default function InputSlider({
         setValue(initValue);
     }, [initValue])
     const handleSliderChange = (event, newValue) => {
-        setValue(newValue);
-        handleOnChange(newValue);
+        console.log(newValue);
+        setValue(Number(newValue));
+        handleOnChange(Number(newValue));
     };
-
-    // const handleInputChange = (event) => {
-    //     const newValue = event.target.value === '' ? '' : Number(event.target.value);
-    //     setValue(newValue);
-    //     handleOnChange(newValue);
-    // };
 
     const handleBlur = () => {
         if (value < 0) {
@@ -50,28 +45,26 @@ export default function InputSlider({
                 {name}
                 <Grid item xs style={{marginLeft: '15px', marginRight: '15px'}}>
                     <PrettoSlider
-                        value={typeof value === 'number' ? value : 0}
+                        value={value}
                         onChange={handleSliderChange}
                         aria-labelledby="input-slider"
                     />
                 </Grid>
                 <Grid item>
                     <Input
-
                         className={classes.input}
-                        value={initCashBalance * value / 100}
+                        value={value}
                         margin="dense"
-                        // onChange={handleInputChange}
-                        readOnly
+                        onChange={(event) => handleSliderChange(event, event.target.value)}
                         onBlur={handleBlur}
                         inputProps={{
-                            step: 10,
+                            step: 1,
                             min: 0,
                             max: 100,
                             type: 'number',
                             'aria-labelledby': 'input-slider',
                         }}
-                    />
+                    /> % ({parseFloat((initCashBalance * value / 100).toFixed(2))})
                 </Grid>
             </Grid>
         </div>

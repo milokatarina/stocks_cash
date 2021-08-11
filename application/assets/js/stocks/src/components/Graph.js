@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from "react";
-import ReactDOM from "react-dom";
-// import { timeDay } from "d3";
-
+import styled from 'styled-components';
 import {Chart} from "react-charts";
 
 import "../styles.css";
 import moment from "moment";
 import {Button} from "@material-ui/core";
+import {useChartConfig} from "../utils/charts";
 
 export default function Graph({yearsRevenue, isTrial}) {
-    console.log({yearsRevenue})
     const prepareChartData = () => {
         return yearsRevenue.map((item) => {
             return {
@@ -18,13 +16,7 @@ export default function Graph({yearsRevenue, isTrial}) {
             }
         })
     }
-    const series = React.useMemo(
-        () => ({
-            type: 'line',
-            showPoints: true
-        }),
-        ['line']
-    )
+
     const prepareLastZeroData = () => {
         const lastItem = yearsRevenue[yearsRevenue.length - 1];
         const firstItem = yearsRevenue[0];
@@ -39,56 +31,84 @@ export default function Graph({yearsRevenue, isTrial}) {
             }
         ]
     }
-    const [graphState, setGraphState] = useState('stocks');
-    const [graphData, setGraphData] = useState(prepareChartData())
+    const prepareStockPriceData = () => {
+        return yearsRevenue.map((item) => {
+            return {
+                'x': moment().year(item.year).month(0),
+                'y': item.stock_price
+            }
+        })
+    }
+    const regenerateStocksPrice = () => {
+        setGraphState('stocks_price');
+        const newData = prepareStockPriceData();
+        setGraphData(newData);
+        setZeroData([]);
+    }
+    const [graphState, setGraphState] = useState('stocks_price');
+    const [graphData, setGraphData] = useState(prepareStockPriceData())
     const [zeroData, setZeroData] = useState(prepareLastZeroData());
     useEffect(() => {
-        setGraphData(prepareChartData());
+        setGraphData(prepareStockPriceData());
     }, [yearsRevenue])
 
+    const series = React.useMemo(
+        () => ({
+            showPoints: true
+        }),
+        []
+    )
+    const {
+        primaryAxisShow,
+        secondaryAxisShow
+    } = useChartConfig({
+        series: 2,
+        show: ['primaryAxisShow', 'secondaryAxisShow']
+    })
     const axes = React.useMemo(
         () => [
             {
                 primary: true,
-                type: "time",
-                position: "bottom",
-                // filterTicks: (ticks) =>
-                //   ticks.filter((date) => +timeDay.floor(date) === +date),
+                position: 'bottom',
+                type: 'time',
+                show: primaryAxisShow
             },
-            {type: "linear", position: "left"},
+            {position: 'left', type: 'linear', show: secondaryAxisShow}
         ],
-        []
-    );
+        [primaryAxisShow, secondaryAxisShow]
+    )
     const getSeriesStyle = React.useCallback(
         series => ({
-            color: series.index === 0 ? '#0275d8' : '#000'
+            color: series.index === 0 ? '#0275d8' : '#777'
         }),
         []
     )
     const renderRisks = () => {
         return (
-            <div>
-                <div>
+            <div style={{marginTop: '30px'}}>
+                <div style={{margin: '20px 0'}}>
                     <b>Očekivana stopa prinosa</b> pokazuje koliko je iznosio prosečan prinos na akcije u prethodnom
                     periodu.
                 </div>
-                <div>
+                <div style={{margin: '20px 0'}}>
                     <b>Standardna devijacija</b> pokazuje prosečno odstupanje stvarnih prinosa od očekivanih.
                 </div>
             </div>
         )
     }
+
     const regenerateStocksData = () => {
         setGraphState('stocks');
         const newData = prepareChartData();
         setGraphData(newData);
         setZeroData(prepareLastZeroData);
     }
+
     const regenerateDepositData = () => {
         setGraphState('deposit');
         const newData = yearsRevenue.map((item) => {
             return {
-                'x': moment().year(item.year).month(0).date(1),
+                'x': moment().year(item.year).month(0),
                 'y': item.deposit_revenue
             }
         })
@@ -96,32 +116,42 @@ export default function Graph({yearsRevenue, isTrial}) {
         setZeroData([]);
     }
 
-
     return (
         <div style={{width: '100%', height: '400px', position: 'relative'}}>
             <div style={{marginBottom: '15px'}}>
-                <Button
+                <StyledButton
                     style={{marginRight: '15px'}}
-                    variant="contained" onClick={() => {
-                }}>
-                    CENE AKCIJA
-                </Button>
-                <Button
                     variant="contained"
+                    className={graphState === 'stocks_price' ? 'active' : ''}
+                    onClick={() => regenerateStocksPrice()}
+                >
+                    CENE AKCIJA
+                </StyledButton>
+                <StyledButton
+                    variant="contained"
+                    className={graphState === 'stocks' ? 'active' : ''}
                     onClick={() => regenerateStocksData()}
-                    style={{marginRight: '15px'}}>
+                    style={{marginRight: '15px'}}
+                >
                     PRINOS I RIZIK ULAGANJA U AKCIJE
-                </Button>
-                <Button variant="contained" onClick={() => regenerateDepositData()}>
+                </StyledButton>
+                <StyledButton
+                    className={graphState === 'deposit' ? 'active' : ''}
+                    variant="contained" onClick={() => regenerateDepositData()}>
                     PRINOS NA DEPOZITE
-                </Button>
+                </StyledButton>
             </div>
             <div
                 style={{
                     height: '300px'
                 }}
             >
-                <Chart data={[{label:'akcije', data: graphData}, {label:'referentna', data: zeroData}]} series={series} axes={axes} getSeriesStyle={getSeriesStyle}/>
+                <Chart data={[{label: 'akcije', data: graphData}, {label: 'referentna', data: zeroData}]}
+                       series={series}
+                       axes={axes}
+                       getSeriesStyle={getSeriesStyle}
+                       secondaryCursor
+                />
             </div>
             {graphState === 'stocks' && (
                 renderRisks()
@@ -129,3 +159,10 @@ export default function Graph({yearsRevenue, isTrial}) {
         </div>
     );
 }
+
+const StyledButton = styled(Button)`
+  &.active {
+    background-color: #686666;
+    color: white;
+  }
+`
