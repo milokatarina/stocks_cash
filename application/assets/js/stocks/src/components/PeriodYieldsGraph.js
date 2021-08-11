@@ -30,17 +30,19 @@ const PeriodYieldsGraph = ({data}) => {
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({columns, data, initialState: {
+    } = useTable({
+        columns, data, initialState: {
             sortBy: [
                 {
                     id: 'period',
                     desc: true
                 }
             ]
-        }})
+        }
+    })
 
     return (
-        <table {...getTableProps()} style={{border: 'solid 1px blue', width:'100%'}}>
+        <table {...getTableProps()} style={{border: 'solid 1px blue', width: '100%'}}>
             <thead>
             {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
@@ -73,6 +75,7 @@ const PeriodYieldsGraph = ({data}) => {
                                         padding: '10px',
                                         border: 'solid 1px gray',
                                         background: 'papayawhip',
+                                        color: cell.column.Header !== 'Period' ? (cell.value > 0 ? 'green' : 'red') : 'black'
                                     }}
                                 >
                                     {cell.render('Cell')}
