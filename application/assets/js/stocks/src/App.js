@@ -23,25 +23,25 @@ export const App = ({yearsRevenue}) => {
         setScreenNumber(screenNumber + 1);
     }
     switch (screenNumber) {
-        // case 1:
-        //     return <DSurvey onNextChange={(gender, age, studies) => {
-        //         api.initGame({
-        //             studies, gender, age
-        //         }).then((response) => {
-        //             setScreenNumber(screenNumber + 1);
-        //             setPlayId(response.data.data.playId);
-        //             setUserId(response.data.data.userId);
-        //         })
-        //     }}/>
-        // case 2:
-        //     return <RSSurvey
-        //         onNextChange={onNextRSSurvey}
-        //     />
+        case 1:
+            return <DSurvey onNextChange={(gender, age, studies) => {
+                api.initGame({
+                    studies, gender, age
+                }).then((response) => {
+                    setScreenNumber(screenNumber + 1);
+                    setPlayId(response.data.data.playId);
+                    setUserId(response.data.data.userId);
+                })
+            }}/>
+        case 2:
+            return <RSSurvey
+                onNextChange={onNextRSSurvey}
+            />
         // case 3:
         //     return <TrialGame
         //         yearsRevenue={yearsRevenue}
-        //         userId={userId}
-        //         playId={playId}
+        //         userId={7}
+        //         playId={7}
         //         onScreenChange={onScreenChange}
         //     />
         default: {

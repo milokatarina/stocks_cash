@@ -11,7 +11,7 @@ export default function Graph({yearsRevenue, isTrial}) {
     const prepareStocksData = () => {
         return yearsRevenue.map((item) => {
             return {
-                'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0).date(1),
+                'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.stocks_revenue
             }
         })
@@ -21,11 +21,11 @@ export default function Graph({yearsRevenue, isTrial}) {
         const firstItem = yearsRevenue[0];
         return [
             {
-                'x': moment().year(isTrial ? (parseInt(firstItem.year) + 3) : firstItem.year).month(0).date(1),
+                'x': moment().year(isTrial ? (parseInt(firstItem.year) + 3) : firstItem.year).month(0),
                 y: 0
             },
             {
-                'x': moment().year(isTrial ? (parseInt(lastItem.year) + 3) : lastItem.year).month(0).date(1),
+                'x': moment().year(isTrial ? (parseInt(lastItem.year) + 3) : lastItem.year).month(0),
                 'y': 0
             }
         ]
@@ -33,7 +33,7 @@ export default function Graph({yearsRevenue, isTrial}) {
     const prepareStockPriceData = () => {
         return yearsRevenue.map((item) => {
             return {
-                'x': moment().year(item.year).month(0),
+                'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.stock_price
             }
         })
@@ -41,7 +41,7 @@ export default function Graph({yearsRevenue, isTrial}) {
     const prepareFloatingAvgPrice = () => {
         return yearsRevenue.map((item) => {
             return {
-                'x': moment().year(item.year).month(0),
+                'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.floating_avg_stock_price
             }
         })
@@ -57,7 +57,6 @@ export default function Graph({yearsRevenue, isTrial}) {
     }
     const [graphState, setGraphState] = useState('stocks_price');
     const [graphData, setGraphData] = useState(prepareStockPriceData())
-    const [zeroData, setZeroData] = useState([]);
     const [chartData, setChartData] = useState([{label: '', data: graphData}, {
         label: '',
         data: prepareFloatingAvgPrice()
@@ -120,7 +119,7 @@ export default function Graph({yearsRevenue, isTrial}) {
         setGraphState('deposit');
         const newData = yearsRevenue.map((item) => {
             return {
-                'x': moment().year(item.year).month(0),
+                'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.deposit_revenue
             }
         })

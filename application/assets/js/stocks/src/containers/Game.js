@@ -11,6 +11,8 @@ import * as CONST from "../constants";
 import {EndGame} from "./EndGame";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
+import ConfidenceSurvey from "./ConfidenceSurvey";
+import OptSurvey from "./OptSurvey";
 
 const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const initCashBalance = 1000;
@@ -26,6 +28,9 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const [rp, setRp] = useState(null);
     const [isRiskPercVisible, setIsRiskPercVisible] = useState(false);
     const [periodYieldsData, setPeriodYieldsData] = useState([]);
+
+    const [isConfidenceSurveyDone, setIsConfidenceSurveyDone] = useState(false);
+    const [isOptSurveyDone, setIsOptSurveyDone] = useState(false);
 
     const invest = () => {
         const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
@@ -88,9 +93,22 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
     if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
-        return <EndGame title="Kraj igre. Klikni 'Dalje' da bi prešao na upitnik." onNextClick={onScreenChange}
+        return <EndGame title="Kraj igre. Hvala na izdvojenom vremenu." onNextClick={onScreenChange} hasNextButton={false}
                         gain={currentCashBalance}/>
     }
+
+    if (numberOfPeriodsPlayed === 11 && !isConfidenceSurveyDone && !isRiskPercVisible) {
+        return <ConfidenceSurvey onNextChange={() => {
+            setIsConfidenceSurveyDone(true);
+        }}/>
+    }
+
+    if (numberOfPeriodsPlayed === 11 && isConfidenceSurveyDone && !isOptSurveyDone && !isRiskPercVisible) {
+        return <OptSurvey onNextChange={() => {
+            setIsOptSurveyDone(true);
+        }}/>
+    }
+
     return (
         <StyledContainer>
             <div className="mainHeader" style={{
@@ -121,7 +139,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                     </div>
                     <Grid>
                         <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <Col xs={12} sm={6} style={{border: '1px solid #ccc', padding: '15px', height: '400px'}}>
+                            <Col xs={6} style={{border: '1px solid #ccc', padding: '15px', height: '400px'}}>
                                 <div>
                                     <PieChart
                                         data={pieChartData}
@@ -136,7 +154,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                                     />
                                 </div>
                             </Col>
-                            <Col xs={12} sm={6}
+                            <Col xs={6}
                                  style={{
                                      border: '1px solid #ccc',
                                      borderLeft: 'none',
@@ -163,9 +181,10 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                     <Grid>
                         <Row style={{marginLeft: '0px', marginRight: '0px', height: '500px'}}>
                             <Col xs={8} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
-                                <div style={{marginLeft:'15px'}}>
-                                    <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}
-                                           isTrial={false}/>
+                                <div style={{marginLeft: '15px'}}>
+                                    <Graph
+                                        yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}
+                                        isTrial={false}/>
                                 </div>
                             </Col>
                             <Col xs={4} style={{

@@ -1,6 +1,6 @@
 export const STOCKS = 'Akcije';
 export const DEPOSIT = 'Depozit';
-export const MAX_PERIODS = 10;
+export const MAX_PERIODS = 15;
 export const MAX_PERIODS_TRIAL = 3;
 export const GENDER = ["Muški", "Ženski"];
 export const STUDIES = ["III godina osnovnih akademskih studija", "IV godina osnovnih akademskih studija", "master akademske studije"]
