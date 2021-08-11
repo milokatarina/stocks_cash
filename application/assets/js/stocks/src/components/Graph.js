@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import {Chart} from "react-charts";
 
 import "../styles.css";
 import moment from "moment";
 import {Button} from "@material-ui/core";
-import {useChartConfig} from "../utils/charts";
+
 
 export default function Graph({yearsRevenue, isTrial}) {
-    const prepareChartData = () => {
+    const prepareStocksData = () => {
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0).date(1),
@@ -16,7 +16,6 @@ export default function Graph({yearsRevenue, isTrial}) {
             }
         })
     }
-
     const prepareLastZeroData = () => {
         const lastItem = yearsRevenue[yearsRevenue.length - 1];
         const firstItem = yearsRevenue[0];
@@ -39,18 +38,32 @@ export default function Graph({yearsRevenue, isTrial}) {
             }
         })
     }
+    const prepareFloatingAvgPrice = () => {
+        return yearsRevenue.map((item) => {
+            return {
+                'x': moment().year(item.year).month(0),
+                'y': item.floating_avg_stock_price
+            }
+        })
+    }
+
     const regenerateStocksPrice = () => {
         setGraphState('stocks_price');
-        const newData = prepareStockPriceData();
-        setGraphData(newData);
-        setZeroData([]);
+        if (isFloatingAvgActive) {
+            setChartData([{label: '', data: prepareStockPriceData()}, {label: '', data: prepareFloatingAvgPrice()}])
+        } else {
+            setChartData([{label: '', data: prepareStockPriceData()}]);
+        }
     }
     const [graphState, setGraphState] = useState('stocks_price');
     const [graphData, setGraphData] = useState(prepareStockPriceData())
-    const [zeroData, setZeroData] = useState(prepareLastZeroData());
-    useEffect(() => {
-        setGraphData(prepareStockPriceData());
-    }, [yearsRevenue])
+    const [zeroData, setZeroData] = useState([]);
+    const [chartData, setChartData] = useState([{label: '', data: graphData}, {
+        label: '',
+        data: prepareFloatingAvgPrice()
+    }]);
+
+    const [isFloatingAvgActive, setIsFloatingAvgActive] = useState(true);
 
     const series = React.useMemo(
         () => ({
@@ -58,31 +71,32 @@ export default function Graph({yearsRevenue, isTrial}) {
         }),
         []
     )
-    const {
-        primaryAxisShow,
-        secondaryAxisShow
-    } = useChartConfig({
-        series: 2,
-        show: ['primaryAxisShow', 'secondaryAxisShow']
-    })
+
     const axes = React.useMemo(
         () => [
             {
                 primary: true,
                 position: 'bottom',
-                type: 'time',
-                show: primaryAxisShow
+                type: 'time'
             },
-            {position: 'left', type: 'linear', show: secondaryAxisShow}
+            {position: 'left', type: 'linear'}
         ],
-        [primaryAxisShow, secondaryAxisShow]
+        []
     )
     const getSeriesStyle = React.useCallback(
         series => ({
-            color: series.index === 0 ? '#0275d8' : '#777'
+            color: graphState === 'stocks' ? (series.index === 0 ? '#0275d8' : '#777') : (series.index === 0 ? 'red' : 'blue')
         }),
-        []
+        [series.index, graphState]
     )
+    const toggleFloatingAvgData = () => {
+        if (isFloatingAvgActive) {
+            setChartData([{label: '', data: prepareStockPriceData()}])
+        } else {
+            setChartData([{label: '', data: prepareStockPriceData()}, {label: '', data: prepareFloatingAvgPrice()}])
+        }
+        setIsFloatingAvgActive(!isFloatingAvgActive);
+    }
     const renderRisks = () => {
         return (
             <div style={{marginTop: '30px'}}>
@@ -99,9 +113,7 @@ export default function Graph({yearsRevenue, isTrial}) {
 
     const regenerateStocksData = () => {
         setGraphState('stocks');
-        const newData = prepareChartData();
-        setGraphData(newData);
-        setZeroData(prepareLastZeroData);
+        setChartData([{label: '', data: prepareStocksData()}, {label: '', data: prepareLastZeroData()}])
     }
 
     const regenerateDepositData = () => {
@@ -112,9 +124,9 @@ export default function Graph({yearsRevenue, isTrial}) {
                 'y': item.deposit_revenue
             }
         })
-        setGraphData(newData);
-        setZeroData([]);
+        setChartData([{label: '', data: newData}])
     }
+
 
     return (
         <div style={{width: '100%', height: '400px', position: 'relative'}}>
@@ -146,7 +158,15 @@ export default function Graph({yearsRevenue, isTrial}) {
                     height: '300px'
                 }}
             >
-                <Chart data={[{label: 'akcije', data: graphData}, {label: 'referentna', data: zeroData}]}
+                {graphState === 'stocks_price' && (
+                    <div style={{marginBottom: '15px'}}> Pokretni prosek <input
+                        name="Pokretni prosek"
+                        type="checkbox"
+                        checked={isFloatingAvgActive}
+                        onChange={toggleFloatingAvgData}/>
+                    </div>)}
+
+                <Chart data={chartData}
                        series={series}
                        axes={axes}
                        getSeriesStyle={getSeriesStyle}
