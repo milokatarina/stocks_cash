@@ -14,12 +14,13 @@ export const EndGame = ({onNextClick, title, gain, hasNextButton}) => (
             IGRA INVESTICIJA
         </div>
         <MainContent>
-            <div style={{fontSize:'20px'}}>
+            <div style={{fontSize: '20px'}}>
                 {title}
             </div>
+            {hasNextButton &&
             <div style={{fontSize: '20px'}}>
-                Osvojili ste <b>{(gain - 1000).toFixed(2 ?? 0)}</b> novčanih jedinica.
-            </div>
+                Osvojili ste <b>{(gain - 1000).toFixed(2 ?? 0)}</b> eksperimentalnih novčanih jedinica.
+            </div>}
             {hasNextButton && (<Button
                 style={{marginTop: '50px'}}
                 variant="contained"

@@ -65,3 +65,37 @@ export const sendRSAnswers = (
         }
     );
 };
+
+export const sendRSAnswers2 = (
+    {
+        userId,
+        rs8, rs9, rs10, rs11, rs12, rs13, rs14
+    }
+) => {
+    return axios.post(
+        `${STOCKS}/sendRSAnswers2`,
+        {
+            params: {
+                user_id: userId,
+                rs8, rs9, rs10, rs11, rs12, rs13, rs14
+            }
+        }
+    );
+};
+
+export const sendKSAnswers = (
+    {
+        userId,
+        ks1, ks2, ks3, ks4, ks5, ks6, ks7
+    }
+) => {
+    return axios.post(
+        `${STOCKS}/sendKSAnswers`,
+        {
+            params: {
+                user_id: userId,
+                ks1, ks2, ks3, ks4, ks5, ks6, ks7
+            }
+        }
+    );
+};

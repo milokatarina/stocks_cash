@@ -23,6 +23,43 @@ class UserRepository
 
         return $this->db->insert_id();
     }
+
+    public function sendKSAnswers($userId, $data)
+    {
+        $this->db->query(
+            "
+            UPDATE user 
+            SET ks1 = {$data->ks1},
+                ks2 = {$data->ks2},
+                ks3 = {$data->ks3},
+                ks4 = {$data->ks4},
+                ks5 = {$data->ks5},
+                ks6 = {$data->ks6},
+                ks7 = {$data->ks7}
+            WHERE
+                id = {$userId};
+            "
+        );
+    }
+
+    public function updateRsAnswers2($userId, $data)
+    {
+        $this->db->query(
+            "
+            UPDATE user 
+            SET rs8 = {$data->rs8},
+                rs9 = {$data->rs9},
+                rs10 = {$data->rs10},
+                rs11 = {$data->rs11},
+                rs12 = {$data->rs12},
+                rs13 = {$data->rs13},
+                rs14 = {$data->rs14}
+            WHERE
+                id = {$userId};
+            "
+        );
+    }
+
     public function updateRsAnswers($userId, $data)
     {
         $this->db->query(
@@ -40,6 +77,7 @@ class UserRepository
             "
         );
     }
+
     public function updateCsAnswers($userId, $data)
     {
         $this->db->query(
@@ -55,6 +93,7 @@ class UserRepository
             "
         );
     }
+
     public function updateOptAnswers($userId, $data)
     {
         $this->db->query(

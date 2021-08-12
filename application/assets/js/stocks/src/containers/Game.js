@@ -118,8 +118,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     }
 
     if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
-        return <EndGame title="Kraj igre. Hvala na izdvojenom vremenu." onNextClick={onScreenChange}
-                        hasNextButton={false}
+        return <EndGame title="Kraj igre. Kliknite dalje da predjete na upitnike." onNextClick={onScreenChange}
                         gain={currentCashBalance}/>
     }
     if (numberOfPeriodsPlayed === 2 && !isConfidenceSurveyDone && !isRiskPercVisible) {

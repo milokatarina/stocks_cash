@@ -72,6 +72,16 @@ class Stocks extends MY_Controller
         $data = $this->receiveJSON()->params;
         $this->userRepository->updateRsAnswers($data->user_id, $data);
     }
+    public function sendRSAnswers2()
+    {
+        $data = $this->receiveJSON()->params;
+        $this->userRepository->updateRsAnswers2($data->user_id, $data);
+    }
+    public function sendKSAnswers()
+    {
+        $data = $this->receiveJSON()->params;
+        $this->userRepository->sendKSAnswers($data->user_id, $data);
+    }
     public function sendCSAnswers()
     {
         $data = $this->receiveJSON()->params;
