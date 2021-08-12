@@ -72,26 +72,31 @@ class Stocks extends MY_Controller
         $data = $this->receiveJSON()->params;
         $this->userRepository->updateRsAnswers($data->user_id, $data);
     }
+
     public function sendFSAnswers()
     {
         $data = $this->receiveJSON()->params;
         $this->userRepository->updateFSAnswers($data->user_id, $data);
     }
+
     public function sendRSAnswers2()
     {
         $data = $this->receiveJSON()->params;
         $this->userRepository->updateRsAnswers2($data->user_id, $data);
     }
+
     public function sendKSAnswers()
     {
         $data = $this->receiveJSON()->params;
         $this->userRepository->sendKSAnswers($data->user_id, $data);
     }
+
     public function sendCSAnswers()
     {
         $data = $this->receiveJSON()->params;
         $this->userRepository->updateCsAnswers($data->user_id, $data);
     }
+
     public function sendOptAnswers()
     {
         $data = $this->receiveJSON()->params;
@@ -128,7 +133,7 @@ class Stocks extends MY_Controller
     {
         $query = $this->db->query(
             '
-           select u.id, ds1, ds2, ds3, ds4,ds5, ds6, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP
+           select u.id, ds1, ds2, ds3, ds4,ds5, ds6, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP, GROUP_CONCAT(i.rp) riskP, cs1, cs2, cs3, cs4, cs5, os1, os2, os3,  os4, os5, rs8, rs9, rs10, rs11, rs12, rs13, rs14, ks1, ks2, ks3, ks4, ks5, ks6, ks7, fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12
             from user u
             inner join play p on p.user_id = u.id
             inner join investment i on i.play_id = p.id
@@ -173,6 +178,21 @@ class Stocks extends MY_Controller
                 "RPr P13",
                 "RPr P14",
                 "RPr P15",
+                "RP01",
+                "RP02",
+                "RP03",
+                "RP04",
+                "RP05",
+                "RP06",
+                "RP07",
+                "RP08",
+                "RP09",
+                "RP10",
+                "RP11",
+                "RP12",
+                "RP13",
+                "RP14",
+                "RP15",
                 "Samopouzdanje 1",
                 "Samopouzdanje 2",
                 "Samopouzdanje 3",
@@ -195,6 +215,8 @@ class Stocks extends MY_Controller
                 "Sklonost kajanju 3",
                 "Sklonost kajanju 4",
                 "Sklonost kajanju 5",
+                "Sklonost kajanju 6",
+                "Sklonost kajanju 7",
                 "Finansijska pismenost 1",
                 "Finansijska pismenost 2",
                 "Finansijska pismenost 3",
@@ -206,16 +228,19 @@ class Stocks extends MY_Controller
                 "Finansijska pismenost 9",
                 "Finansijska pismenost 10",
                 "Finansijska pismenost 11",
-                "Finansijska pismenost 12"
+                "Finansijska pismenost 12",
             ]
         );
 
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
                 $modifiedRow = $row;
-                $newRow = array_merge($modifiedRow,explode(",",$modifiedRow['stocksP']));
-                unset($newRow['stocksP']);
-                fputcsv($f, $newRow);
+                $startSlice = array_values(array_slice($modifiedRow, 0, 18));
+                $endSlice = array_values(array_slice($modifiedRow, 20, count($modifiedRow)));
+                $preparedStocksP = array_values(explode(",", $modifiedRow['stocksP']));
+                $preparedRisksP = array_values(explode(",", $modifiedRow['riskP']));
+                $prepended = array_merge($startSlice, $preparedStocksP, $preparedRisksP, $endSlice);
+                fputcsv($f, $prepended);
             }
         }
         // reset the file pointer to the start of the file
