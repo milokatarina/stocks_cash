@@ -12,8 +12,8 @@ import FinanceSurvey from "./containers/FinanceSurvey";
 export const App = ({yearsRevenue}) => {
     console.log({yearsRevenue});
     const [screenNumber, setScreenNumber] = useState(1);
-    const [playId, setPlayId] = useState(null);
-    const [userId, setUserId] = useState(null);
+    const [playId, setPlayId] = useState(7);
+    const [userId, setUserId] = useState(7);
 
     const onNextRSSurvey = ({rs1, rs2, rs3, rs4, rs5, rs6, rs7}) => {
         api.sendRSAnswers({
