@@ -113,7 +113,7 @@ class Stocks extends MY_Controller
     {
         $query = $this->db->query(
             '
-           select ds1, ds2, ds3, ds4,ds5, ds6, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP
+           select u.id, ds1, ds2, ds3, ds4,ds5, ds6, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP
             from user u
             inner join play p on p.user_id = u.id
             inner join investment i on i.play_id = p.id
@@ -143,6 +143,21 @@ class Stocks extends MY_Controller
                 "RS I/5",
                 "RS I/6",
                 "RS I/7",
+                "RPr P1",
+                "RPr P2",
+                "RPr P3",
+                "RPr P4",
+                "RPr P5",
+                "RPr P6",
+                "RPr P7",
+                "RPr P8",
+                "RPr P9",
+                "RPr P10",
+                "RPr P11",
+                "RPr P12",
+                "RPr P13",
+                "RPr P14",
+                "RPr P15",
                 "Samopouzdanje 1",
                 "Samopouzdanje 2",
                 "Samopouzdanje 3",
@@ -182,7 +197,10 @@ class Stocks extends MY_Controller
 
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
-                fputcsv($f, $row);
+                $modifiedRow = $row;
+                $newRow = array_merge($modifiedRow,explode(",",$modifiedRow['stocksP']));
+                unset($newRow['stocksP']);
+                fputcsv($f, $newRow);
             }
         }
         // reset the file pointer to the start of the file
