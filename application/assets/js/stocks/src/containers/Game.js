@@ -119,9 +119,10 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
 
     if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
         return <EndGame title="Kraj igre. Kliknite dalje da predjete na upitnike." onNextClick={onScreenChange}
+                        hasNextButton={true}
                         gain={currentCashBalance}/>
     }
-    if (numberOfPeriodsPlayed === 2 && !isConfidenceSurveyDone && !isRiskPercVisible) {
+    if (numberOfPeriodsPlayed === 11 && !isConfidenceSurveyDone && !isRiskPercVisible) {
         return <ConfidenceSurvey onNextChange={({cs1, cs2, cs3, cs4, cs5}) => {
             api.sendConfidenceAnswers({
                 userId, cs1, cs2, cs3, cs4, cs5
@@ -130,7 +131,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         }}/>
     }
 
-    if (numberOfPeriodsPlayed === 2 && isConfidenceSurveyDone && !isOptSurveyDone && !isRiskPercVisible) {
+    if (numberOfPeriodsPlayed === 11 && isConfidenceSurveyDone && !isOptSurveyDone && !isRiskPercVisible) {
         return <OptSurvey onNextChange={({os1, os2, os3, os4, os5}) => {
             api.sentOptAnswers({userId, os1, os2, os3, os4, os5})
             setIsOptSurveyDone(true);
