@@ -10,7 +10,7 @@ include APPPATH.'core/Entity/Investment.php';
 
 class Stocks extends MY_Controller
 {
-    const MAX_PERIODS = 10;
+    const MAX_PERIODS = 15;
     /** @var UserRepository */
     public $userRepository;
     /** @var YearRevenueRepository */
@@ -57,22 +57,29 @@ class Stocks extends MY_Controller
             $initCashBalance,
             $depositPercent,
             $stocksPercent,
-            $totalCashBalance
+            $totalCashBalance,
+            $rpLastPeriod
         );
+
         $investmentId = $this->investmentRepository->insert($investment);
         if ($period === self::MAX_PERIODS) {
             $this->playRepository->update($playId, $totalCashBalance);
         }
     }
 
-    public function sendRSAnswers(){
+    public function sendRSAnswers()
+    {
         $data = $this->receiveJSON()->params;
-        var_dump($data);
+        $this->userRepository->updateRsAnswers($data->user_id, $data);
     }
+
     public function initGame()
     {
         $data = $this->receiveJSON()->params;
-        $newUser = new User($data->gender, $data->age, $data->studies);
+        $newUser = new User(
+            $data->ds1, $data->ds2, $data->ds3, $data->ds4, $data->ds5, $data->ds6, $data->ds7, $data->ds8,
+            $data->ds9, $data->ds10
+        );
         try {
             $userId = $this->userRepository->insert($newUser);
         } catch (\Exception $ex) {
@@ -92,13 +99,47 @@ class Stocks extends MY_Controller
         );
     }
 
-    public function get_data(){
-        $query = $this->db->query('SELECT * FROM year_revenue');
+    public function get_data()
+    {
+        $query = $this->db->query(
+            '
+           select ds1, ds2, ds3, ds4,ds5, ds6, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP
+            from user u
+            inner join play p on p.user_id = u.id
+            inner join investment i on i.play_id = p.id
+            group by u.id;
+            '
+        );
+
         $f = fopen('php://memory', 'w');
-        if ($query->num_rows() > 0)
-        {
-            foreach ($query->result_array() as $row)
-            {
+        fputcsv(
+            $f,
+            [
+                "ispitanici",
+                "P1 Pol",
+                "P2 Starost",
+                "P3 Stepen studija",
+                "P4 Smer",
+                "P5 Finansiranje",
+                "Pitanje6 Izdrzavanje",
+                "P7 Prebivaliste",
+                "P8 Radno iskustvo",
+                "P9",
+                "P10",
+                "RS I/1",
+                "RS I/2",
+                "RS I/3",
+                "RS I/4",
+                "RS I/5",
+                "RS I/6",
+                "RS I/7",
+                "RPr P1",
+                "RPr P2",
+            ]
+        );
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $row) {
                 fputcsv($f, $row);
             }
         }

@@ -8,6 +8,7 @@ class Investment
     protected $deposit_percent;
     protected $stocks_percent;
     protected $cash_balance_total;
+    protected $rp;
 
     /**
      * Investment constructor.
@@ -16,16 +17,25 @@ class Investment
      * @param $cash_balance
      * @param $deposit_percent
      * @param $stocks_percent
-     * @param $cash_balance_total
+     * @param $cash_balance_total ,
+     * @param $rp
      */
-    public function __construct($playId, $period, $cash_balance, $deposit_percent, $stocks_percent, $cash_balance_total)
-    {
+    public function __construct(
+        $playId,
+        $period,
+        $cash_balance,
+        $deposit_percent,
+        $stocks_percent,
+        $cash_balance_total,
+        $rp
+    ) {
         $this->playId = $playId;
         $this->period = $period;
         $this->cash_balance = $cash_balance;
         $this->deposit_percent = $deposit_percent;
         $this->stocks_percent = $stocks_percent;
         $this->cash_balance_total = $cash_balance_total;
+        $this->rp = $rp;
     }
 
     /**
@@ -35,6 +45,23 @@ class Investment
     {
         return $this->playId;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRp()
+    {
+        return $this->rp;
+    }
+
+    /**
+     * @param mixed $rp
+     */
+    public function setRp($rp)
+    {
+        $this->rp = $rp;
+    }
+
 
     /**
      * @param mixed $playId
