@@ -26,7 +26,6 @@ export default function InputSlider({
         setValue(initValue);
     }, [initValue])
     const handleSliderChange = (event, newValue) => {
-        console.log(newValue);
         setValue(Number(newValue));
         handleOnChange(Number(newValue));
     };

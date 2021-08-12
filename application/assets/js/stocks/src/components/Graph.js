@@ -7,12 +7,12 @@ import moment from "moment";
 import {Button} from "@material-ui/core";
 
 
-export default function Graph({yearsRevenue, isTrial}) {
+export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
     const prepareStocksData = () => {
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
-                'y': item.stocks_revenue
+                'y': parseFloat(item.stocks_revenue)
             }
         })
     }
@@ -22,7 +22,7 @@ export default function Graph({yearsRevenue, isTrial}) {
         return [
             {
                 'x': moment().year(isTrial ? (parseInt(firstItem.year) + 3) : firstItem.year).month(0),
-                y: 0
+                'y': 0
             },
             {
                 'x': moment().year(isTrial ? (parseInt(lastItem.year) + 3) : lastItem.year).month(0),
@@ -96,15 +96,25 @@ export default function Graph({yearsRevenue, isTrial}) {
         }
         setIsFloatingAvgActive(!isFloatingAvgActive);
     }
+    const expectedRateMin = (parseFloat(currentYearRevenue.expected_rate_stocks_revenue)
+        - parseFloat(currentYearRevenue.standard_deviation)).toFixed(2);
+    const expectedRateMax = (parseFloat(currentYearRevenue.expected_rate_stocks_revenue)
+        + parseFloat(currentYearRevenue.standard_deviation)).toFixed(2);
     const renderRisks = () => {
         return (
-            <div style={{marginTop: '30px'}}>
+            <div style={{marginTop: '30px', marginBottom: '30px'}}>
                 <div style={{margin: '20px 0'}}>
                     <b>Očekivana stopa prinosa</b> pokazuje koliko je iznosio prosečan prinos na akcije u prethodnom
-                    periodu.
+                    periodu.Za {currentYearRevenue.year}. godinu
+                    iznosi <b>{currentYearRevenue.expected_rate_stocks_revenue}%</b>.
                 </div>
                 <div style={{margin: '20px 0'}}>
                     <b>Standardna devijacija</b> pokazuje prosečno odstupanje stvarnih prinosa od očekivanih.
+                    Za {currentYearRevenue.year}. godinu iznosi <b>{currentYearRevenue.standard_deviation}%</b>.
+                </div>
+                <div style={{margin: '20px 0'}}>
+                    To znači da bi se stvarni prinosi mogli kretati u intervalu
+                    od <b>{expectedRateMin}%</b> do <b>{expectedRateMax}%</b>.
                 </div>
             </div>
         )

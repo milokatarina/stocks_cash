@@ -87,7 +87,7 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA - PROBNI PERIOD
+                IGRA INVESTICIJA - PROBNI PERIOD ({parseInt(currentYearRevenue.year)+3}. GODINA)
             </div>
             {isRiskPercVisible ? <Auto5RadioQuestion
                 question="Koliko rizicnim percipirate vase prethodno ulaganje"
@@ -103,7 +103,7 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                             Poslednji prihod: {lastRevenue}
                         </div>
                         <div>
-                            Keš balans: {currentCashBalance}
+                            Bilans: {currentCashBalance}
                         </div>
                     </div>
                     <Grid>
@@ -151,7 +151,9 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                         <Row style={{marginLeft: '0px', marginRight: '0px', height: '500px'}}>
                             <Col xs={8} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
                                 <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayedTrial + initYearsRange)}
-                                       isTrial/>
+                                       isTrial
+                                       currentYearRevenue={currentYearRevenue}
+                                />
                             </Col>
                             <Col xs={4} style={{
                                 border: '1px solid #ccc',

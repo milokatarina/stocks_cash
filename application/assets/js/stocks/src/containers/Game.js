@@ -91,7 +91,6 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         {title: CONST.STOCKS, value: stocksPercent, color: '#E38627'},
         {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
-
     if (isRiskPercVisible) {
         return (
             <StyledContainer>
@@ -102,7 +101,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                     borderLeft: 'none',
                     borderRight: 'none'
                 }}>
-                    IGRA INVESTICIJA
+                    IGRA INVESTICIJA ({currentYearRevenue.year}.GODINA)
                 </div>
                 <Auto5RadioQuestion
                     question="Koliko rizicnim percipirate vase prethodno ulaganje"
@@ -147,7 +146,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA
+                IGRA INVESTICIJA ({currentYearRevenue.year}.GODINA)
             </div>
             <div>
                 <div className="mainHeader" style={{height: '100px'}}>
@@ -155,7 +154,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                         Poslednji prihod: {lastRevenue}
                     </div>
                     <div>
-                        Keš balans: {currentCashBalance}
+                        Bilans: {currentCashBalance}
                     </div>
                 </div>
                 <Grid>
@@ -202,12 +201,14 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                     </Row>
                 </Grid>
                 <Grid>
-                    <Row style={{marginLeft: '0px', marginRight: '0px', height: '500px'}}>
+                    <Row style={{marginLeft: '0px', marginRight: '0px', height: '600px'}}>
                         <Col xs={8} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
                             <div style={{marginLeft: '15px'}}>
                                 <Graph
                                     yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayed + initYearsRange)}
-                                    isTrial={false}/>
+                                    isTrial={false}
+                                    currentYearRevenue={currentYearRevenue}
+                                />
                             </div>
                         </Col>
                         <Col xs={4} style={{
