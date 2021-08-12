@@ -40,4 +40,34 @@ class UserRepository
             "
         );
     }
+    public function updateCsAnswers($userId, $data)
+    {
+        $this->db->query(
+            "
+            UPDATE user 
+            SET cs1 = {$data->cs1},
+                cs2 = {$data->cs2},
+                cs3 = {$data->cs3},
+                cs4 = {$data->cs4},
+                cs5 = {$data->cs5}
+            WHERE
+                id = {$userId};
+            "
+        );
+    }
+    public function updateOptAnswers($userId, $data)
+    {
+        $this->db->query(
+            "
+            UPDATE user 
+            SET os1 = {$data->os1},
+                os2 = {$data->os2},
+                os3 = {$data->os3},
+                os4 = {$data->os4},
+                os5 = {$data->os5}
+            WHERE
+                id = {$userId};
+            "
+        );
+    }
 }

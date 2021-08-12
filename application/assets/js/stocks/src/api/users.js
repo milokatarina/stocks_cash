@@ -17,6 +17,38 @@ export const initGame = (
     );
 };
 
+export const sentOptAnswers = (
+    {userId, os1, os2, os3, os4, os5}
+) => {
+    return axios.post(
+        `${STOCKS}/sendOptAnswers`,
+        {
+            params: {
+                user_id: userId,
+                os1, os2, os3, os4, os5
+            }
+        }
+    );
+};
+
+export const sendConfidenceAnswers = (
+    {
+        userId,
+        cs1, cs2, cs3, cs4, cs5
+    }
+) => {
+    return axios.post(
+        `${STOCKS}/sendCSAnswers`,
+        {
+            params: {
+                user_id: userId,
+                cs1, cs2, cs3, cs4, cs5
+            }
+        }
+    );
+};
+
+
 export const sendRSAnswers = (
     {
         userId,

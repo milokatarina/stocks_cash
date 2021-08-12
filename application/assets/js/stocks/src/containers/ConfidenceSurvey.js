@@ -1,20 +1,17 @@
 import React, {useState} from 'react';
-import {CustomRadioQuestion} from "../components/CustomRadioQuestion";
-import * as CONST from "../constants";
-import {TextQuestion} from "../components/TextQuestion";
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 
 const ConfidenceSurvey = ({onNextChange}) => {
-    const [cs11, setCs11] = useState(null);
-    const [cs12, setCs12] = useState(null);
-    const [cs13, setCs13] = useState(null);
-    const [cs14, setCs14] = useState(null);
-    const [cs15, setCs15] = useState(null);
+    const [cs1, setCs1] = useState(null);
+    const [cs2, setCs2] = useState(null);
+    const [cs3, setCs3] = useState(null);
+    const [cs4, setCs4] = useState(null);
+    const [cs5, setCs5] = useState(null);
 
     const onClickNext = () => {
-        onNextChange({cs11, cs12, cs13})
+        onNextChange({cs1, cs2, cs3, cs4, cs5})
     }
     return (
         <StyledContainer>
@@ -34,44 +31,44 @@ const ConfidenceSurvey = ({onNextChange}) => {
                 </StyledIntro>
                 <Auto5RadioQuestion
                     question="Finansijski rezultat koji sam ostvario u prethodnim periodima investicionih ulaganja u igri odraz je mojih specifičnih veština i sposobnosti"
-                    value={cs11}
+                    value={cs1}
                     handleInputChange={(value) => {
-                        setCs11(value);
+                        setCs1(value);
                     }}
                 />
                 <Auto5RadioQuestion
                     question="Verujem da u značajnoj meri mogu predvideti budući trend kretanja prinosa na akcije"
-                    value={cs12}
+                    value={cs2}
                     handleInputChange={(value) => {
-                        setCs12(value);
+                        setCs2(value);
                     }}
                 />
                 <Auto5RadioQuestion
                     question="Smatram da su moje odluke u prethodnim ulaganjima bile ispravne"
-                    value={cs13}
+                    value={cs3}
                     handleInputChange={(value) => {
-                        setCs13(value);
+                        setCs3(value);
                     }}
                 />
                 <Auto5RadioQuestion
                     question="Preuzimam punu kontrolu i odgovornost za rezultate sopstvenih investicionih odluka"
-                    value={cs14}
+                    value={cs4}
                     handleInputChange={(value) => {
-                        setCs14(value);
+                        setCs4(value);
                     }}
                 />
                 <Auto5RadioQuestion
                     question="Verujem da imam bolje sposobnosti u izboru investicionih alternativa od ostalih"
-                    value={cs15}
+                    value={cs5}
                     handleInputChange={(value) => {
-                        setCs15(value);
+                        setCs5(value);
                     }}
                 />
                 <StyledButton
                     variant="contained"
                     onClick={onClickNext}
                     color="primary"
-                    disabled={!cs11 || !cs12 || !cs13}
+                    disabled={!cs1 || !cs2 || !cs3 || !cs4 || !cs5}
                 >
                     Dalje
                 </StyledButton>

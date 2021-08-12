@@ -7,14 +7,14 @@ import {Button} from "@material-ui/core";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 
 const OptSurvey = ({onNextChange}) => {
-    const [rs11, setRs11] = useState(null);
-    const [rs12, setRs12] = useState(null);
-    const [rs13, setRs13] = useState(null);
-    const [rs14, setRs14] = useState(1);
-    const [rs15, setRs15] = useState(1);
+    const [os1, setOs1] = useState(null);
+    const [os2, setOs2] = useState(null);
+    const [os3, setOs3] = useState(null);
+    const [os4, setOs4] = useState(null);
+    const [os5, setOs5] = useState(null);
 
     const onClickNext = () => {
-        onNextChange({rs11, rs12, rs13})
+        onNextChange({os1, os2, os3, os4, os5})
     }
     return (
         <StyledContainer>
@@ -33,31 +33,45 @@ const OptSurvey = ({onNextChange}) => {
                     se slažem.
                 </StyledIntro>
                 <Auto5RadioQuestion
-                    question="Sklon sam ulaganju značajnih novčanih sredstava u investicije sa visokim rizikom."
-                    value={rs11}
+                    question="U planu mi je da povećam ulaganja u akcije u narednom periodu. "
+                    value={os1}
                     handleInputChange={(value) => {
-                        setRs11(value);
+                        setOs1(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Sebe mogu okarakterisati kao osobu koja voli da preuzima finansijske rizike."
-                    value={rs12}
+                    question="Pre nego što donesem odluku o ulaganju u jednu od investicionih alternativa, najviše razmišljam o potencijalnim dobicima."
+                    value={os2}
                     handleInputChange={(value) => {
-                        setRs12(value);
+                        setOs2(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Čak i kada bih prošao sa značajnim gubitkom u nekoj investiciji, i dalje bih razmišljao o ulaganjima u rizičnu aktivu."
-                    value={rs13}
+                    question="Moje viđenje tržišta akcija u narednom periodu je veoma optimistično."
+                    value={os3}
                     handleInputChange={(value) => {
-                        setRs13(value);
+                        setOs3(value);
+                    }}
+                />
+                <Auto5RadioQuestion
+                    question="Verujem da će prinosi na akcije da rastu u narednom periodu. "
+                    value={os4}
+                    handleInputChange={(value) => {
+                        setOs4(value);
+                    }}
+                />
+                <Auto5RadioQuestion
+                    question="Očekujem visoke prinose na moja ulaganja u budućim periodima."
+                    value={os5}
+                    handleInputChange={(value) => {
+                        setOs5(value);
                     }}
                 />
                 <StyledButton
                     variant="contained"
                     onClick={onClickNext}
                     color="primary"
-                    disabled={!rs11 || !rs12 || !rs13}
+                    disabled={!os1 || !os2 || !os3 || !os4 || !os5}
                 >
                     Dalje
                 </StyledButton>

@@ -72,6 +72,16 @@ class Stocks extends MY_Controller
         $data = $this->receiveJSON()->params;
         $this->userRepository->updateRsAnswers($data->user_id, $data);
     }
+    public function sendCSAnswers()
+    {
+        $data = $this->receiveJSON()->params;
+        $this->userRepository->updateCsAnswers($data->user_id, $data);
+    }
+    public function sendOptAnswers()
+    {
+        $data = $this->receiveJSON()->params;
+        $this->userRepository->updateOptAnswers($data->user_id, $data);
+    }
 
     public function initGame()
     {
@@ -121,7 +131,7 @@ class Stocks extends MY_Controller
                 "P3 Stepen studija",
                 "P4 Smer",
                 "P5 Finansiranje",
-                "Pitanje6 Izdrzavanje",
+                "P6 Izdrzavanje",
                 "P7 Prebivaliste",
                 "P8 Radno iskustvo",
                 "P9",
@@ -133,8 +143,40 @@ class Stocks extends MY_Controller
                 "RS I/5",
                 "RS I/6",
                 "RS I/7",
-                "RPr P1",
-                "RPr P2",
+                "Samopouzdanje 1",
+                "Samopouzdanje 2",
+                "Samopouzdanje 3",
+                "Samopouzdanje 4",
+                "Samopouzdanje 5",
+                "Optimizam 1",
+                "Optimizam 2",
+                "Optimizam 3",
+                "Optimizam 4",
+                "Optimizam 5",
+                "RS II/1",
+                "RS II/2",
+                "RS II/3",
+                "RS II/4",
+                "RS II/5",
+                "RS II/6",
+                "RS II/7",
+                "Sklonost kajanju 1",
+                "Sklonost kajanju 2",
+                "Sklonost kajanju 3",
+                "Sklonost kajanju 4",
+                "Sklonost kajanju 5",
+                "Finansijska pismenost 1",
+                "Finansijska pismenost 2",
+                "Finansijska pismenost 3",
+                "Finansijska pismenost 4",
+                "Finansijska pismenost 5",
+                "Finansijska pismenost 6",
+                "Finansijska pismenost 7",
+                "Finansijska pismenost 8",
+                "Finansijska pismenost 9",
+                "Finansijska pismenost 10",
+                "Finansijska pismenost 11",
+                "Finansijska pismenost 12"
             ]
         );
 

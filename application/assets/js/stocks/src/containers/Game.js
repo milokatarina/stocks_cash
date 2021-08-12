@@ -122,14 +122,18 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                         hasNextButton={false}
                         gain={currentCashBalance}/>
     }
-    if (numberOfPeriodsPlayed === 11 && !isConfidenceSurveyDone && !isRiskPercVisible) {
-        return <ConfidenceSurvey onNextChange={() => {
+    if (numberOfPeriodsPlayed === 2 && !isConfidenceSurveyDone && !isRiskPercVisible) {
+        return <ConfidenceSurvey onNextChange={({cs1, cs2, cs3, cs4, cs5}) => {
+            api.sendConfidenceAnswers({
+                userId, cs1, cs2, cs3, cs4, cs5
+            })
             setIsConfidenceSurveyDone(true);
         }}/>
     }
 
-    if (numberOfPeriodsPlayed === 11 && isConfidenceSurveyDone && !isOptSurveyDone && !isRiskPercVisible) {
-        return <OptSurvey onNextChange={() => {
+    if (numberOfPeriodsPlayed === 2 && isConfidenceSurveyDone && !isOptSurveyDone && !isRiskPercVisible) {
+        return <OptSurvey onNextChange={({os1, os2, os3, os4, os5}) => {
+            api.sentOptAnswers({userId, os1, os2, os3, os4, os5})
             setIsOptSurveyDone(true);
         }}/>
     }
