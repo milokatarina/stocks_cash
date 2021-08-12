@@ -7,6 +7,7 @@ import TrialGame from "./containers/TrialGame";
 import RSSurvey2 from "./containers/RSSurvey2";
 import {EndGame} from "./containers/EndGame";
 import RegretSurvey from "./containers/RegretSurvey";
+import FinanceSurvey from "./containers/FinanceSurvey";
 
 export const App = ({yearsRevenue}) => {
     console.log({yearsRevenue});
@@ -25,6 +26,14 @@ export const App = ({yearsRevenue}) => {
     const onNextRegretSurvey = ({ks1, ks2, ks3, ks4, ks5, ks6, ks7}) => {
         api.sendKSAnswers({
             userId, ks1, ks2, ks3, ks4, ks5, ks6, ks7
+        }).then((response) => {
+            setScreenNumber(screenNumber + 1);
+        })
+    }
+
+    const onNextFinanceSurvey = ({fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12}) => {
+        api.sendFSAnswers({
+            userId, fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12
         }).then((response) => {
             setScreenNumber(screenNumber + 1);
         })
@@ -75,9 +84,14 @@ export const App = ({yearsRevenue}) => {
         //         onNextChange={onNextRSSurvey2}
         //     />
         // }
+        // case 6: {
+        //     return <RegretSurvey
+        //         onNextChange={onNextRegretSurvey}
+        //     />
+        // }
         case 1: {
-            return <RegretSurvey
-                onNextChange={onNextRegretSurvey}
+            return <FinanceSurvey
+                onNextChange={onNextFinanceSurvey}
             />
         }
         default: {

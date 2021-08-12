@@ -78,6 +78,29 @@ class UserRepository
         );
     }
 
+    public function updateFSAnswers($userId, $data)
+    {
+        $this->db->query(
+            "
+            UPDATE user 
+            SET fs1 = {$data->fs1},
+                fs2 = {$data->fs2},
+                fs3 = {$data->fs3},
+                fs4 = {$data->fs4},
+                fs5 = {$data->fs5},
+                fs6 = {$data->fs6},
+                fs7 = {$data->fs7},
+                fs8 = {$data->fs8},
+                fs9 = {$data->fs9},
+                fs10 = {$data->fs10},
+                fs11 = {$data->fs11},
+                fs12 = {$data->fs12}
+            WHERE
+                id = {$userId};
+            "
+        );
+    }
+
     public function updateCsAnswers($userId, $data)
     {
         $this->db->query(

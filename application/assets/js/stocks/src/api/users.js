@@ -99,3 +99,20 @@ export const sendKSAnswers = (
         }
     );
 };
+
+export const sendFSAnswers = (
+    {
+        userId,
+        fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12
+    }
+) => {
+    return axios.post(
+        `${STOCKS}/sendFSAnswers`,
+        {
+            params: {
+                user_id: userId,
+                fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12
+            }
+        }
+    );
+};
