@@ -53,7 +53,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_2}
-                    question="Uzimajući u obzir duži vremenski period (10-20 godina), koja od navedenih aktiva najčešće vodi do najvišeg prinosa?"
+                    question="Uzimajući u obzir duži vremenski period (10-20 godina), koja od navedenih aktiva najčešće vodi do najvišeg prinosa"
                     value={fs2}
                     handleInputChange={(value) => {
                         if (value === 2) {
@@ -65,7 +65,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_3}
-                    question="Kada investitor rasporedi svoj novac na veliki broj različitih oblika aktive, šta se dešava sa rizikom da će izgubiti novac:"
+                    question="Kada investitor rasporedi svoj novac na veliki broj različitih oblika aktive, šta se dešava sa rizikom da će izgubiti novac"
                     value={fs3}
                     handleInputChange={(value) => {
                         if (value === 1) {
@@ -77,7 +77,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_4}
-                    question="Ukoliko dođe do pada kamatnih stopa, šta se dešava sa cenom obveznica?"
+                    question="Ukoliko dođe do pada kamatnih stopa, šta se dešava sa cenom obveznica"
                     value={fs4}
                     handleInputChange={(value) => {
                         if (value === 2) {
@@ -89,7 +89,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_5}
-                    question="Ukoliko pođemo od pretpostavke da će se u 2022. godini Vaša primanja udvostručiti, ali će uporedo doći i do dupliranja  cena svih dobara, koliko ćete biti u mogućnosti da kupujete u 2022. godini?"
+                    question="Ukoliko pođemo od pretpostavke da će se u 2022. godini Vaša primanja udvostručiti, ali će uporedo doći i do dupliranja  cena svih dobara, koliko ćete biti u mogućnosti da kupujete u 2022. godini"
                     value={fs5}
                     handleInputChange={(value) => {
                         if (value === 3) {
@@ -101,7 +101,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_6}
-                    question="Pretpostavimo da kamatna stopa na depozite kod banke iznosi 1%, dok je stopa inflacije u toku godine 2%. Šta je Vaše mišljenje: Da li ćete posle godinu dana sa sredstvima koja su na Vašem depozitnom računu moći da kupujete?"
+                    question="Pretpostavimo da kamatna stopa na depozite kod banke iznosi 1%, dok je stopa inflacije u toku godine 2%. Šta je Vaše mišljenje: Da li ćete posle godinu dana sa sredstvima koja su na Vašem depozitnom računu moći da kupujete"
                     value={fs6}
                     handleInputChange={(value) => {
                         if (value === 2) {
@@ -113,7 +113,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_7}
-                    question="Koja od navedenih aktiva ispoljava najveći stepen fluktuacije tokom vremena:"
+                    question="Koja od navedenih aktiva ispoljava najveći stepen fluktuacije tokom vremena"
                     value={fs7}
                     handleInputChange={(value) => {
                         if (value === 2) {
@@ -125,7 +125,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_8}
-                    question="Ukoliko neko kupi akciju kompanije B na berzi:"
+                    question="Ukoliko neko kupi akciju kompanije B na berzi"
                     value={fs8}
                     handleInputChange={(value) => {
                         if (value === 1) {
@@ -137,7 +137,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_9}
-                    question="Ukoliko neko kupi obveznicu kompanije A na berzi:"
+                    question="Ukoliko neko kupi obveznicu kompanije A na berzi"
                     value={fs9}
                     handleInputChange={(value) => {
                         if (value === 2) {
@@ -149,7 +149,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_10}
-                    question="Koja od navedenih grupa ljudi potencijalno može imati najviše novčanih poteškoća tokom perioda visoke inflacije koja traje nekoliko godina?"
+                    question="Koja od navedenih grupa ljudi potencijalno može imati najviše novčanih poteškoća tokom perioda visoke inflacije koja traje nekoliko godina"
                     value={fs10}
                     handleInputChange={(value) => {
                         if (value === 2) {
@@ -161,7 +161,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_11}
-                    question="Šta od navedenog nije obično povezano sa potrošnjom?"
+                    question="Šta od navedenog nije obično povezano sa potrošnjom"
                     value={fs11}
                     handleInputChange={(value) => {
                         if (value === 2) {
@@ -173,7 +173,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_12}
-                    question="Šta je od navedenog o investicionim fondovima tačno?"
+                    question="Šta je od navedenog o investicionim fondovima tačno"
                     value={fs12}
                     handleInputChange={(value) => {
                         if (value === 2) {
