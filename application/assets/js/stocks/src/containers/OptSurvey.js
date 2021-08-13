@@ -29,39 +29,39 @@ const OptSurvey = ({onNextChange}) => {
             </div>
             <MainContent>
                 <StyledIntro>
-                    Na skali od 1 do 5 ocenite sledeće konstatacije. Ocena 1 Apsolutno se ne slažem, ocena 5 Apsolutno
-                    se slažem.
+                    Na skali od 1 do 5 ocenite sledeće konstatacije.
+                    Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
                 </StyledIntro>
                 <Auto5RadioQuestion
-                    question="U planu mi je da povećam ulaganja u akcije u narednom periodu. "
+                    question="U planu mi je da povećam ulaganja u akcije u narednom periodu"
                     value={os1}
                     handleInputChange={(value) => {
                         setOs1(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Pre nego što donesem odluku o ulaganju u jednu od investicionih alternativa, najviše razmišljam o potencijalnim dobicima."
+                    question="Pre nego što donesem odluku o ulaganju u jednu od investicionih alternativa, najviše razmišljam o potencijalnim dobicima"
                     value={os2}
                     handleInputChange={(value) => {
                         setOs2(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Moje viđenje tržišta akcija u narednom periodu je veoma optimistično."
+                    question="Moje viđenje tržišta akcija u narednom periodu je veoma optimistično"
                     value={os3}
                     handleInputChange={(value) => {
                         setOs3(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Verujem da će prinosi na akcije da rastu u narednom periodu. "
+                    question="Verujem da će prinosi na akcije da rastu u narednom periodu"
                     value={os4}
                     handleInputChange={(value) => {
                         setOs4(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Očekujem visoke prinose na moja ulaganja u budućim periodima."
+                    question="Očekujem visoke prinose na moja ulaganja u budućim periodima"
                     value={os5}
                     handleInputChange={(value) => {
                         setOs5(value);

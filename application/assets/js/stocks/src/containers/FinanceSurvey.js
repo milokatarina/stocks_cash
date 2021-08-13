@@ -36,12 +36,12 @@ const FinanceSurvey = ({onNextChange}) => {
             </div>
             <MainContent>
                 <StyledIntro>
-                    Na skali od 1 do 5 ocenite sledeće konstatacije. Ocena 1 Apsolutno se ne slažem, ocena 5 Apsolutno
-                    se slažem.
+                    Na skali od 1 do 5 ocenite sledeće konstatacije.
+                    Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
                 </StyledIntro>
                 <CustomRadioQuestion
                     labels={CONST.FIN_1}
-                    question="Najlikvidnija aktiva od nabrojanih je:"
+                    question="Najlikvidnija aktiva od nabrojanih je"
                     value={fs1}
                     handleInputChange={(value) => {
                         if (value === 4) {

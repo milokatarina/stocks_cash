@@ -31,53 +31,53 @@ const RSSurvey = ({onNextChange}) => {
             </div>
             <MainContent>
                 <StyledIntro>
-                    Na skali od 1 do 5 ocenite sledeće konstatacije. Ocena 1 Apsolutno se ne slažem, ocena 5 Apsolutno
-                    se slažem.
+                    Na skali od 1 do 5 ocenite sledeće konstatacije.
+                    Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
                 </StyledIntro>
                 <Auto5RadioQuestion
-                    question="Sklon sam ulaganju značajnih novčanih sredstava u investicije sa visokim rizikom."
+                    question="Sklon sam ulaganju značajnih novčanih sredstava u investicije sa visokim rizikom"
                     value={rs1}
                     handleInputChange={(value) => {
                         setRs1(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Sebe mogu okarakterisati kao osobu koja voli da preuzima finansijske rizike."
+                    question="Sebe mogu okarakterisati kao osobu koja voli da preuzima finansijske rizike"
                     value={rs2}
                     handleInputChange={(value) => {
                         setRs2(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Čak i kada bih prošao sa značajnim gubitkom u nekoj investiciji, i dalje bih razmišljao o ulaganjima u rizičnu aktivu."
+                    question="Čak i kada bih prošao sa značajnim gubitkom u nekoj investiciji, i dalje bih razmišljao o ulaganjima u rizičnu aktivu"
                     value={rs3}
                     handleInputChange={(value) => {
                         setRs3(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Kada je novac u pitanju, spreman sam da rizikujem."
+                    question="Kada je novac u pitanju, spreman sam da rizikujem"
                     value={rs4}
                     handleInputChange={(value) => {
                         setRs4(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Smatram da finansijske rizike treba izbeći po svaku cenu."
+                    question="Ne smatram da finansijske rizike treba izbeći po svaku cenu"
                     value={rs5}
                     handleInputChange={(value) => {
                         setRs5(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Činjenica da visoki prinosi mogu da se ostvare uz visoke rizike mi pruža dodatni podstrek za ulaganje u rizičnu aktivu."
+                    question="Činjenica da visoki prinosi mogu da se ostvare uz visoke rizike mi pruža dodatni podstrek za ulaganje u rizičnu aktivu"
                     value={rs6}
                     handleInputChange={(value) => {
                         setRs6(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Nastojim da biram kompleksne, visoko rizične, investicione strategije kako bih ostvario visok prinos."
+                    question="Nastojim da biram kompleksne, visoko rizične, investicione strategije kako bih ostvario visok prinos"
                     value={rs7}
                     handleInputChange={(value) => {
                         setRs7(value);

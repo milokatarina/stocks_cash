@@ -38,7 +38,7 @@ const DSSurvey = ({onNextChange}) => {
                     }}
                 />
                 <TextQuestion
-                    question="Godine starosti"
+                    question="Godine starosti:"
                     inputType="number"
                     handleInputChange={(value) => {
                         setDs2(value);
@@ -85,7 +85,7 @@ const DSSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.YES_NO}
-                    question="Da li imate radnog iskustva?"
+                    question="Da li imate radnog iskustva"
                     value={ds8}
                     handleInputChange={(value) => {
                         setDs8(value);
@@ -93,7 +93,7 @@ const DSSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.YES_NO}
-                    question="Da li ste ikada bili učesnik u nekoj od ekstremnih disciplina (npr. padobranstvo, ronjenje, bandži džamping, rafting…)?"
+                    question="Da li ste ikada bili učesnik u nekoj od ekstremnih disciplina (npr. padobranstvo, ronjenje, bandži džamping, rafting…)"
                     value={ds9}
                     handleInputChange={(value) => {
                         setDs9(value);
@@ -101,7 +101,7 @@ const DSSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.YES_NO}
-                    question="Da li ste nekada uložili celokupan džeparac ili zaradu na klađenje u neki od sportskih događaja (npr. košarkaška, fudbal, tenis...)?"
+                    question="Da li ste nekada uložili celokupan džeparac ili zaradu na klađenje u neki od sportskih događaja (npr. košarkaška, fudbal, tenis...)"
                     value={ds10}
                     handleInputChange={(value) => {
                         setDs10(value);

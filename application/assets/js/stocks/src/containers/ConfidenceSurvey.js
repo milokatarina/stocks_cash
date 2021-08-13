@@ -26,8 +26,8 @@ const ConfidenceSurvey = ({onNextChange}) => {
             </div>
             <MainContent>
                 <StyledIntro>
-                    Na skali od 1 do 5 ocenite sledeće konstatacije. Ocena 1 Apsolutno se ne slažem, ocena 5 Apsolutno
-                    se slažem.
+                    Na skali od 1 do 5 ocenite sledeće konstatacije.
+                    Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
                 </StyledIntro>
                 <Auto5RadioQuestion
                     question="Finansijski rezultat koji sam ostvario u prethodnim periodima investicionih ulaganja u igri odraz je mojih specifičnih veština i sposobnosti"

@@ -31,53 +31,53 @@ const RegretSurvey = ({onNextChange}) => {
             </div>
             <MainContent>
                 <StyledIntro>
-                    Na skali od 1 do 5 ocenite sledeće konstatacije. Ocena 1 Apsolutno se ne slažem, ocena 5 Apsolutno
-                    se slažem.
+                    Na skali od 1 do 5 ocenite sledeće konstatacije.
+                    Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
                 </StyledIntro>
                 <Auto5RadioQuestion
-                    question="Kada donosim finansijsku odluku sklon sam osvrtanju na ishode svojih prethodno donetih finansijskih odluka."
+                    question="Kada donosim finansijsku odluku sklon sam osvrtanju na ishode svojih prethodno donetih finansijskih odluka"
                     value={ks1}
                     handleInputChange={(value) => {
                         setKs1(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Kada pogledam svoj finansijski rezultat koji sam ostvario u prethodnim periodima odlučivanja sklon sam razmišljanju o alternativama koje sam propustio."
+                    question="Kada pogledam svoj finansijski rezultat koji sam ostvario u prethodnim periodima odlučivanja sklon sam razmišljanju o alternativama koje sam propustio"
                     value={ks2}
                     handleInputChange={(value) => {
                         setKs2(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Jednom kada donesem finansijsku odluku ne osvrćem se unazad. "
+                    question="Jednom kada donesem finansijsku odluku ne osvrćem se unazad"
                     value={ks3}
                     handleInputChange={(value) => {
                         setKs3(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Kada donesem finansijsku odluku, veoma sam radoznao da saznam šta bi se desilo da je izbor investicionih alternativa bio drugačiji."
+                    question="Kada donesem finansijsku odluku, veoma sam radoznao da saznam šta bi se desilo da je izbor investicionih alternativa bio drugačiji"
                     value={ks4}
                     handleInputChange={(value) => {
                         setKs4(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Ukoliko se ispostavi da je ulaganje u akcije bilo pogrešno, osećaću se loše."
+                    question="Ukoliko se ispostavi da je ulaganje u akcije bilo pogrešno, osećaću se loše"
                     value={ks5}
                     handleInputChange={(value) => {
                         setKs5(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Ukoliko donesem dobru finansijsku odluku, ali se ispostavi da bi neki drugačiji izbor doneo više prinose, osećaću se loše."
+                    question="Ukoliko donesem dobru finansijsku odluku, ali se ispostavi da bi neki drugačiji izbor doneo više prinose, osećaću se loše"
                     value={ks6}
                     handleInputChange={(value) => {
                         setKs6(value);
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Kajem se zbog izbora koje sam napravio u prethodnim periodima odlučivanja."
+                    question="Kajem se zbog izbora koje sam napravio u prethodnim periodima odlučivanja"
                     value={ks7}
                     handleInputChange={(value) => {
                         setKs7(value);
