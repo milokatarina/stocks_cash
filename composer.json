@@ -1,7 +1,6 @@
 {
-  "name": "katarinamilosavljevic/project_stocks",
+  "name": "katarinamilosavljevic/evapp",
   "autoload": {
-    "psr-0": {"": "application/"}
   },
   "authors": [
     {
@@ -10,5 +9,6 @@
     }
   ],
   "require": {
+    "phpunit/phpunit": "^9.5"
   }
 }

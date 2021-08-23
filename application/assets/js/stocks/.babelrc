@@ -59,6 +59,19 @@
             "pure": false,
             "minify": false
           }
+        ],
+        [
+          "contracts",
+          {
+            "names": {
+              "assert": "assert",
+              "precondition": "pre",
+              "postcondition": "post",
+              "invariant": "invariant",
+              "return": "it",
+              "old": "old"
+            }
+          }
         ]
       ]
     }

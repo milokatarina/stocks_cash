@@ -15,29 +15,9 @@ class User
 
     /**
      * User constructor.
-     * @param $ds1
-     * @param $ds2
-     * @param $ds3
-     * @param $ds4
-     * @param $ds5
-     * @param $ds6
-     * @param $ds7
-     * @param $ds8
-     * @param $ds9
-     * @param $ds10
      */
-    public function __construct($ds1, $ds2, $ds3, $ds4, $ds5, $ds6, $ds7, $ds8, $ds9, $ds10)
+    public function __construct()
     {
-        $this->ds1 = $ds1;
-        $this->ds2 = $ds2;
-        $this->ds3 = $ds3;
-        $this->ds4 = $ds4;
-        $this->ds5 = $ds5;
-        $this->ds6 = $ds6;
-        $this->ds7 = $ds7;
-        $this->ds8 = $ds8;
-        $this->ds9 = $ds9;
-        $this->ds10 = $ds10;
     }
 
 

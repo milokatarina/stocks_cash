@@ -1,12 +1,13 @@
 <?php
 
-include APPPATH.'core/Repository/UserRepository.php';
-include APPPATH.'core/Repository/YearRevenueRepository.php';
-include APPPATH.'core/Repository/InvestmentRepository.php';
-include APPPATH.'core/Repository/PlayRepository.php';
-include APPPATH.'core/Entity/User.php';
-include APPPATH.'core/Entity/YearRevenue.php';
-include APPPATH.'core/Entity/Investment.php';
+require_once APPPATH.'core/Repository/UserRepository.php';
+require_once APPPATH.'core/Repository/YearRevenueRepository.php';
+require_once APPPATH.'core/Repository/InvestmentRepository.php';
+require_once APPPATH.'core/Repository/PlayRepository.php';
+require_once APPPATH.'core/Entity/YearRevenue.php';
+require_once APPPATH.'core/Entity/Investment.php';
+require_once APPPATH.'core/Service/UserService.php';
+require_once APPPATH.'core/Service/AnswersService.php';
 
 class Stocks extends MY_Controller
 {
@@ -19,15 +20,18 @@ class Stocks extends MY_Controller
     public $playRepository;
     /** @var InvestmentRepository */
     public $investmentRepository;
+    /** @var UserService */
+    public $userService;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->database();
-        $this->userRepository = new UserRepository($this->db);
+        $this->userRepository = new UserRepository();
         $this->yearRevenueRepository = new YearRevenueRepository($this->db);
         $this->playRepository = new PlayRepository($this->db);
         $this->investmentRepository = new InvestmentRepository($this->db);
+        $this->userService = UserService::getInstance();
     }
 
     public function index()
@@ -106,12 +110,20 @@ class Stocks extends MY_Controller
     public function initGame()
     {
         $data = $this->receiveJSON()->params;
-        $newUser = new User(
-            $data->ds1, $data->ds2, $data->ds3, $data->ds4, $data->ds5, $data->ds6, $data->ds7, $data->ds8,
-            $data->ds9, $data->ds10
-        );
+
         try {
-            $userId = $this->userRepository->insert($newUser);
+            $userId = $this->userService->createUser(
+                $data->ds1,
+                $data->ds2,
+                $data->ds3,
+                $data->ds4,
+                $data->ds5,
+                $data->ds6,
+                $data->ds7,
+                $data->ds8,
+                $data->ds9,
+                $data->ds10
+            );
         } catch (\Exception $ex) {
             return $this->ajaxResponse(
                 [],

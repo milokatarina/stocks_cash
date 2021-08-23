@@ -5,6 +5,7 @@ const path = require('path');
 const publicFolderRelativePath = '../../../../public/stocks';
 const fileName = 'stocks';
 module.exports = (env, argv) => {
+  console.log(argv.mode === 'production');
   const isProduction = argv.mode === 'production';
 
   const config = {
