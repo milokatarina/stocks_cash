@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import styled from 'styled-components';
 import {Chart} from "react-charts";
-
-import "../styles.css";
 import moment from "moment";
 import {Button} from "@material-ui/core";
-
+import "../styles.css";
 
 export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
     const prepareStocksData = () => {

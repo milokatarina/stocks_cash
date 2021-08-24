@@ -33,7 +33,6 @@ class UserRepository
                                 '".$user->getDs9()."', '".$user->getDs10()."'
                                 )"
         );
-
         return $this->db->insert_id();
     }
 

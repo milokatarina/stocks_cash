@@ -13,6 +13,9 @@
          processIsolation="false"
          stopOnFailure="false"
 >
+    <php>
+        <env name="APPPATH" value="application"/>
+    </php>
     <testsuites>
         <testsuite name="default">
             <directory>tests</directory>

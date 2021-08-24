@@ -10,6 +10,7 @@ import RegretSurvey from "./containers/RegretSurvey";
 import FinanceSurvey from "./containers/FinanceSurvey";
 
 export const App = ({yearsRevenue}) => {
+    console.log(yearsRevenue);
     const [screenNumber, setScreenNumber] = useState(1);
     const [playId, setPlayId] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -51,7 +52,6 @@ export const App = ({yearsRevenue}) => {
     switch (screenNumber) {
         case 1:
             return <DSurvey onNextChange={({ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10}) => {
-                pre: typeof ds1 === 'boolean';
                 api.initGame({
                     ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10
                 }).then((response) => {
