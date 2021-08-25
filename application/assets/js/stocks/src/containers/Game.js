@@ -34,9 +34,21 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const [isOptSurveyDone, setIsOptSurveyDone] = useState(false);
 
     const invest = ({risk}) => {
-        //provera da je risk izmedju 1 i 4
+        pre: {
+            typeof risk === 'number';
+            risk >= 1 && risk <= 5;
+        }
+        invariant: {
+            typeof userId === 'number';
+            userId !== null && userId > 0;
+            typeof playId === 'number';
+            playId !== null && playId > 0;
+        }
         const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
-        //provera da nextNumberOfYearsPlayed nije veci od 15
+        assert: {
+            typeof nextNumberOfYearsPlayed === 'number';
+            nextNumberOfYearsPlayed > 0 && nextNumberOfYearsPlayed <= 15, "Period must be within an acceptable range";
+        }
         setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
 
         setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
@@ -45,7 +57,6 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
             currentYearRevenue.stocks_revenue,
             currentCashBalance
         );
-        //provera da je preparedBalanceData broj i da je veci od 0
         const depositBalance = calculateNewBalance(currentCashBalance, currentYearRevenue.deposit_revenue);
         const stockBalance = calculateNewBalance(currentCashBalance, currentYearRevenue.stocks_revenue);
         setLastRevenue(
@@ -56,9 +67,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         setCurrentCashBalance(calculatedCashBalance);
         setDepositPercent(50);
         setStocksPercent(50);
-        //pre:provera da je userId number i veci od 0, playId number i veci od 0
-        //period veci od 0 i manji od 15
-        //pre:risk - izmedju 1 i 5
+
         api.logInvestment({
             userId,
             playId,
