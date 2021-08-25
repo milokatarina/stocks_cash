@@ -1,5 +1,9 @@
 export const calculateBalance = (
-    depositRevenuePercentArg, stocksRevenuePercentArg, currentCashBalance) => {
+    depositRevenuePercentArg,
+    stocksRevenuePercentArg,
+    currentDepositBalance,
+    currentStocksBalance,
+    currentCashBalance) => {
     let depositRevenuePercent = parseFloat(depositRevenuePercentArg);
     let stocksRevenuePercent = parseFloat(stocksRevenuePercentArg);
     pre: {
@@ -8,8 +12,9 @@ export const calculateBalance = (
         typeof stocksRevenuePercent === 'number';
         stocksRevenuePercent <= 100, stocksRevenuePercent;
     }
-    const depositBalance = calculateNewBalance(currentCashBalance, depositRevenuePercent);
-    const stockBalance = calculateNewBalance(currentCashBalance, stocksRevenuePercent);
+    const depositBalance = calculateNewBalance(currentDepositBalance, depositRevenuePercent);
+    const stockBalance = calculateNewBalance(currentStocksBalance, stocksRevenuePercent);
+
     const lastRevenue = parseFloat((
         depositBalance
         + stockBalance).toFixed(2));

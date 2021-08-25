@@ -55,10 +55,12 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         const preparedBalanceData = calculateBalance(
             currentYearRevenue.deposit_revenue,
             currentYearRevenue.stocks_revenue,
+            currentDepositBalance,
+            currentStocksBalance,
             currentCashBalance
         );
-        const depositBalance = calculateNewBalance(currentCashBalance, currentYearRevenue.deposit_revenue);
-        const stockBalance = calculateNewBalance(currentCashBalance, currentYearRevenue.stocks_revenue);
+        const depositBalance = calculateNewBalance(currentDepositBalance, currentYearRevenue.deposit_revenue);
+        const stockBalance = calculateNewBalance(currentStocksBalance, currentYearRevenue.stocks_revenue);
         setLastRevenue(
             preparedBalanceData.lastRevenue
         );
