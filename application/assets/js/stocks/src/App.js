@@ -9,6 +9,10 @@ import {EndGame} from "./containers/EndGame";
 import RegretSurvey from "./containers/RegretSurvey";
 import FinanceSurvey from "./containers/FinanceSurvey";
 
+Number.prototype.toFixedNumber = function(digits, base){
+    var pow = Math.pow(base||10, digits);
+    return Math.round(this*pow) / pow;
+}
 export const App = ({yearsRevenue}) => {
     const [screenNumber, setScreenNumber] = useState(1);
     const [playId, setPlayId] = useState(22);

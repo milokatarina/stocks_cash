@@ -85,7 +85,8 @@
               }
             }
           }
-        ]
+        ],
+        ["@babel/transform-runtime"]
       ]
     }
   }

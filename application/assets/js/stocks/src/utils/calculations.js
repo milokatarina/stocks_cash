@@ -40,12 +40,12 @@ export const calculateNewBalance = (currentCashBalance, newBalancePercentArg) =>
 
 export const calculateExpectedMinRate = (expRateStocks, standardDeviation) => {
     return (parseFloat(expRateStocks)
-        - parseFloat(standardDeviation)).toFixed(2)
+        - parseFloat(standardDeviation)).toFixedNumber(2)
 }
 
 export const calculateExpectedMaxRate = (expRateStocks, standardDeviation) => {
     return (parseFloat(expRateStocks)
-        + parseFloat(standardDeviation)).toFixed(2)
+        + parseFloat(standardDeviation)).toFixedNumber(2)
     post: {
         it > 0;
     }
