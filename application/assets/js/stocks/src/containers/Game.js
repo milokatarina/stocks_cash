@@ -13,6 +13,7 @@ import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
 import ConfidenceSurvey from "./ConfidenceSurvey";
 import OptSurvey from "./OptSurvey";
+import {calculateBalance, calculateNewBalance} from "../utils/calculations";
 
 const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const initCashBalance = 1000;
@@ -33,22 +34,31 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const [isOptSurveyDone, setIsOptSurveyDone] = useState(false);
 
     const invest = ({risk}) => {
+        //provera da je risk izmedju 1 i 4
         const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
+        //provera da nextNumberOfYearsPlayed nije veci od 15
         setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
+
         setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
-        const depositBalance = currentDepositBalance * currentYearRevenue.deposit_revenue / 100;
-        const stockBalance = currentStocksBalance * currentYearRevenue.stocks_revenue / 100;
-        const lastRevenue = parseFloat((
-            depositBalance
-            + stockBalance).toFixed(2));
+        const preparedBalanceData = calculateBalance(
+            currentYearRevenue.deposit_revenue,
+            currentYearRevenue.stocks_revenue,
+            currentCashBalance
+        );
+        //provera da je preparedBalanceData broj i da je veci od 0
+        const depositBalance = calculateNewBalance(currentCashBalance, currentYearRevenue.deposit_revenue);
+        const stockBalance = calculateNewBalance(currentCashBalance, currentYearRevenue.stocks_revenue);
         setLastRevenue(
-            lastRevenue
+            preparedBalanceData.lastRevenue
         );
         const initCashBalance = currentCashBalance;
-        const calculatedCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(2));
+        const calculatedCashBalance = preparedBalanceData.calculatedCashBalance;
         setCurrentCashBalance(calculatedCashBalance);
         setDepositPercent(50);
         setStocksPercent(50);
+        //pre:provera da je userId number i veci od 0, playId number i veci od 0
+        //period veci od 0 i manji od 15
+        //pre:risk - izmedju 1 i 5
         api.logInvestment({
             userId,
             playId,
@@ -59,7 +69,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
             totalCashBalance: calculatedCashBalance,
             rpLastPeriod: risk
         })
-        updatePeriodYieldsData(nextNumberOfYearsPlayed, depositBalance, stockBalance, lastRevenue);
+        updatePeriodYieldsData(nextNumberOfYearsPlayed, depositBalance, stockBalance, preparedBalanceData.lastRevenue);
     }
 
     const updatePeriodYieldsData = (
@@ -75,17 +85,20 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         setPeriodYieldsData(oldPeriodYieldData);
     }
 
-    const handleStocksOnChange = (newValue) => {
-        setStocksPercent(newValue);
-        setCurrentStocksBalance(currentCashBalance * newValue / 100)
-        setDepositPercent(100 - newValue);
-        setCurrentDepositBalance(currentCashBalance * (100 - newValue) / 100)
+    const handleStocksOnChange = (stocksPercent) => {
+        setStocksPercent(stocksPercent);
+        const depositPercent = 100 - stocksPercent;
+        setCurrentStocksBalance(calculateNewBalance(currentCashBalance, stocksPercent));
+        setDepositPercent(depositPercent);
+        setCurrentDepositBalance(calculateNewBalance(currentCashBalance, depositPercent));
     }
-    const handleDepositOnChange = (newValue) => {
-        setDepositPercent(newValue);
-        setCurrentDepositBalance(currentCashBalance * newValue / 100)
-        setStocksPercent(100 - newValue);
-        setCurrentStocksBalance(currentCashBalance * (100 - newValue) / 100)
+
+    const handleDepositOnChange = (depositPercent) => {
+        setDepositPercent(depositPercent);
+        const stocksPercent = 100 - depositPercent;
+        setCurrentDepositBalance(calculateNewBalance(currentCashBalance, depositPercent));
+        setStocksPercent(stocksPercent);
+        setCurrentStocksBalance(calculateNewBalance(currentCashBalance, stocksPercent));
     }
     const pieChartData = [
         {title: CONST.STOCKS, value: stocksPercent, color: '#E38627'},

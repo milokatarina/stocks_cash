@@ -4,9 +4,11 @@ import {Chart} from "react-charts";
 import moment from "moment";
 import {Button} from "@material-ui/core";
 import "../styles.css";
+import {calculateExpectedMaxRate, calculateExpectedMinRate} from "../utils/calculations";
 
 export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
     const prepareStocksData = () => {
+        //provera da yearsRevenue nije prazan niz
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
@@ -16,7 +18,9 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
     }
     const prepareLastZeroData = () => {
         const lastItem = yearsRevenue[yearsRevenue.length - 1];
+        // provera da je lastItem razlciit od null;
         const firstItem = yearsRevenue[0];
+        // provera da je firstItem razlicit od null;
         return [
             {
                 'x': moment().year(isTrial ? (parseInt(firstItem.year) + 3) : firstItem.year).month(0),
@@ -29,6 +33,7 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         ]
     }
     const prepareStockPriceData = () => {
+        // provera da je yearsRevenue razlicit od []
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
@@ -37,6 +42,7 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         })
     }
     const prepareFloatingAvgPrice = () => {
+        // provera da je yearsRevenue razlicit od []
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
@@ -45,8 +51,9 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         })
     }
 
-    const regenerateStocksPrice = () => {
-        setGraphState('stocks_price');
+    const regenerateStocksPrice = (newGraphState) => {
+        //provera da je newGraphState 'stocks_price';
+        setGraphState(newGraphState);
         if (isFloatingAvgActive) {
             setChartData([{label: '', data: prepareStockPriceData()}, {label: '', data: prepareFloatingAvgPrice()}])
         } else {
@@ -94,11 +101,18 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         }
         setIsFloatingAvgActive(!isFloatingAvgActive);
     }
-    const expectedRateMin = (parseFloat(currentYearRevenue.expected_rate_stocks_revenue)
-        - parseFloat(currentYearRevenue.standard_deviation)).toFixed(2);
-    const expectedRateMax = (parseFloat(currentYearRevenue.expected_rate_stocks_revenue)
-        + parseFloat(currentYearRevenue.standard_deviation)).toFixed(2);
+
     const renderRisks = () => {
+        let expectedRateMin = calculateExpectedMinRate(
+            currentYearRevenue.expected_rate_stocks_revenue,
+            currentYearRevenue.standard_deviation
+        );
+
+        let expectedRateMax = calculateExpectedMaxRate(
+            currentYearRevenue.expected_rate_stocks_revenue,
+            currentYearRevenue.standard_deviation
+        );
+        //provera da currentYearRevenue nije null i da expectedRateMax nije 0
         return (
             <div style={{marginTop: '30px', marginBottom: '30px'}}>
                 <div style={{margin: '20px 0'}}>
@@ -118,19 +132,22 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         )
     }
 
-    const regenerateStocksData = () => {
-        setGraphState('stocks');
+    const regenerateStocksData = (newGraphState) => {
+        setGraphState(newGraphState);
         setChartData([{label: '', data: prepareStocksData()}, {label: '', data: prepareLastZeroData()}])
     }
 
-    const regenerateDepositData = () => {
-        setGraphState('deposit');
+    const regenerateDepositData = (newGraphState) => {
+        setGraphState(newGraphState);
+        //provera da yearsRevenue nije prazan niz
         const newData = yearsRevenue.map((item) => {
+            //provera da item sadrzi polje year i deposit_revenue
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.deposit_revenue
             }
         })
+        //provera da newData nije prazan niz
         setChartData([{label: '', data: newData}])
     }
 
@@ -142,21 +159,21 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
                     style={{marginRight: '15px'}}
                     variant="contained"
                     className={graphState === 'stocks_price' ? 'active' : ''}
-                    onClick={() => regenerateStocksPrice()}
+                    onClick={() => regenerateStocksPrice('stocks_price')}
                 >
                     CENE AKCIJA
                 </StyledButton>
                 <StyledButton
                     variant="contained"
                     className={graphState === 'stocks' ? 'active' : ''}
-                    onClick={() => regenerateStocksData()}
+                    onClick={() => regenerateStocksData('stocks')}
                     style={{marginRight: '15px'}}
                 >
                     PRINOS I RIZIK ULAGANJA U AKCIJE
                 </StyledButton>
                 <StyledButton
                     className={graphState === 'deposit' ? 'active' : ''}
-                    variant="contained" onClick={() => regenerateDepositData()}>
+                    variant="contained" onClick={() => regenerateDepositData('deposit')}>
                     PRINOS NA DEPOZITE
                 </StyledButton>
             </div>
