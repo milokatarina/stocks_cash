@@ -8,19 +8,31 @@ import {calculateExpectedMaxRate, calculateExpectedMinRate} from "../utils/calcu
 
 export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
     const prepareStocksData = () => {
-        //provera da yearsRevenue nije prazan niz
+        pre: {
+            Array.isArray(yearsRevenue);
+            yearsRevenue.length > 0;
+        }
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': parseFloat(item.stocks_revenue)
             }
         })
+        post: {
+            Array.isArray(it);
+            it.length > 0;
+        }
     }
+
     const prepareLastZeroData = () => {
         const lastItem = yearsRevenue[yearsRevenue.length - 1];
-        // provera da je lastItem razlciit od null;
+        assert: {
+            lastItem !== null;
+        }
         const firstItem = yearsRevenue[0];
-        // provera da je firstItem razlicit od null;
+        assert: {
+            firstItem !== null;
+        }
         return [
             {
                 'x': moment().year(isTrial ? (parseInt(firstItem.year) + 3) : firstItem.year).month(0),
@@ -33,26 +45,43 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         ]
     }
     const prepareStockPriceData = () => {
-        // provera da je yearsRevenue razlicit od []
+        pre: {
+            Array.isArray(yearsRevenue);
+            yearsRevenue.length > 0;
+        }
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.stock_price
             }
         })
+        post: {
+            Array.isArray(it);
+            it.length > 0;
+        }
     }
     const prepareFloatingAvgPrice = () => {
-        // provera da je yearsRevenue razlicit od []
+        pre: {
+            Array.isArray(yearsRevenue);
+            yearsRevenue.length > 0;
+        }
         return yearsRevenue.map((item) => {
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.floating_avg_stock_price
             }
         })
+        post: {
+            Array.isArray(it);
+            it.length > 0;
+        }
     }
 
     const regenerateStocksPrice = (newGraphState) => {
-        //provera da je newGraphState 'stocks_price';
+        pre: {
+            typeof newGraphState === 'string';
+            newGraphState === 'stocks_price';
+        }
         setGraphState(newGraphState);
         if (isFloatingAvgActive) {
             setChartData([{label: '', data: prepareStockPriceData()}, {label: '', data: prepareFloatingAvgPrice()}])
@@ -112,7 +141,10 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
             currentYearRevenue.expected_rate_stocks_revenue,
             currentYearRevenue.standard_deviation
         );
-        //provera da currentYearRevenue nije null i da expectedRateMax nije 0
+        pre:{
+            currentYearRevenue !== null;
+            expectedRateMax > 0;
+        }
         return (
             <div style={{marginTop: '30px', marginBottom: '30px'}}>
                 <div style={{margin: '20px 0'}}>
@@ -133,24 +165,32 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
     }
 
     const regenerateStocksData = (newGraphState) => {
+        pre: {
+            typeof newGraphState === 'string';
+            newGraphState === 'stocks';
+        }
         setGraphState(newGraphState);
         setChartData([{label: '', data: prepareStocksData()}, {label: '', data: prepareLastZeroData()}])
     }
 
     const regenerateDepositData = (newGraphState) => {
+        pre: {
+            typeof newGraphState === 'string';
+            newGraphState === 'deposit';
+        }
         setGraphState(newGraphState);
-        //provera da yearsRevenue nije prazan niz
         const newData = yearsRevenue.map((item) => {
-            //provera da item sadrzi polje year i deposit_revenue
             return {
                 'x': moment().year(isTrial ? (parseInt(item.year) + 3) : item.year).month(0),
                 'y': item.deposit_revenue
             }
         })
-        //provera da newData nije prazan niz
+        assert:{
+            Array.isArray(newData);
+            newData.length > 0
+        }
         setChartData([{label: '', data: newData}])
     }
-
 
     return (
         <div style={{width: '100%', height: '400px', position: 'relative'}}>
