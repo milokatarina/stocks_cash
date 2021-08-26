@@ -9,9 +9,9 @@ import {EndGame} from "./containers/EndGame";
 import RegretSurvey from "./containers/RegretSurvey";
 import FinanceSurvey from "./containers/FinanceSurvey";
 
-Number.prototype.toFixedNumber = function(digits, base){
-    var pow = Math.pow(base||10, digits);
-    return Math.round(this*pow) / pow;
+Number.prototype.toFixedNumber = function (digits, base) {
+    var pow = Math.pow(base || 10, digits);
+    return Math.round(this * pow) / pow;
 }
 export const App = ({yearsRevenue}) => {
     const [screenNumber, setScreenNumber] = useState(1);
@@ -63,18 +63,18 @@ export const App = ({yearsRevenue}) => {
                     setUserId(response.data.data.userId);
                 })
             }}/>
-        // case 2:
-        //     return <RSSurvey
-        //         onNextChange={onNextRSSurvey}
-        //     />
-        // case 3:
-        //     return <TrialGame
-        //         yearsRevenue={yearsRevenue}
-        //         userId={userId}
-        //         playId={playId}
-        //         onScreenChange={onScreenChange}
-        //     />
-        case 2: {
+        case 2:
+            return <RSSurvey
+                onNextChange={onNextRSSurvey}
+            />
+        case 3:
+            return <TrialGame
+                yearsRevenue={yearsRevenue}
+                userId={userId}
+                playId={playId}
+                onScreenChange={onScreenChange}
+            />
+        case 4: {
             return <Game
                 yearsRevenue={yearsRevenue}
                 userId={userId}
@@ -82,21 +82,21 @@ export const App = ({yearsRevenue}) => {
                 onScreenChange={onScreenChange}
             />
         }
-        // case 5: {
-        //     return <RSSurvey2
-        //         onNextChange={onNextRSSurvey2}
-        //     />
-        // }
-        // case 6: {
-        //     return <RegretSurvey
-        //         onNextChange={onNextRegretSurvey}
-        //     />
-        // }
-        // case 7: {
-        //     return <FinanceSurvey
-        //         onNextChange={onNextFinanceSurvey}
-        //     />
-        // }
+        case 5: {
+            return <RSSurvey2
+                onNextChange={onNextRSSurvey2}
+            />
+        }
+        case 6: {
+            return <RegretSurvey
+                onNextChange={onNextRegretSurvey}
+            />
+        }
+        case 7: {
+            return <FinanceSurvey
+                onNextChange={onNextFinanceSurvey}
+            />
+        }
         default: {
             return <EndGame title="Kraj igre. Hvala Vam na izdvojenom vremenu. :)" onNextClick={() => {
             }} hasNextButton={false}/>

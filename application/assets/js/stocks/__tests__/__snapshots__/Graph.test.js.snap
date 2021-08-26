@@ -18,7 +18,7 @@ exports[`renders correctly 1`] = `
     }
   >
     <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained sc-bxivhb jMkzmN active"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained sc-bdVaJa htzKyY active"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -47,7 +47,7 @@ exports[`renders correctly 1`] = `
       </span>
     </button>
     <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained sc-bxivhb jMkzmN"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained sc-bdVaJa htzKyY"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
@@ -76,7 +76,7 @@ exports[`renders correctly 1`] = `
       </span>
     </button>
     <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained sc-bxivhb jMkzmN"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained sc-bdVaJa htzKyY"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}

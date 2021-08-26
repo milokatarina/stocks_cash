@@ -1,6 +1,5 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Game from "../src/containers/Game";
 import {MOCK_YEAR_REVENUE} from "../constants";
 import Graph from "../src/components/Graph";
 
