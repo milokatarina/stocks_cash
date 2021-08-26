@@ -1,5 +1,8 @@
 <?php
 
+use Assert\Assertion;
+use PhpDeal\Annotation as Contract;
+
 require_once APPPATH.'core/Factory/UserFactory.php';
 require_once APPPATH.'core/Repository/UserRepository.php';
 
@@ -69,8 +72,19 @@ class UserService
         return $this->userRepository->insert($user);
     }
 
+    /**
+     * @param int $userId
+     * @Contract\Verify("$userId !== null")
+     */
     public function updateAnswers($type, $userId, $answers)
     {
+        try {
+            Assertion::choice($type, ["opt", "cs", "ks", "rs", "rs2", "fs"]);
+        } catch (\Assert\AssertionFailedException $e) {
+            log_message("error", $e->getMessage());
+            throw new Exception("Unknown type of the answer.");
+        }
+
         switch ($type) {
             case "opt":
                 $this->userRepository->updateOptAnswers($userId, $answers);
@@ -90,10 +104,6 @@ class UserService
             case "fs":
                 $this->userRepository->updateFSAnswers($userId, $answers);
                 break;
-            default:
-            {
-                throw new Exception("Unknown type of answers.");
-            }
         }
     }
 }

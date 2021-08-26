@@ -1,15 +1,37 @@
 <?php
 
+
+use Assert\Assert;
+use PhpDeal\ContractApplication;
+
+require_once './vendor/autoload.php';
+
 require_once APPPATH.'core/Repository/InvestmentRepository.php';
 require_once APPPATH.'core/Entity/YearRevenue.php';
 require_once APPPATH.'core/Entity/Investment.php';
 require_once APPPATH.'core/Service/UserService.php';
 require_once APPPATH.'core/Service/PlayService.php';
 require_once APPPATH.'core/Service/YearRevenueService.php';
-require_once APPPATH.'core/Service/AnswersService.php';
+
+$instance = ContractApplication::getInstance();
+
+$instance->init(
+    array(
+        'debug' => true,
+        'appDir' => APPPATH,
+        'excludePaths' => [
+            __DIR__.'/vendor',
+        ],
+        'includePaths' => [
+
+        ],
+        'cacheDir' => __DIR__.'/cache/',
+    )
+);
 
 class Stocks extends MY_Controller
 {
+
     const MAX_PERIODS = 15;
 
     /** @var YearRevenueService */
@@ -27,7 +49,7 @@ class Stocks extends MY_Controller
         $this->load->database();
         $this->yearRevenueService = YearRevenueService::getInstance();
         $this->playService = PlayService::getInstance();
-        $this->investmentRepository = new InvestmentRepository($this->db);
+        $this->investmentRepository = InvestmentRepository::getInstance();
         $this->userService = UserService::getInstance();
     }
 
@@ -43,7 +65,6 @@ class Stocks extends MY_Controller
     {
         $data = $this->receiveJSON()->params;
 
-//        $userId = $data->userId;
         $playId = $data->playId;
         $period = $data->period;
         $depositPercent = $data->depositPercent;
@@ -51,6 +72,16 @@ class Stocks extends MY_Controller
         $initCashBalance = $data->initCashBalance;
         $totalCashBalance = $data->totalCashBalance;
         $rpLastPeriod = $data->rpLastPeriod;
+
+        try {
+            Assert::lazy()
+                ->that($stocksPercent)->tryAll()->integer()->between(0, 100)
+                ->that($depositPercent)->tryAll()->integer()->between(0, 100)
+                ->that($rpLastPeriod)->tryAll()->integer()->between(1, 5)
+                ->verifyNow();
+        } catch (Exception $e) {
+            log_message("error", $e->getMessage());
+        }
 
         $investment = new Investment(
             $playId,
@@ -62,7 +93,7 @@ class Stocks extends MY_Controller
             $rpLastPeriod
         );
 
-        $investmentId = $this->investmentRepository->insert($investment);
+        $this->investmentRepository->insert($investment);
         if ($period === self::MAX_PERIODS) {
             $this->playService->update($playId, $totalCashBalance);
         }
@@ -152,7 +183,7 @@ class Stocks extends MY_Controller
             );
         }
 
-        $playId = $this->playService->insert($userId);
+        $playId = $this->playService->create($userId);
 
         return $this->ajaxResponse(
             [

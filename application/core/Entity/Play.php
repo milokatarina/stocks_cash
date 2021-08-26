@@ -11,15 +11,11 @@ class Play
 
     /**
      * Play constructor.
-     * @param DateTime $date_created
-     * @param User $user
-     * @param $total_balance
+     * @param $userId
      */
-    public function __construct(DateTime $date_created, User $user, $total_balance)
+    public function __construct($userId)
     {
-        $this->date_created = $date_created;
-        $this->user = $user;
-        $this->total_balance = $total_balance;
+        $this->user_id = $userId;
     }
 
     /**a
@@ -77,4 +73,14 @@ class Play
     {
         $this->total_balance = $total_balance;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+
 }

@@ -1,14 +1,34 @@
 <?php
 
+use PhpDeal\Annotation as Contract;
+
 class InvestmentRepository
 {
     public $db;
+    private static $instance = null;
 
-    public function __construct($db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = &get_instance()->db;
     }
 
+    /**
+     * @return static
+     */
+    public static function getInstance(): self
+    {
+        if (empty(static::$instance)) {
+            static::$instance = new static();
+        }
+
+        return static::$instance;
+    }
+
+    /**
+     * @param int $rp
+     * @param int $investmentId
+     * @Contract\Verify("$rp>=1 && $rp<=5 && $investmentId > 0")
+     */
     public function update($investmentId, $rp)
     {
         $this->db->query(
@@ -20,6 +40,7 @@ class InvestmentRepository
             "
         );
     }
+
 
     public function insert(Investment $investment): int
     {

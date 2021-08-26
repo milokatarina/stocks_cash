@@ -23,11 +23,13 @@ class PlayRepository
     }
 
 
-    public function insert($user_id): int
+    public function insert(Play $play): int
     {
+        $userId = $play->getUserId();
+
         $this->db->query(
             "INSERT INTO `play` (`user_id`)
-                        VALUES ($user_id)"
+                        VALUES ($userId)"
         );
 
         return $this->db->insert_id();

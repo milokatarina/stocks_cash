@@ -3,6 +3,8 @@
 require_once APPPATH.'core/Factory/PlayFactory.php';
 require_once APPPATH.'core/Repository/PlayRepository.php';
 
+use PhpDeal\Annotation as Contract;
+
 class PlayService
 {
     private static $instance = null;
@@ -37,14 +39,24 @@ class PlayService
         return static::$instance;
     }
 
+    /**
+     * @param int $playId
+     * @param int $totalBalance
+     * @Contract\Verify("$playId > 0 && $totalBalance!==null")
+     */
     public function update($playId, $totalBalance)
     {
         $this->playRepository->update($playId, $totalBalance);
     }
 
-    public function insert($userId): int
+    /**
+     * @param int $userId
+     * @Contract\Verify("$userId >0")
+     */
+    public function create($userId): int
     {
-        return $this->playRepository->insert($userId);
+        $play = $this->playFactory->create($userId);
+        return $this->playRepository->insert($play);
     }
 
 }

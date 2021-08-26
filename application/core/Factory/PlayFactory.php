@@ -19,10 +19,8 @@ class PlayFactory
     }
 
     public function create(
-        DateTime $date_created,
-        User $user,
-        $total_balance
+        $userId
     ): Play {
-        return new Play($date_created, $user, $total_balance);
+        return new Play($userId);
     }
 }

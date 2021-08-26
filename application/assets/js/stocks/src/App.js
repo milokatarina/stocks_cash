@@ -15,8 +15,8 @@ Number.prototype.toFixedNumber = function(digits, base){
 }
 export const App = ({yearsRevenue}) => {
     const [screenNumber, setScreenNumber] = useState(1);
-    const [playId, setPlayId] = useState(22);
-    const [userId, setUserId] = useState(22);
+    const [playId, setPlayId] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     const onNextRSSurvey = ({rs1, rs2, rs3, rs4, rs5, rs6, rs7}) => {
         api.sendRSAnswers({
@@ -53,16 +53,16 @@ export const App = ({yearsRevenue}) => {
         setScreenNumber(screenNumber + 1);
     }
     switch (screenNumber) {
-        // case 1:
-        //     return <DSurvey onNextChange={({ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10}) => {
-        //         api.initGame({
-        //             ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10
-        //         }).then((response) => {
-        //             setScreenNumber(screenNumber + 1);
-        //             setPlayId(response.data.data.playId);
-        //             setUserId(response.data.data.userId);
-        //         })
-        //     }}/>
+        case 1:
+            return <DSurvey onNextChange={({ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10}) => {
+                api.initGame({
+                    ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10
+                }).then((response) => {
+                    setScreenNumber(screenNumber + 1);
+                    setPlayId(response.data.data.playId);
+                    setUserId(response.data.data.userId);
+                })
+            }}/>
         // case 2:
         //     return <RSSurvey
         //         onNextChange={onNextRSSurvey}
@@ -74,7 +74,7 @@ export const App = ({yearsRevenue}) => {
         //         playId={playId}
         //         onScreenChange={onScreenChange}
         //     />
-        case 1: {
+        case 2: {
             return <Game
                 yearsRevenue={yearsRevenue}
                 userId={userId}

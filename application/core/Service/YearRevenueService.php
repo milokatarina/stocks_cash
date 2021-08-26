@@ -5,6 +5,12 @@ require_once APPPATH.'core/Repository/YearRevenueRepository.php';
 class YearRevenueService
 {
     private static $instance = null;
+    /**
+     * Data from all years
+     *
+     * @var array
+     */
+    private $allYearsData = [];
 
     /** @var YearRevenueRepository */
     public $yearRevenueRepository;
@@ -34,8 +40,8 @@ class YearRevenueService
 
     public function getAll(): array
     {
-        return $this->yearRevenueRepository->getAll();
+        $result = $this->yearRevenueRepository->getAll();
+
+        return $result;
     }
-
-
 }

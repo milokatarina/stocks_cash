@@ -6,9 +6,14 @@
       "email": "katarina@jagodina.com"
     }
   ],
+  "autoload": {
+    "psr-4": {"PhpDeal\\": "/application/"}
+  },
   "minimum-stability": "dev",
   "prefer-stable" : true,
   "require": {
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^9.5",
+    "php-deal/framework": "^1.0",
+    "beberlei/assert": "^3.3"
   }
 }
