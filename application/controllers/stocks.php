@@ -1,23 +1,21 @@
 <?php
 
-require_once APPPATH.'core/Repository/UserRepository.php';
-require_once APPPATH.'core/Repository/YearRevenueRepository.php';
 require_once APPPATH.'core/Repository/InvestmentRepository.php';
-require_once APPPATH.'core/Repository/PlayRepository.php';
 require_once APPPATH.'core/Entity/YearRevenue.php';
 require_once APPPATH.'core/Entity/Investment.php';
 require_once APPPATH.'core/Service/UserService.php';
+require_once APPPATH.'core/Service/PlayService.php';
+require_once APPPATH.'core/Service/YearRevenueService.php';
 require_once APPPATH.'core/Service/AnswersService.php';
 
 class Stocks extends MY_Controller
 {
     const MAX_PERIODS = 15;
-    /** @var UserRepository */
-    public $userRepository;
-    /** @var YearRevenueRepository */
-    public $yearRevenueRepository;
-    /** @var PlayRepository */
-    public $playRepository;
+
+    /** @var YearRevenueService */
+    public $yearRevenueService;
+    /** @var PlayService */
+    public $playService;
     /** @var InvestmentRepository */
     public $investmentRepository;
     /** @var UserService */
@@ -27,16 +25,15 @@ class Stocks extends MY_Controller
     {
         parent::__construct();
         $this->load->database();
-        $this->userRepository = new UserRepository();
-        $this->yearRevenueRepository = new YearRevenueRepository($this->db);
-        $this->playRepository = new PlayRepository($this->db);
+        $this->yearRevenueService = YearRevenueService::getInstance();
+        $this->playService = PlayService::getInstance();
         $this->investmentRepository = new InvestmentRepository($this->db);
         $this->userService = UserService::getInstance();
     }
 
     public function index()
     {
-        $data['yearsRevenue'] = $this->yearRevenueRepository->getAll();
+        $data['yearsRevenue'] = $this->yearRevenueService->getAll();
         $this->load->view("stocks/index");
         $this->load->view("templates/footer/index");
         $this->load->view("stocks/index_scripts", $data);
@@ -67,44 +64,68 @@ class Stocks extends MY_Controller
 
         $investmentId = $this->investmentRepository->insert($investment);
         if ($period === self::MAX_PERIODS) {
-            $this->playRepository->update($playId, $totalCashBalance);
+            $this->playService->update($playId, $totalCashBalance);
         }
     }
 
     public function sendRSAnswers()
     {
         $data = $this->receiveJSON()->params;
-        $this->userRepository->updateRsAnswers($data->user_id, $data);
+        try {
+            $this->userService->updateAnswers("rs", $data->user_id, $data);
+        } catch (Exception $e) {
+            log_message("error", $e->getMessage());
+        }
     }
 
     public function sendFSAnswers()
     {
         $data = $this->receiveJSON()->params;
-        $this->userRepository->updateFSAnswers($data->user_id, $data);
+        try {
+            $this->userService->updateAnswers("fs", $data->user_id, $data);
+        } catch (Exception $e) {
+            log_message("error", $e->getMessage());
+        }
     }
 
     public function sendRSAnswers2()
     {
         $data = $this->receiveJSON()->params;
-        $this->userRepository->updateRsAnswers2($data->user_id, $data);
+        try {
+            $this->userService->updateAnswers("rs2", $data->user_id, $data);
+        } catch (Exception $e) {
+            log_message("error", $e->getMessage());
+        }
     }
 
     public function sendKSAnswers()
     {
         $data = $this->receiveJSON()->params;
-        $this->userRepository->sendKSAnswers($data->user_id, $data);
+        try {
+            $this->userService->updateAnswers("ks", $data->user_id, $data);
+        } catch (Exception $e) {
+            log_message("error", $e->getMessage());
+        }
     }
 
     public function sendCSAnswers()
     {
         $data = $this->receiveJSON()->params;
-        $this->userRepository->updateCsAnswers($data->user_id, $data);
+        try {
+            $this->userService->updateAnswers("cs", $data->user_id, $data);
+        } catch (Exception $e) {
+            log_message("error", $e->getMessage());
+        }
     }
 
     public function sendOptAnswers()
     {
         $data = $this->receiveJSON()->params;
-        $this->userRepository->updateOptAnswers($data->user_id, $data);
+        try {
+            $this->userService->updateAnswers("opt", $data->user_id, $data);
+        } catch (Exception $e) {
+            log_message("error", $e->getMessage());
+        }
     }
 
     public function initGame()
@@ -131,7 +152,7 @@ class Stocks extends MY_Controller
             );
         }
 
-        $playId = $this->playRepository->insert($userId);
+        $playId = $this->playService->insert($userId);
 
         return $this->ajaxResponse(
             [
@@ -255,13 +276,9 @@ class Stocks extends MY_Controller
                 fputcsv($f, $prepended);
             }
         }
-        // reset the file pointer to the start of the file
         fseek($f, 0);
-        // tell the browser it's going to be a csv file
         header('Content-Type: application/csv');
-        // tell the browser we want to save it instead of displaying it
         header('Content-Disposition: attachment; filename="podaci.csv";');
-        // make php send the generated csv lines to the browser
         fpassthru($f);
     }
 }

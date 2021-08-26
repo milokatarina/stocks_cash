@@ -36,7 +36,7 @@ class UserRepository
         return $this->db->insert_id();
     }
 
-    public function sendKSAnswers($userId, $data)
+    public function updateKSAnswers($userId, $data)
     {
         $this->db->query(
             "

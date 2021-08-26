@@ -1,1 +1,1 @@
-{"version":1,"defects":{"SampleTest::testTrueAssertsToTrue":5,"UserTest::testUserCreate":4},"times":{"SampleTest::testTrueAssertsToTrue":0,"PlayTest::testPlayCreate":0.001,"UserTest::testUserCreate":0.007,"UserTest::test":0}}
+{"version":1,"defects":{"SampleTest::testTrueAssertsToTrue":5,"UserTest::testUserCreate":4},"times":{"SampleTest::testTrueAssertsToTrue":0,"PlayTest::testPlayCreate":0.001,"UserTest::testUserCreate":0.01,"UserTest::test":0}}

@@ -1,6 +1,7 @@
 <?php
 
 require_once APPPATH.'core/Factory/UserFactory.php';
+require_once APPPATH.'core/Repository/UserRepository.php';
 
 class UserService
 {
@@ -66,5 +67,33 @@ class UserService
         );
 
         return $this->userRepository->insert($user);
+    }
+
+    public function updateAnswers($type, $userId, $answers)
+    {
+        switch ($type) {
+            case "opt":
+                $this->userRepository->updateOptAnswers($userId, $answers);
+                break;
+            case "cs":
+                $this->userRepository->updateCsAnswers($userId, $answers);
+                break;
+            case "ks":
+                $this->userRepository->updateKSAnswers($userId, $answers);
+                break;
+            case "rs":
+                $this->userRepository->updateRsAnswers($userId, $answers);
+                break;
+            case "rs2":
+                $this->userRepository->updateRsAnswers2($userId, $answers);
+                break;
+            case "fs":
+                $this->userRepository->updateFSAnswers($userId, $answers);
+                break;
+            default:
+            {
+                throw new Exception("Unknown type of answers.");
+            }
+        }
     }
 }

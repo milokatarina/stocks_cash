@@ -3,11 +3,25 @@
 class PlayRepository
 {
     public $db;
+    private static $instance = null;
 
-    public function __construct($db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = &get_instance()->db;
     }
+
+    /**
+     * @return static
+     */
+    public static function getInstance(): self
+    {
+        if (empty(static::$instance)) {
+            static::$instance = new static();
+        }
+
+        return static::$instance;
+    }
+
 
     public function insert($user_id): int
     {
