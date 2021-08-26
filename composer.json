@@ -6,9 +6,9 @@
       "email": "katarina@jagodina.com"
     }
   ],
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
   "require": {
     "phpunit/phpunit": "^9.5"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable" : true
+  }
 }
