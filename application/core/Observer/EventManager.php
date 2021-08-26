@@ -27,20 +27,22 @@ class EventManager
         array_push(self::$eventListeners, $newListener);
     }
 
-    public static function unsubscribe($eventType, $listener)
+    public static function unsubscribe($eventType, $listener): array
     {
         self::$eventListeners = array_filter(
             self::$eventListeners,
             function ($a) use ($eventType, $listener) {
-                return !($a->eventType !== $eventType && $a->listener == $listener);
+                return !($a->eventType == $eventType && $a->listener == $listener);
             }
         );
+
+        return self::$eventListeners;
     }
 
     public static function notify($eventType, $data)
     {
         foreach (self::$eventListeners as $listener) {
-            $listener->update($eventType, $data);
+            $listener->listener->update($eventType, $data);
         }
     }
 }

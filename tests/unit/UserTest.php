@@ -1,7 +1,6 @@
 <?php
 
-require_once APPPATH.'core/Service/UserService.php';
-require_once APPPATH.'core/Repository/UserRepository.php';
+require_once APPPATH.'core/Factory/UserFactory.php';
 
 class UserTest extends \PHPUnit\Framework\TestCase
 {

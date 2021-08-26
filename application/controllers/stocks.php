@@ -60,7 +60,7 @@ class Stocks extends MY_Controller
     public function index()
     {
         $data['yearsRevenue'] = $this->yearRevenueService->getAll();
-        $this->eventManager::subscribe('playStarted', $this->playService);
+        $this->eventManager::subscribe('playGame', $this->playService);
         $this->load->view("stocks/index");
         $this->load->view("templates/footer/index");
         $this->load->view("stocks/index_scripts", $data);
@@ -103,9 +103,9 @@ class Stocks extends MY_Controller
             $eventData = new stdClass();
             $eventData->playId = $playId;
             $eventData->totalBalance = $totalCashBalance;
-            $this->eventManager::notify('playFinished', $eventData);
+            $this->eventManager::notify('playGame', $eventData);
             $this->playService->update('playFinished', $eventData);
-            $this->eventManager::unsubscribe('playFinished', $this->playService);
+            $this->eventManager::unsubscribe('playGame', $this->playService);
         }
     }
 
