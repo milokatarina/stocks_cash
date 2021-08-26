@@ -12,6 +12,7 @@ require_once APPPATH.'core/Entity/Investment.php';
 require_once APPPATH.'core/Service/UserService.php';
 require_once APPPATH.'core/Service/PlayService.php';
 require_once APPPATH.'core/Service/YearRevenueService.php';
+require_once APPPATH.'core/Observer/EventManager.php';
 
 $instance = ContractApplication::getInstance();
 
@@ -42,6 +43,8 @@ class Stocks extends MY_Controller
     public $investmentRepository;
     /** @var UserService */
     public $userService;
+    /** @var EventManager */
+    public $eventManager;
 
     public function __construct()
     {
@@ -51,11 +54,13 @@ class Stocks extends MY_Controller
         $this->playService = PlayService::getInstance();
         $this->investmentRepository = InvestmentRepository::getInstance();
         $this->userService = UserService::getInstance();
+        $this->eventManager = EventManager::getInstance();
     }
 
     public function index()
     {
         $data['yearsRevenue'] = $this->yearRevenueService->getAll();
+        $this->eventManager::subscribe('playStarted', $this->playService);
         $this->load->view("stocks/index");
         $this->load->view("templates/footer/index");
         $this->load->view("stocks/index_scripts", $data);
@@ -95,7 +100,12 @@ class Stocks extends MY_Controller
 
         $this->investmentRepository->insert($investment);
         if ($period === self::MAX_PERIODS) {
-            $this->playService->update($playId, $totalCashBalance);
+            $eventData = new stdClass();
+            $eventData->playId = $playId;
+            $eventData->totalBalance = $totalCashBalance;
+            $this->eventManager::notify('playFinished', $eventData);
+            $this->playService->update('playFinished', $eventData);
+            $this->eventManager::unsubscribe('playFinished', $this->playService);
         }
     }
 

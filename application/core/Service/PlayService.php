@@ -1,11 +1,12 @@
 <?php
 
-require_once APPPATH.'core/Factory/PlayFactory.php';
-require_once APPPATH.'core/Repository/PlayRepository.php';
-
 use PhpDeal\Annotation as Contract;
 
-class PlayService
+require_once APPPATH.'core/Factory/PlayFactory.php';
+require_once APPPATH.'core/Repository/PlayRepository.php';
+require_once APPPATH.'core/Interface/EventListener.php';
+
+class PlayService implements EventListener
 {
     private static $instance = null;
 
@@ -40,13 +41,15 @@ class PlayService
     }
 
     /**
-     * @param int $playId
-     * @param int $totalBalance
-     * @Contract\Verify("$playId > 0 && $totalBalance!==null")
+     * @param stdClass $data
+     * @param string $eventType
+     * @Contract\Verify("$data->playId > 0 && $data->totalBalance!==null")
      */
-    public function update($playId, $totalBalance)
+    public function update($eventType, $data)
     {
-        $this->playRepository->update($playId, $totalBalance);
+        if ($eventType === 'playFinished') {
+            $this->playRepository->update($data->playId, $data->totalBalance);
+        }
     }
 
     /**
@@ -56,6 +59,7 @@ class PlayService
     public function create($userId): int
     {
         $play = $this->playFactory->create($userId);
+
         return $this->playRepository->insert($play);
     }
 

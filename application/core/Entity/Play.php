@@ -81,6 +81,4 @@ class Play
     {
         return $this->user_id;
     }
-
-
 }
