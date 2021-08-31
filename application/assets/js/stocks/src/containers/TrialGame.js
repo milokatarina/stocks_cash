@@ -43,7 +43,6 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
         );
         const calculatedCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(2));
         setCurrentCashBalance(calculatedCashBalance);
-        setIsRiskPercVisible(true);
         setDepositPercent(50);
         setStocksPercent(50);
         updatePeriodYieldsData(nextNumberOfYearsPlayed, depositBalance, stockBalance, lastRevenue);
@@ -80,6 +79,19 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
         return <EndGame gain={currentCashBalance} title="Probni period je gotov. Klikni 'Dalje' da bi počeo igru."
                         onNextClick={onScreenChange} hasNextButton/>
     }
+    if (isRiskPercVisible) {
+        return (
+            <RiskPerception
+                currentYear={currentYearRevenue.year}
+                setIsRiskPercVisible={setIsRiskPercVisible}
+                setRp={setRp}
+                invest={invest}
+                onBack={() => {
+                    setIsRiskPercVisible(false)
+                }}
+            />
+        )
+    }
     return (
         <StyledContainer>
             <div className="mainHeader" style={{
@@ -89,86 +101,79 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA - PROBNI PERIOD ({parseInt(currentYearRevenue.year)+3}. GODINA)
+                IGRA ULAGANJA - PROBNI PERIOD ({parseInt(currentYearRevenue.year) + 3}. GODINA)
             </div>
-            {isRiskPercVisible ? <RiskPerception
-                currentYear={currentYearRevenue.year}
-                setIsRiskPercVisible = {setIsRiskPercVisible}
-                setRp={setRp}
-                invest={invest}
-                onBack={() => {
-                    setIsRiskPercVisible(false)
-                }}
-            /> : (
-                <div>
-                    <div className="mainHeader" style={{height: '100px'}}>
-                        <div>
-                            Poslednji prihod: {lastRevenue}
-                        </div>
-                        <div>
-                            Ukupan iznos: {currentCashBalance}
-                        </div>
+            <div>
+                <div className="mainHeader" style={{height: '100px'}}>
+                    <div>
+                        Poslednji prihod: {lastRevenue}
                     </div>
-                    <Grid>
-                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <Col xs={6} style={{border: '1px solid #ccc', padding: '15px', height: '400px'}}>
-                                <div>
-                                    <PieChart
-                                        data={pieChartData}
-                                        label={({dataEntry}) => dataEntry.value + " % " + dataEntry.title}
-                                        labelStyle={() => ({
-                                            fill: '#ffff',
-                                            fontSize: '5px'
-                                        })}
-                                        segmentsShift={(index) => (index === 0 ? 2 : 0.5)}
-                                        radius={42}
-                                        startAngle={90}
-                                    />
-                                </div>
-                            </Col>
-                            <Col xs={6}
-                                 style={{
-                                     border: '1px solid #ccc',
-                                     borderLeft: 'none',
-                                     padding: '15px',
-                                     position: 'relative'
-                                 }}>
-                                <InputSlider initCashBalance={currentCashBalance} initValue={stocksPercent}
-                                             name='AKCIJE'
-                                             handleOnChange={handleStocksOnChange}/>
-                                <InputSlider initCashBalance={currentCashBalance} initValue={depositPercent}
-                                             name='DEPOZIT'
-                                             handleOnChange={handleDepositOnChange}/>
-                                <Button
-                                    variant="contained"
-                                    onClick={invest}
-                                    color="primary"
-                                    style={{position: 'absolute', bottom: '15px'}}
-                                >
-                                    INVESTIRAJ!
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Grid>
-                    <Grid>
-                        <Row style={{marginLeft: '0px', marginRight: '0px', height: '500px'}}>
-                            <Col xs={8} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
-                                <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayedTrial + initYearsRange)}
-                                       isTrial
-                                       currentYearRevenue={currentYearRevenue}
+                    <div>
+                        Ukupan iznos: {currentCashBalance}
+                    </div>
+                </div>
+                <Grid>
+                    <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                        <Col xs={6} style={{border: '1px solid #ccc', padding: '15px', height: '400px'}}>
+                            <div>
+                                <PieChart
+                                    data={pieChartData}
+                                    label={({dataEntry}) => dataEntry.value + " % " + dataEntry.title}
+                                    labelStyle={() => ({
+                                        fill: '#ffff',
+                                        fontSize: '5px'
+                                    })}
+                                    segmentsShift={(index) => (index === 0 ? 2 : 0.5)}
+                                    radius={42}
+                                    startAngle={90}
                                 />
-                            </Col>
-                            <Col xs={4} style={{
-                                border: '1px solid #ccc',
-                                borderLeft: 'none',
-                                borderTop: 'none',
-                                padding: '15px'
-                            }}>
-                                <PeriodYieldsGraph data={periodYieldsData}/>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </div>)}
+                            </div>
+                        </Col>
+                        <Col xs={6}
+                             style={{
+                                 border: '1px solid #ccc',
+                                 borderLeft: 'none',
+                                 padding: '15px',
+                                 position: 'relative'
+                             }}>
+                            <InputSlider initCashBalance={currentCashBalance} initValue={stocksPercent}
+                                         name='AKCIJE'
+                                         handleOnChange={handleStocksOnChange}/>
+                            <InputSlider initCashBalance={currentCashBalance} initValue={depositPercent}
+                                         name='DEPOZIT'
+                                         handleOnChange={handleDepositOnChange}/>
+                            <Button
+                                variant="contained"
+                                onClick={() => {
+                                    setIsRiskPercVisible(true)
+                                }}
+                                color="primary"
+                                style={{position: 'absolute', bottom: '15px'}}
+                            >
+                                INVESTIRAJ!
+                            </Button>
+                        </Col>
+                    </Row>
+                </Grid>
+                <Grid>
+                    <Row style={{marginLeft: '0px', marginRight: '0px', height: '500px'}}>
+                        <Col xs={8} style={{border: '1px solid #ccc', borderTop: 'none', padding: '15px'}}>
+                            <Graph yearsRevenue={yearsRevenue.slice(0, numberOfPeriodsPlayedTrial + initYearsRange)}
+                                   isTrial
+                                   currentYearRevenue={currentYearRevenue}
+                            />
+                        </Col>
+                        <Col xs={4} style={{
+                            border: '1px solid #ccc',
+                            borderLeft: 'none',
+                            borderTop: 'none',
+                            padding: '15px'
+                        }}>
+                            <PeriodYieldsGraph data={periodYieldsData}/>
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
         </StyledContainer>
     )
 }

@@ -15,7 +15,6 @@ const RSSurvey = ({onNextChange}) => {
     const [rs6, setRs6] = useState(null);
     const [rs7, setRs7] = useState(null);
     useEffect(() => {
-        console.log('hej');
         window.scrollTo(0, 0)
     }, [])
     const onClickNext = () => {

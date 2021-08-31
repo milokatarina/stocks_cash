@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
@@ -9,7 +9,9 @@ const ConfidenceSurvey = ({onNextChange}) => {
     const [cs3, setCs3] = useState(null);
     const [cs4, setCs4] = useState(null);
     const [cs5, setCs5] = useState(null);
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const onClickNext = () => {
         onNextChange({cs1, cs2, cs3, cs4, cs5})
     }

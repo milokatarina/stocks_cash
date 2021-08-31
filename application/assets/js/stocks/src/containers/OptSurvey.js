@@ -1,7 +1,4 @@
-import React, {useState} from 'react';
-import {CustomRadioQuestion} from "../components/CustomRadioQuestion";
-import * as CONST from "../constants";
-import {TextQuestion} from "../components/TextQuestion";
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
@@ -12,7 +9,9 @@ const OptSurvey = ({onNextChange}) => {
     const [os3, setOs3] = useState(null);
     const [os4, setOs4] = useState(null);
     const [os5, setOs5] = useState(null);
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const onClickNext = () => {
         onNextChange({os1, os2, os3, os4, os5})
     }

@@ -14,6 +14,7 @@ import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
 import ConfidenceSurvey from "./ConfidenceSurvey";
 import OptSurvey from "./OptSurvey";
 import {RiskPerception} from "../components/RiskPerception";
+import {ContinueModal} from "../components/ContinueModal";
 
 const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const initCashBalance = 1000;
@@ -30,15 +31,35 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const [isRiskPercVisible, setIsRiskPercVisible] = useState(false);
     const [periodYieldsData, setPeriodYieldsData] = useState([]);
 
-    const [isConfidenceSurveyDone, setIsConfidenceSurveyDone] = useState(false);
-    const [isOptSurveyDone, setIsOptSurveyDone] = useState(false);
+    const [isConfidenceSurveyVisible, setIsConfidenceSurveyVisible] = useState(false);
+    const [isOptSurveyVisible, setIsOptSurveyVisible] = useState(false);
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setIsConfidenceSurveyVisible(true);
+    }
+
+    const handleFinishGame = () => {
+        setShowModal(false);
+        onScreenChange();
+    }
+
+    const handleShowModal = () => setShowModal(true);
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
     const invest = ({risk}) => {
         const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
         setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
-        setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
+        if (nextNumberOfYearsPlayed === 11 || nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
+            setShowModal(true);
+        }
+        if (nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
+            setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed - 1]);
+        }
         const depositBalance = currentDepositBalance * currentYearRevenue.deposit_revenue / 100;
         const stockBalance = currentStocksBalance * currentYearRevenue.stocks_revenue / 100;
         const lastRevenue = parseFloat((
@@ -99,7 +120,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         return (
             <RiskPerception
                 currentYear={currentYearRevenue.year}
-                setIsRiskPercVisible = {setIsRiskPercVisible}
+                setIsRiskPercVisible={setIsRiskPercVisible}
                 setRp={setRp}
                 invest={invest}
                 onBack={() => {
@@ -109,24 +130,20 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         )
     }
 
-    if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
-        return <EndGame title="Kraj igre. Kliknite dalje da predjete na upitnike." onNextClick={onScreenChange}
-                        hasNextButton={true}
-                        gain={currentCashBalance}/>
-    }
-    if (numberOfPeriodsPlayed === 11 && !isConfidenceSurveyDone && !isRiskPercVisible) {
+    if (numberOfPeriodsPlayed === 11 && isConfidenceSurveyVisible) {
         return <ConfidenceSurvey onNextChange={({cs1, cs2, cs3, cs4, cs5}) => {
             api.sendConfidenceAnswers({
                 userId, cs1, cs2, cs3, cs4, cs5
             })
-            setIsConfidenceSurveyDone(true);
+            setIsConfidenceSurveyVisible(false);
+            setIsOptSurveyVisible(true)
         }}/>
     }
 
-    if (numberOfPeriodsPlayed === 11 && isConfidenceSurveyDone && !isOptSurveyDone && !isRiskPercVisible) {
+    if (numberOfPeriodsPlayed === 11 && isOptSurveyVisible) {
         return <OptSurvey onNextChange={({os1, os2, os3, os4, os5}) => {
             api.sentOptAnswers({userId, os1, os2, os3, os4, os5})
-            setIsOptSurveyDone(true);
+            setIsOptSurveyVisible(false);
         }}/>
     }
 
@@ -215,6 +232,12 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                     </Row>
                 </Grid>
             </div>
+            <ContinueModal
+                show={showModal}
+                text={numberOfPeriodsPlayed === CONST.MAX_PERIODS
+                    ? "Kraj igre. Vaš rezultat je " + currentCashBalance + ". Molimo Vas da odgovorite na sledeća pitanja."
+                    : "Igra se nastavlja nakon što odgovorite na sledeća pitanja."}
+                handleClose={numberOfPeriodsPlayed === CONST.MAX_PERIODS ? handleFinishGame : handleCloseModal}/>
         </StyledContainer>
     )
 }
