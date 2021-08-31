@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Col, Row} from "react-styled-flexboxgrid";
 import {PieChart} from "react-minimal-pie-chart";
@@ -13,6 +13,7 @@ import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
 import ConfidenceSurvey from "./ConfidenceSurvey";
 import OptSurvey from "./OptSurvey";
+import {RiskPerception} from "../components/RiskPerception";
 
 const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     const initCashBalance = 1000;
@@ -31,7 +32,9 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
 
     const [isConfidenceSurveyDone, setIsConfidenceSurveyDone] = useState(false);
     const [isOptSurveyDone, setIsOptSurveyDone] = useState(false);
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const invest = ({risk}) => {
         const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
         setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
@@ -91,28 +94,18 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         {title: CONST.STOCKS, value: stocksPercent, color: '#E38627'},
         {title: CONST.DEPOSIT, value: depositPercent, color: '#C13C37'}
     ];
+
     if (isRiskPercVisible) {
         return (
-            <StyledContainer>
-                <div className="mainHeader" style={{
-                    borderTop: 'none',
-                    borderBottom: 'white',
-                    border: '1px solid',
-                    borderLeft: 'none',
-                    borderRight: 'none'
-                }}>
-                    IGRA INVESTICIJA ({currentYearRevenue.year}.GODINA)
-                </div>
-                <Auto5RadioQuestion
-                    question="Koliko rizicnim percipirate vase prethodno ulaganje"
-                    value={null}
-                    handleInputChange={(value) => {
-                        setRp(value);
-                        setIsRiskPercVisible(false)
-                        invest({risk: value});
-                    }}
-                />
-            </StyledContainer>
+            <RiskPerception
+                currentYear={currentYearRevenue.year}
+                setIsRiskPercVisible = {setIsRiskPercVisible}
+                setRp={setRp}
+                invest={invest}
+                onBack={() => {
+                    setIsRiskPercVisible(false)
+                }}
+            />
         )
     }
 
@@ -146,7 +139,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA ({currentYearRevenue.year}.GODINA)
+                IGRA ULAGANJA ({currentYearRevenue.year}.GODINA)
             </div>
             <div>
                 <div className="mainHeader" style={{height: '100px'}}>
@@ -154,7 +147,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                         Poslednji prihod: {lastRevenue}
                     </div>
                     <div>
-                        Bilans: {currentCashBalance}
+                        Ukupan iznos: {currentCashBalance}
                     </div>
                 </div>
                 <Grid>

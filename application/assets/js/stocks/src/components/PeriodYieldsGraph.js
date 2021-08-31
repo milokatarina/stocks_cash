@@ -17,7 +17,7 @@ const PeriodYieldsGraph = ({data}) => {
                 accessor: 'deposit_yields',
             },
             {
-                Header: 'Bilans',
+                Header: 'Rezultat',
                 accessor: 'cash_balance',
             },
         ],

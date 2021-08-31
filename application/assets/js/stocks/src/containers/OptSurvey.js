@@ -25,7 +25,7 @@ const OptSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA
+                IGRA ULAGANJA
             </div>
             <MainContent>
                 <StyledIntro>

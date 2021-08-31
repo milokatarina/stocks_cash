@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CustomRadioQuestion} from "../components/CustomRadioQuestion";
 import * as CONST from "../constants";
 import {TextQuestion} from "../components/TextQuestion";
@@ -14,7 +14,10 @@ const RSSurvey = ({onNextChange}) => {
     const [rs5, setRs5] = useState(null);
     const [rs6, setRs6] = useState(null);
     const [rs7, setRs7] = useState(null);
-
+    useEffect(() => {
+        console.log('hej');
+        window.scrollTo(0, 0)
+    }, [])
     const onClickNext = () => {
         onNextChange({rs1, rs2, rs3, rs4, rs5, rs6, rs7})
     }
@@ -27,7 +30,7 @@ const RSSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA
+                IGRA ULAGANJA
             </div>
             <MainContent>
                 <StyledIntro>
@@ -63,7 +66,7 @@ const RSSurvey = ({onNextChange}) => {
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Ne smatram da finansijske rizike treba izbeći po svaku cenu"
+                    question="Smatram da finansijske rizike treba izbeći po svaku cenu"
                     value={rs5}
                     handleInputChange={(value) => {
                         setRs5(value);

@@ -6,7 +6,7 @@ export const GENDER = ["Muški", "Ženski"];
 export const STUDIES_DEGREE = ["III godina osnovnih akademskih studija", "IV godina osnovnih akademskih studija", "master akademske studije"]
 export const STUDIES_TITLE = ["Finansije", "Računovodstvo", "Ostalo"];
 export const FINANCING = ["Finansiranje iz budžeta", "Samofinansiranje"];
-export const STIPENDIES = ["Stipendije i krediti dati od strane Ministarstva prosvete", "Plata", "Ušteđevina"];
+export const STIPENDIES = ["Studentske stipendije i kredite", "Platu", "Ušteđevinu"];
 export const LIVING_PLACE = ["Nalazi se u gradu u kome studiram", "Nalazi se van grada u kome studiram"];
 export const YES_NO = ["Da", "Ne"];
 export const fiveAnswers = [{
@@ -40,8 +40,8 @@ export const FIN_6 = ["Više nego danas", "Manje nego danas", "Isto kao i danas"
 export const FIN_7 = ["Oročeni depozit", "Akcija", "Obveznica", "Štedni depozit", "Ne znam"];
 export const FIN_8 = ["On poseduje udeo u kompaniji B", "On je pozajmio novac kompaniji B",
     "On je odgovoran za dugovanja kompanije B", "Ne znam"];
-export const FIN_9 = ["On poseduje udeo u kompaniji B", "On je pozajmio novac kompaniji B",
-    "On je odgovoran za dugovanja kompanije B", "Ne znam"];
+export const FIN_9 = ["On poseduje udeo u kompaniji A", "On je pozajmio novac kompaniji A",
+    "On je odgovoran za dugovanja kompanije A", "Ne znam"];
 export const FIN_10 = ["Stariji, radno sposobni bračni partneri koji štede za penziju", "Stariji ljudi koji žive od fiksne mesečne penzije.", "Zaposleni mladi bračni parovi bez dece.",
     "Zaposleni mladi bračni parovi bez dece.", "Radno sposobni mladi bračni parovi sa decom.", "Ne znam."];
 export const FIN_11 = ["Debitne kartice", "Štedni računi", "Keš", "Kreditne kartice", "Ne znam"];

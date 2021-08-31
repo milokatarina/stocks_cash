@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CustomRadioQuestion} from "../components/CustomRadioQuestion";
 import * as CONST from "../constants";
 import {TextQuestion} from "../components/TextQuestion";
@@ -19,7 +19,9 @@ const FinanceSurvey = ({onNextChange}) => {
     const [fs10, setFs10] = useState(null);
     const [fs11, setFs11] = useState(null);
     const [fs12, setFs12] = useState(null);
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const onClickNext = () => {
         onNextChange({fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12})
     }
@@ -32,12 +34,11 @@ const FinanceSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA
+                IGRA ULAGANJA
             </div>
             <MainContent>
                 <StyledIntro>
-                    Na skali od 1 do 5 ocenite sledeće konstatacije.
-                    Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
+                    U narednim pitanjima označite šta je po Vašem mišljenju tačan odgovor.
                 </StyledIntro>
                 <CustomRadioQuestion
                     labels={CONST.FIN_1}
@@ -161,7 +162,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_11}
-                    question="Šta od navedenog nije obično povezano sa potrošnjom"
+                    question="Šta od navedenog nije povezano sa potrošnjom"
                     value={fs11}
                     handleInputChange={(value) => {
                         if (value === 2) {

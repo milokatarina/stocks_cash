@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
 import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
@@ -11,7 +11,9 @@ const RSSurvey2 = ({onNextChange}) => {
     const [rs12, setRs12] = useState(null);
     const [rs13, setRs13] = useState(null);
     const [rs14, setRs14] = useState(null);
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const onClickNext = () => {
         onNextChange({rs8, rs9, rs10, rs11, rs12, rs13, rs14})
     }
@@ -24,7 +26,7 @@ const RSSurvey2 = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA
+                IGRA ULAGANJA
             </div>
             <MainContent>
                 <StyledIntro>

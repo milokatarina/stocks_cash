@@ -26,7 +26,7 @@ const DSSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA
+                IGRA ULAGANJA
             </div>
             <MainContent>
                 <CustomRadioQuestion
@@ -69,7 +69,7 @@ const DSSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.STIPENDIES}
-                    question="Način izdržavanja tokom studija (zakokružiti jednu opciju koja je u najvećoj meri dala doprinos)"
+                    question="Kao dopunski izvor finansiranja tokom studija, pored izdržavanja od strane roditelja, mogu izdvojiti"
                     value={ds6}
                     handleInputChange={(value) => {
                         setDs6(value);

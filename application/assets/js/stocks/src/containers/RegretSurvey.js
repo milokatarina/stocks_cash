@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CustomRadioQuestion} from "../components/CustomRadioQuestion";
 import * as CONST from "../constants";
 import {TextQuestion} from "../components/TextQuestion";
@@ -18,6 +18,9 @@ const RegretSurvey = ({onNextChange}) => {
     const onClickNext = () => {
         onNextChange({ks1, ks2, ks3, ks4, ks5, ks6, ks7})
     }
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     return (
         <StyledContainer>
             <div className="mainHeader" style={{
@@ -27,7 +30,7 @@ const RegretSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA
+                IGRA ULAGANJA
             </div>
             <MainContent>
                 <StyledIntro>

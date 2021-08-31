@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Col, Row} from "react-styled-flexboxgrid";
 import {PieChart} from "react-minimal-pie-chart";
@@ -8,8 +8,8 @@ import Graph from "../components/Graph";
 import styled from "styled-components";
 import * as CONST from "../constants";
 import {EndGame} from "./EndGame";
-import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
+import {RiskPerception} from "../components/RiskPerception";
 
 const TrialGame = ({yearsRevenue, onScreenChange}) => {
     const initCashBalance = 1000;
@@ -26,7 +26,9 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
     const [isRiskPercVisible, setIsRiskPercVisible] = useState(false);
     const [periodYieldsData, setPeriodYieldsData] = useState([]);
 
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const invest = () => {
         const nextNumberOfYearsPlayed = numberOfPeriodsPlayedTrial + 1;
         setNumberOfPeriodsPlayedTrial(nextNumberOfYearsPlayed);
@@ -87,13 +89,14 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA INVESTICIJA - PROBNI PERIOD ({parseInt(currentYearRevenue.year)+3}. GODINA)
+                IGRA ULAGANJA - PROBNI PERIOD ({parseInt(currentYearRevenue.year)+3}. GODINA)
             </div>
-            {isRiskPercVisible ? <Auto5RadioQuestion
-                question="Koliko rizicnim percipirate vase prethodno ulaganje"
-                value={null}
-                handleInputChange={(value) => {
-                    setRp(value);
+            {isRiskPercVisible ? <RiskPerception
+                currentYear={currentYearRevenue.year}
+                setIsRiskPercVisible = {setIsRiskPercVisible}
+                setRp={setRp}
+                invest={invest}
+                onBack={() => {
                     setIsRiskPercVisible(false)
                 }}
             /> : (
@@ -103,7 +106,7 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                             Poslednji prihod: {lastRevenue}
                         </div>
                         <div>
-                            Bilans: {currentCashBalance}
+                            Ukupan iznos: {currentCashBalance}
                         </div>
                     </div>
                     <Grid>
