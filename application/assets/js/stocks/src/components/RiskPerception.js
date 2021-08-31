@@ -3,7 +3,7 @@ import {Auto5RadioQuestion} from "./Auto5RadioQuestion";
 import styled from "styled-components";
 import {Button} from "@material-ui/core";
 
-export const RiskPerception = ({currentYear, setIsRiskPercVisible, setRp, invest, onBack}) => {
+export const RiskPerception = ({currentYear, setIsRiskPercVisible, setRp, invest, onBack, text}) => {
     return (
         <StyledContainer>
             <div className="mainHeader" style={{
@@ -13,7 +13,7 @@ export const RiskPerception = ({currentYear, setIsRiskPercVisible, setRp, invest
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA ({currentYear}.GODINA)
+                {text} ({currentYear}. GODINA)
             </div>
             <Auto5RadioQuestion
                 question="Koliko rizičnim percipirate Vaše prethodno ulaganje"

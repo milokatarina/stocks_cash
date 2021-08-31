@@ -82,13 +82,14 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
     if (isRiskPercVisible) {
         return (
             <RiskPerception
-                currentYear={currentYearRevenue.year}
+                currentYear={parseInt(currentYearRevenue.year) + 3}
                 setIsRiskPercVisible={setIsRiskPercVisible}
                 setRp={setRp}
                 invest={invest}
                 onBack={() => {
                     setIsRiskPercVisible(false)
                 }}
+                text={"IGRA ULAGANJA - PROBNI PERIOD"}
             />
         )
     }

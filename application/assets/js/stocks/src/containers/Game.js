@@ -119,13 +119,14 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
     if (isRiskPercVisible) {
         return (
             <RiskPerception
-                currentYear={currentYearRevenue.year}
+                currentYear={parseInt(currentYearRevenue.year)}
                 setIsRiskPercVisible={setIsRiskPercVisible}
                 setRp={setRp}
                 invest={invest}
                 onBack={() => {
                     setIsRiskPercVisible(false)
                 }}
+                text={"IGRA ULAGANJA"}
             />
         )
     }
