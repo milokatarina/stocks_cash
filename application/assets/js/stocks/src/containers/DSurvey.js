@@ -4,6 +4,7 @@ import {CustomRadioQuestion} from "../components/CustomRadioQuestion";
 import {TextQuestion} from "../components/TextQuestion";
 import {Button} from "@material-ui/core";
 import * as CONST from '../constants';
+import FinanceQuestion from "../components/FinanceQuestion";
 
 const DSSurvey = ({onNextChange}) => {
     const [ds1, setDs1] = useState(null);
@@ -67,14 +68,7 @@ const DSSurvey = ({onNextChange}) => {
                         setDs5(value);
                     }}
                 />
-                <CustomRadioQuestion
-                    labels={CONST.STIPENDIES}
-                    question="Kao dopunski izvor finansiranja tokom studija, pored izdržavanja od strane roditelja, mogu izdvojiti"
-                    value={ds6}
-                    handleInputChange={(value) => {
-                        setDs6(value);
-                    }}
-                />
+                <FinanceQuestion labels={CONST.STIPENDIES}/>
                 <CustomRadioQuestion
                     labels={CONST.LIVING_PLACE}
                     question="Mesto stalnog prebivališta"
