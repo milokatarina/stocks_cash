@@ -24,3 +24,11 @@ body {
     bottom: 0.5rem;
     right: 0.5rem;
 }
+
+.custom-span-tooltip {
+    padding: 5px;
+    background-color: darkgray;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+}

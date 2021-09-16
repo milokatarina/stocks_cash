@@ -4,7 +4,8 @@ import {Chart} from "react-charts";
 
 import "../styles.css";
 import moment from "moment";
-import {Button} from "@material-ui/core";
+import {Button, IconButton, Tooltip} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
 
 export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
@@ -104,17 +105,27 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         return (
             <div style={{marginTop: '30px', marginBottom: '30px'}}>
                 <div style={{margin: '20px 0'}}>
-                    <b>Očekivana stopa prinosa</b> pokazuje koliko je iznosio prosečan prinos na akcije u prethodnom
-                    periodu.Za {currentYearRevenue.year}. godinu
-                    iznosi <b>{currentYearRevenue.expected_rate_stocks_revenue}%</b>.
+                    <Tooltip
+                        placement="top"
+                        arrow
+                        title="Očekivana stopa prinosa pokazuje koliko je iznosio prosečan prinos na akcije u  prethodnom periodu.">
+                        <span className="custom-span-tooltip">
+                            Očekivana stopa prinosa
+                        </span>
+                    </Tooltip> <b>{currentYearRevenue.expected_rate_stocks_revenue}%</b>.
                 </div>
                 <div style={{margin: '20px 0'}}>
-                    <b>Standardna devijacija</b> pokazuje prosečno odstupanje stvarnih prinosa od očekivanih.
-                    Za {currentYearRevenue.year}. godinu iznosi <b>{currentYearRevenue.standard_deviation}%</b>.
+                    <Tooltip
+                        placement="top"
+                        arrow
+                        title="Standardna devijacija pokazuje prosečno odstupanje stvarnih prinosa od očekivanih.">
+                       <span className="custom-span-tooltip">
+                            Standardna devijacija
+                       </span>
+                    </Tooltip> <b>{currentYearRevenue.standard_deviation}%</b>
                 </div>
                 <div style={{margin: '20px 0'}}>
-                    To znači da bi se stvarni prinosi mogli kretati u intervalu
-                    od <b>{expectedRateMin}%</b> do <b>{expectedRateMax}%</b>.
+                    Stvarni prinosi se kreću u intervalu od <b>{expectedRateMin}%</b> do <b>{expectedRateMax}%</b>.
                 </div>
             </div>
         )
@@ -135,7 +146,6 @@ export default function Graph({yearsRevenue, isTrial, currentYearRevenue}) {
         })
         setChartData([{label: '', data: newData}])
     }
-
 
     return (
         <div style={{width: '100%', height: '400px', position: 'relative'}}>
