@@ -30,7 +30,7 @@ const RegretSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA
+                EKSPERIMENTALNO ULAGANJE
             </div>
             <MainContent>
                 <StyledIntro>
@@ -38,7 +38,7 @@ const RegretSurvey = ({onNextChange}) => {
                     Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
                 </StyledIntro>
                 <Auto5RadioQuestion
-                    question="Kada donosim finansijsku odluku sklon sam osvrtanju na ishode svojih prethodno donetih finansijskih odluka"
+                    question="Kada donosim odluku o ulaganju sagledavam ishode svojih prethodno donetih finansijskih odluka"
                     value={ks1}
                     handleInputChange={(value) => {
                         setKs1(value);

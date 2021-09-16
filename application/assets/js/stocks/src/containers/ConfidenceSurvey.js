@@ -24,7 +24,7 @@ const ConfidenceSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA
+                EKSPERIMENTALNO ULAGANJE
             </div>
             <MainContent>
                 <StyledIntro>

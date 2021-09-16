@@ -29,7 +29,7 @@ const RSSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA
+                EKSPERIMENTALNO ULAGANJE
             </div>
             <MainContent>
                 <StyledIntro>
@@ -37,7 +37,7 @@ const RSSurvey = ({onNextChange}) => {
                     Ocena 1 <b>Apsolutno se ne slažem</b>, ocena 5 <b>Apsolutno se slažem</b>.
                 </StyledIntro>
                 <Auto5RadioQuestion
-                    question="Sklon sam ulaganju značajnih novčanih sredstava u investicije sa visokim rizikom"
+                    question="Sklon sam ulaganju novčanih sredstava u investicije sa visokim rizikom"
                     value={rs1}
                     handleInputChange={(value) => {
                         setRs1(value);
@@ -51,7 +51,7 @@ const RSSurvey = ({onNextChange}) => {
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Čak i kada bih prošao sa značajnim gubitkom u nekoj investiciji, i dalje bih razmišljao o ulaganjima u rizičnu aktivu"
+                    question="Čak i kada bih prošao sa velikim gubitkom u nekoj investiciji, i dalje bih razmišljao o ulaganjima u rizičnu aktivu"
                     value={rs3}
                     handleInputChange={(value) => {
                         setRs3(value);
@@ -65,7 +65,7 @@ const RSSurvey = ({onNextChange}) => {
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Smatram da finansijske rizike treba izbeći po svaku cenu"
+                    question="Smatram da se ne treba izlagati finansijskim rizicima"
                     value={rs5}
                     handleInputChange={(value) => {
                         setRs5(value);

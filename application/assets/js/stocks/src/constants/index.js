@@ -6,7 +6,8 @@ export const GENDER = ["Muški", "Ženski"];
 export const STUDIES_DEGREE = ["III godina osnovnih akademskih studija", "IV godina osnovnih akademskih studija", "master akademske studije"]
 export const STUDIES_TITLE = ["Finansije", "Računovodstvo", "Ostalo"];
 export const FINANCING = ["Finansiranje iz budžeta", "Samofinansiranje"];
-export const STIPENDIES = ["Studentske stipendije i kredite", "Platu", "Ušteđevinu"];
+export const STIPENDIES = [
+    "Studentski krediti i stipendije", "Lična primanja", "Izdržavanje od strane roditelja/rođaka", "Ušteđevina"];
 export const LIVING_PLACE = ["Nalazi se u gradu u kome studiram", "Nalazi se van grada u kome studiram"];
 export const YES_NO = ["Da", "Ne"];
 export const fiveAnswers = [{

@@ -26,7 +26,7 @@ const DSSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA
+                EKSPERIMENTALNO ULAGANJE
             </div>
             <MainContent>
                 <CustomRadioQuestion

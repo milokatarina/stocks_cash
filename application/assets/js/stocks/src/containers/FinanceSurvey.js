@@ -34,7 +34,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA
+                EKSPERIMENTALNO ULAGANJE
             </div>
             <MainContent>
                 <StyledIntro>
@@ -114,7 +114,7 @@ const FinanceSurvey = ({onNextChange}) => {
                 />
                 <CustomRadioQuestion
                     labels={CONST.FIN_7}
-                    question="Koja od navedenih aktiva ispoljava najveći stepen fluktuacije tokom vremena"
+                    question="Koja od navedenih aktiva ispoljava najveći stepen oscilacija u prinosima tokom vremena"
                     value={fs7}
                     handleInputChange={(value) => {
                         if (value === 2) {

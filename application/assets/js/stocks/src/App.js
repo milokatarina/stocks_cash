@@ -12,8 +12,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const App = ({yearsRevenue}) => {
     const [screenNumber, setScreenNumber] = useState(1);
-    const [playId, setPlayId] = useState(null);
-    const [userId, setUserId] = useState(null);
+    const [playId, setPlayId] = useState(10);
+    const [userId, setUserId] = useState(10);
+    const [finalBalance, setFinalBalance] = useState(0);
 
     const onNextRSSurvey = ({rs1, rs2, rs3, rs4, rs5, rs6, rs7}) => {
         api.sendRSAnswers({
@@ -51,53 +52,55 @@ export const App = ({yearsRevenue}) => {
     }
 
     switch (screenNumber) {
-        case 1:
-            return <DSurvey onNextChange={({ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10}) => {
-                api.initGame({
-                    ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10
-                }).then((response) => {
-                    setScreenNumber(screenNumber + 1);
-                    setPlayId(response.data.data.playId);
-                    setUserId(response.data.data.userId);
-                })
-            }}/>
-        case 2:
-            return <RSSurvey
-                onNextChange={onNextRSSurvey}
-            />
-        case 3:
-            return <TrialGame
-                yearsRevenue={yearsRevenue}
-                userId={userId}
-                playId={playId}
-                onScreenChange={onScreenChange}
-            />
-        case 4: {
+        // case 1:
+        //     return <DSurvey onNextChange={({ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10}) => {
+        //         api.initGame({
+        //             ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10
+        //         }).then((response) => {
+        //             setScreenNumber(screenNumber + 1);
+        //             setPlayId(response.data.data.playId);
+        //             setUserId(response.data.data.userId);
+        //         })
+        //     }}/>
+        // case 2:
+        //     return <RSSurvey
+        //         onNextChange={onNextRSSurvey}
+        //     />
+        // case 3:
+        //     return <TrialGame
+        //         yearsRevenue={yearsRevenue}
+        //         userId={userId}
+        //         playId={playId}
+        //         onScreenChange={onScreenChange}
+        //     />
+        case 1: {
             return <Game
                 yearsRevenue={yearsRevenue}
                 userId={userId}
                 playId={playId}
                 onScreenChange={onScreenChange}
+                setFinalRevenue={setFinalBalance}
             />
         }
-        case 5: {
-            return <RSSurvey2
-                onNextChange={onNextRSSurvey2}
-            />
-        }
-        case 6: {
-            return <RegretSurvey
-                onNextChange={onNextRegretSurvey}
-            />
-        }
-        case 7: {
-            return <FinanceSurvey
-                onNextChange={onNextFinanceSurvey}
-            />
-        }
+        // case 5: {
+        //     return <RSSurvey2
+        //         onNextChange={onNextRSSurvey2}
+        //     />
+        // }
+        // case 6: {
+        //     return <RegretSurvey
+        //         onNextChange={onNextRegretSurvey}
+        //     />
+        // }
+        // case 7: {
+        //     return <FinanceSurvey
+        //         onNextChange={onNextFinanceSurvey}
+        //     />
+        // }
         default: {
-            return <EndGame title="Kraj igre. Hvala Vam na izdvojenom vremenu. :)" onNextClick={() => {
-            }} hasNextButton={false}/>
+            return <EndGame gain={finalBalance} title="Kraj igre. Hvala Vam na izdvojenom vremenu. :)"
+                            onNextClick={() => {
+                            }} hasNextButton={false}/>
         }
     }
 }

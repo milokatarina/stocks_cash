@@ -89,7 +89,7 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                 onBack={() => {
                     setIsRiskPercVisible(false)
                 }}
-                text={"IGRA ULAGANJA - PROBNI PERIOD"}
+                text={"EKSPERIMENTALNO ULAGANJE - PROBNI PERIOD"}
             />
         )
     }
@@ -102,12 +102,12 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA - PROBNI PERIOD ({parseInt(currentYearRevenue.year) + 3}. GODINA)
+                EKSPERIMENTALNO ULAGANJE - PROBNI PERIOD ({parseInt(currentYearRevenue.year) + 3}. GODINA)
             </div>
             <div>
                 <div className="mainHeader" style={{height: '100px'}}>
                     <div>
-                        Poslednji prihod: {lastRevenue}
+                        Prinos u prethodnom periodu: {lastRevenue}
                     </div>
                     <div>
                         Ukupan iznos: {currentCashBalance}

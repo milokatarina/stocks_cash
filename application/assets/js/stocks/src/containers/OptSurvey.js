@@ -24,7 +24,7 @@ const OptSurvey = ({onNextChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA
+                EKSPERIMENTALNO ULAGANJE
             </div>
             <MainContent>
                 <StyledIntro>
@@ -46,7 +46,7 @@ const OptSurvey = ({onNextChange}) => {
                     }}
                 />
                 <Auto5RadioQuestion
-                    question="Moje viđenje tržišta akcija u narednom periodu je veoma optimistično"
+                    question="Moje viđenje tržišta akcija u narednom periodu je optimistično"
                     value={os3}
                     handleInputChange={(value) => {
                         setOs3(value);

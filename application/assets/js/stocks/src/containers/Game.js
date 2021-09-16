@@ -8,15 +8,13 @@ import Graph from "../components/Graph";
 import styled from "styled-components";
 import * as api from "../api";
 import * as CONST from "../constants";
-import {EndGame} from "./EndGame";
-import {Auto5RadioQuestion} from "../components/Auto5RadioQuestion";
 import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
 import ConfidenceSurvey from "./ConfidenceSurvey";
 import OptSurvey from "./OptSurvey";
 import {RiskPerception} from "../components/RiskPerception";
 import {ContinueModal} from "../components/ContinueModal";
 
-const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
+const Game = ({yearsRevenue, userId, playId, onScreenChange, setFinalRevenue}) => {
     const initCashBalance = 1000;
     const initYearsRange = 21;
     const [lastRevenue, setLastRevenue] = useState(0);
@@ -43,10 +41,10 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
 
     const handleFinishGame = () => {
         setShowModal(false);
+        setFinalRevenue(currentCashBalance);
         onScreenChange();
     }
 
-    const handleShowModal = () => setShowModal(true);
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -57,7 +55,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
         if (nextNumberOfYearsPlayed === 11 || nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
             setShowModal(true);
         }
-        if (nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
+        if (nextNumberOfYearsPlayed <= CONST.MAX_PERIODS) {
             setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed - 1]);
         }
         const depositBalance = currentDepositBalance * currentYearRevenue.deposit_revenue / 100;
@@ -126,7 +124,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                 onBack={() => {
                     setIsRiskPercVisible(false)
                 }}
-                text={"IGRA ULAGANJA"}
+                text={"EKSPERIMENTALNO ULAGANJE"}
             />
         )
     }
@@ -157,12 +155,12 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange}) => {
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                IGRA ULAGANJA ({currentYearRevenue.year}.GODINA)
+                EKSPERIMENTALNO ULAGANJE ({currentYearRevenue.year}.GODINA)
             </div>
             <div>
                 <div className="mainHeader" style={{height: '100px'}}>
                     <div>
-                        Poslednji prihod: {lastRevenue}
+                        Prinos u prethodnom periodu: {lastRevenue}
                     </div>
                     <div>
                         Ukupan iznos: {currentCashBalance}
