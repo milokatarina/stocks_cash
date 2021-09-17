@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import {FormControlLabel, Radio} from "@material-ui/core";
 import styled from "styled-components";
 
-const FinanceQuestion = ({labels, handleInputChanges}) => {
-    const [answers, setAnswers] = useState([]);
+class FinanceQuestion extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            answers: []
+        }
+    }
 
-    const toggleAnswers = (value) => {
-        const newAnswers = answers;
+    toggleAnswers = (value) => {
+        const newAnswers = this.state.answers;
         if (newAnswers.length === 2 && newAnswers.indexOf(value) !== -1) {
             newAnswers.splice(newAnswers.indexOf(value), 1)
         } else if (newAnswers.length < 2) {
@@ -17,44 +22,52 @@ const FinanceQuestion = ({labels, handleInputChanges}) => {
                 newAnswers.splice(newAnswers.indexOf(value), 1)
             }
         }
-        setAnswers(newAnswers);
+        this.setState({
+            answers: newAnswers
+        }, () => {
+            console.log('setovano');
+        })
     }
 
-    useEffect(() => {
-        return () => {
-            effect
-        };
-    }, [answers]);
-
-
-    const preparedAnswers = labels.map((label, index) => {
-        return {
-            value: index + 1,
-            label: label
-        }
-    });
-
-
-    const renderCheckboxes = preparedAnswers.map((item) => {
-        console.log(item);
-        return <FormControlLabel value={item.value} control={<Checkbox
-        checked={answers.indexOf(parseInt(item.value)) !== -1}
-        onChange={() => toggleAnswers(item.value)}
-        name={item.label}
-        color="primary"
-    />} label={item.label}/>});
-
-    return (
-        <StyledContainer>
-            <StyledTitle>
-                Dopunski izvor finansiranja tokom studija (zaokružiti dva odgovora):
-            </StyledTitle>
-            <StyledAnswers>
-                {renderCheckboxes}
-            </StyledAnswers>
-        </StyledContainer>
-    );
+    render() {
+        console.log('render');
+        return (
+            <StyledContainer>
+                <StyledTitle>
+                    Dopunski izvor finansiranja tokom studija (zaokružiti dva odgovora):
+                </StyledTitle>
+                <StyledAnswers>
+                    <FormControlLabel value={1} control={<Checkbox
+                        disabled={this.state.answers.length === 2 && this.state.answers.indexOf(1) === -1}
+                        onChange={() => this.toggleAnswers(1)}
+                        name={1}
+                        color="primary"
+                    />} label="Studentski krediti i stipendije"/>
+                    <FormControlLabel
+                        value={2} control={<Checkbox
+                        disabled={this.state.answers.length === 2 && this.state.answers.indexOf(2) === -1}
+                        onChange={() => this.toggleAnswers(2)}
+                        name={2}
+                        color="primary"
+                    />} label="Lična primanja"/>
+                    <FormControlLabel value={3} control={<Checkbox
+                        disabled={this.state.answers.length === 2 && this.state.answers.indexOf(3) === -1}
+                        onChange={() => this.toggleAnswers(3)}
+                        name={3}
+                        color="primary"
+                    />} label="Izdržavanje od strane roditelja/rođaka"/>
+                    <FormControlLabel value={4} control={<Checkbox
+                        disabled={this.state.answers.length === 2 && this.state.answers.indexOf(4) === -1}
+                        onChange={() => this.toggleAnswers(4)}
+                        name={4}
+                        color="primary"
+                    />} label="Ušteđevina"/>
+                </StyledAnswers>
+            </StyledContainer>
+        )
+    }
 }
+
 const StyledContainer = styled.div`
   margin: 20px auto;
   width: 500px;
