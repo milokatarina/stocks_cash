@@ -55,19 +55,12 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange, setFinalRevenue}) =
         if (nextNumberOfYearsPlayed === 11 || nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
             setShowModal(true);
         }
-        console.log(nextNumberOfYearsPlayed);
-        console.log(nextNumberOfYearsPlayed <= CONST.MAX_PERIODS);
         let currentYearRevenueObject = yearsRevenue[initYearsRange + nextNumberOfYearsPlayed - 1];
         if (nextNumberOfYearsPlayed <= CONST.MAX_PERIODS) {
-            console.log(currentYearRevenueObject);
             setCurrentYearRevenue(currentYearRevenueObject);
         }
-        console.log(currentYearRevenueObject.deposit_revenue);
-        console.log(currentYearRevenueObject.stocks_revenue);
         const depositBalance = currentDepositBalance * currentYearRevenueObject.deposit_revenue / 100;
         const stockBalance = currentStocksBalance * currentYearRevenueObject.stocks_revenue / 100;
-        console.log({depositBalance});
-        console.log({stockBalance});
         const lastRevenue = parseFloat((
             depositBalance
             + stockBalance).toFixed(2));
