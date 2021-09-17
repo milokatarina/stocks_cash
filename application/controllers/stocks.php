@@ -135,8 +135,8 @@ class Stocks extends MY_Controller
             '
            select u.id, ds1, ds2, ds3, ds4, ds5, ds61, ds62, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP, GROUP_CONCAT(i.rp) riskP, cs1, cs2, cs3, cs4, cs5, os1, os2, os3,  os4, os5, rs8, rs9, rs10, rs11, rs12, rs13, rs14, ks1, ks2, ks3, ks4, ks5, ks6, ks7, fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12
             from user u
-            inner join play p on p.user_id = u.id
-            inner join investment i on i.play_id = p.id
+            left join play p on p.user_id = u.id
+            left join investment i on i.play_id = p.id
             group by u.id;
             '
         );
