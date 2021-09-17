@@ -31,7 +31,6 @@ class FinanceQuestion extends Component {
     }
 
     render() {
-        console.log('render');
         return (
             <StyledContainer>
                 <StyledTitle>
