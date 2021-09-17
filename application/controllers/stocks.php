@@ -107,7 +107,7 @@ class Stocks extends MY_Controller
     {
         $data = $this->receiveJSON()->params;
         $newUser = new User(
-            $data->ds1, $data->ds2, $data->ds3, $data->ds4, $data->ds5, $data->ds6, $data->ds7, $data->ds8,
+            $data->ds1, $data->ds2, $data->ds3, $data->ds4, $data->ds5, $data->ds61, $data->ds62, $data->ds7, $data->ds8,
             $data->ds9, $data->ds10
         );
         try {
@@ -133,7 +133,7 @@ class Stocks extends MY_Controller
     {
         $query = $this->db->query(
             '
-           select u.id, ds1, ds2, ds3, ds4,ds5, ds6, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP, GROUP_CONCAT(i.rp) riskP, cs1, cs2, cs3, cs4, cs5, os1, os2, os3,  os4, os5, rs8, rs9, rs10, rs11, rs12, rs13, rs14, ks1, ks2, ks3, ks4, ks5, ks6, ks7, fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12
+           select u.id, ds1, ds2, ds3, ds4, ds5, ds61, ds62, ds7, ds8, ds9, ds10, rs1, rs2, rs3, rs4, rs5, rs6, rs7, GROUP_CONCAT(i.stocks_percent) stocksP, GROUP_CONCAT(i.rp) riskP, cs1, cs2, cs3, cs4, cs5, os1, os2, os3,  os4, os5, rs8, rs9, rs10, rs11, rs12, rs13, rs14, ks1, ks2, ks3, ks4, ks5, ks6, ks7, fs1, fs2, fs3, fs4, fs5, fs6, fs7, fs8, fs9, fs10, fs11, fs12
             from user u
             inner join play p on p.user_id = u.id
             inner join investment i on i.play_id = p.id
@@ -151,7 +151,8 @@ class Stocks extends MY_Controller
                 "P3 Stepen studija",
                 "P4 Smer",
                 "P5 Finansiranje",
-                "P6 Izdrzavanje",
+                "P61 Dopunsko finansiranje",
+                "P62 Dopunsko finansiranje",
                 "P7 Prebivaliste",
                 "P8 Radno iskustvo",
                 "P9",

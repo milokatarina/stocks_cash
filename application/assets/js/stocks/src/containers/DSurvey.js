@@ -12,7 +12,8 @@ const DSSurvey = ({onNextChange}) => {
     const [ds3, setDs3] = useState(null);
     const [ds4, setDs4] = useState(null);
     const [ds5, setDs5] = useState(null);
-    const [ds6, setDs6] = useState(null);
+    const [ds61, setDs61] = useState(null);
+    const [ds62, setDs62] = useState(null);
     const [ds7, setDs7] = useState(null);
     const [ds8, setDs8] = useState(null);
     const [ds9, setDs9] = useState(null);
@@ -68,7 +69,22 @@ const DSSurvey = ({onNextChange}) => {
                         setDs5(value);
                     }}
                 />
-                <FinanceQuestion labels={CONST.STIPENDIES}/>
+                <FinanceQuestion labels={CONST.STIPENDIES}
+                                 handleOnChange={(answers) => {
+                                     if(typeof answers[0] === "undefined"){
+                                         setDs61(null);
+                                     }
+                                     else {
+                                         setDs61(answers[0]);
+                                     }
+                                     if(typeof answers[1] === "undefined"){
+                                         setDs62(null);
+                                     }
+                                     else {
+                                         setDs62(answers[1]);
+                                     }
+                                 }}
+                />
                 <CustomRadioQuestion
                     labels={CONST.LIVING_PLACE}
                     question="Mesto stalnog prebivališta"
@@ -105,10 +121,10 @@ const DSSurvey = ({onNextChange}) => {
                 <StyledButton
                     variant="contained"
                     onClick={() => {
-                        onNextChange({ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10})
+                        onNextChange({ds1, ds2, ds3, ds4, ds5, ds61, ds62, ds7, ds8, ds9, ds10})
                     }}
                     color="primary"
-                    disabled={!ds1 || !ds2 || !ds3 || !ds4 || !ds5 || !ds6 || !ds7 || !ds8 || !ds9 || !ds10}
+                    disabled={!ds1 || !ds2 || !ds3 || !ds4 || !ds5 || !ds61 || !ds62  || !ds7 || !ds8 || !ds9 || !ds10}
                 >
                     Dalje
                 </StyledButton>

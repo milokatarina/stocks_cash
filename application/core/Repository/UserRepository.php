@@ -12,11 +12,11 @@ class UserRepository
     public function insert(User $user): int
     {
         $this->db->query(
-            "INSERT INTO `user` (`ds1`, `ds2`, `ds3`, `ds4`, `ds5`, `ds6`, `ds7`, `ds8`, `ds9`, `ds10`)
+            "INSERT INTO `user` (`ds1`, `ds2`, `ds3`, `ds4`, `ds5`, `ds61`, `ds62`, `ds7`, `ds8`, `ds9`, `ds10`)
                         VALUES(
                                 '".$user->getDs1()."', '".$user->getDs2()."',
                                 '".$user->getDs3()."', '".$user->getDs4()."', '".$user->getDs5()."',
-                                '".$user->getDs6()."', '".$user->getDs7()."', '".$user->getDs8()."',
+                                '".$user->getDs61()."', '".$user->getDs62()."', '".$user->getDs7()."', '".$user->getDs8()."',
                                 '".$user->getDs9()."', '".$user->getDs10()."'
                                 )"
         );

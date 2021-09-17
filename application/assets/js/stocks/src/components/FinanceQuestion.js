@@ -25,6 +25,7 @@ class FinanceQuestion extends Component {
         this.setState({
             answers: newAnswers
         }, () => {
+            this.props.handleOnChange(newAnswers);
             console.log('setovano');
         })
     }

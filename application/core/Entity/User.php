@@ -7,7 +7,8 @@ class User
     public $ds3;
     public $ds4;
     public $ds5;
-    public $ds6;
+    public $ds61;
+    public $ds62;
     public $ds7;
     public $ds8;
     public $ds9;
@@ -20,20 +21,22 @@ class User
      * @param $ds3
      * @param $ds4
      * @param $ds5
-     * @param $ds6
+     * @param $ds61
+     * @param $ds62
      * @param $ds7
      * @param $ds8
      * @param $ds9
      * @param $ds10
      */
-    public function __construct($ds1, $ds2, $ds3, $ds4, $ds5, $ds6, $ds7, $ds8, $ds9, $ds10)
+    public function __construct($ds1, $ds2, $ds3, $ds4, $ds5, $ds61, $ds62, $ds7, $ds8, $ds9, $ds10)
     {
         $this->ds1 = $ds1;
         $this->ds2 = $ds2;
         $this->ds3 = $ds3;
         $this->ds4 = $ds4;
         $this->ds5 = $ds5;
-        $this->ds6 = $ds6;
+        $this->ds61 = $ds61;
+        $this->ds62 = $ds62;
         $this->ds7 = $ds7;
         $this->ds8 = $ds8;
         $this->ds9 = $ds9;
@@ -124,17 +127,33 @@ class User
     /**
      * @return mixed
      */
-    public function getDs6()
+    public function getDs61()
     {
-        return $this->ds6;
+        return $this->ds61;
     }
 
     /**
-     * @param mixed $ds6
+     * @param mixed $ds61
      */
-    public function setDs6($ds6)
+    public function setDs61($ds61)
     {
-        $this->ds6 = $ds6;
+        $this->ds61 = $ds61;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDs62()
+    {
+        return $this->ds62;
+    }
+
+    /**
+     * @param mixed $ds62
+     */
+    public function setDs62($ds62)
+    {
+        $this->ds62 = $ds62;
     }
 
     /**

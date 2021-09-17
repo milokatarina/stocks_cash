@@ -4,14 +4,14 @@ const STOCKS = 'stocks';
 
 export const initGame = (
     {
-        ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10
+        ds1, ds2, ds3, ds4, ds5, ds61, ds62, ds7, ds8, ds9, ds10
     }
 ) => {
     return axios.post(
         `${STOCKS}/initGame`,
         {
             params: {
-                ds1, ds2, ds3, ds4, ds5, ds6, ds7, ds8, ds9, ds10
+                ds1, ds2, ds3, ds4, ds5, ds61, ds62, ds7, ds8, ds9, ds10
             }
         }
     );
