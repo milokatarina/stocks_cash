@@ -50,39 +50,48 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange, setFinalRevenue}) =
         window.scrollTo(0, 0)
     }, [])
     const invest = ({risk}) => {
-        const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
-        setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
-        if (nextNumberOfYearsPlayed === 11 || nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
-            setShowModal(true);
-        }
-        let currentYearRevenueObject = yearsRevenue[initYearsRange + nextNumberOfYearsPlayed - 1];
-        if (nextNumberOfYearsPlayed <= CONST.MAX_PERIODS) {
-            setCurrentYearRevenue(currentYearRevenueObject);
-        }
-        const depositBalance = currentDepositBalance * currentYearRevenueObject.deposit_revenue / 100;
-        const stockBalance = currentStocksBalance * currentYearRevenueObject.stocks_revenue / 100;
+        const initCashBalance = currentCashBalance;
+
+        const depositBalance = currentDepositBalance * currentYearRevenue.deposit_revenue / 100;
+        const stockBalance = currentStocksBalance * currentYearRevenue.stocks_revenue / 100;
+
         const lastRevenue = parseFloat((
             depositBalance
             + stockBalance).toFixed(2));
         setLastRevenue(
             lastRevenue
         );
-        const initCashBalance = currentCashBalance;
+
         const calculatedCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(2));
         setCurrentCashBalance(calculatedCashBalance);
-        setDepositPercent(50);
-        setStocksPercent(50);
         api.logInvestment({
             userId,
             playId,
-            period: nextNumberOfYearsPlayed,
+            period: numberOfPeriodsPlayed + 1,
             depositPercent,
             stocksPercent,
             initCashBalance,
             totalCashBalance: calculatedCashBalance,
             rpLastPeriod: risk
         })
-        updatePeriodYieldsData(nextNumberOfYearsPlayed, depositBalance, stockBalance, lastRevenue);
+        updatePeriodYieldsData(numberOfPeriodsPlayed + 1, depositBalance, stockBalance, lastRevenue);
+        setDepositPercent(50);
+        setStocksPercent(50);
+        setCurrentDepositBalance(calculatedCashBalance / 2);
+        setCurrentStocksBalance(calculatedCashBalance / 2);
+        const nextNumberOfYearsPlayed = numberOfPeriodsPlayed + 1;
+
+        setNumberOfPeriodsPlayed(nextNumberOfYearsPlayed);
+        if (nextNumberOfYearsPlayed === 11 || nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
+            setShowModal(true);
+        }
+        if (numberOfPeriodsPlayed <= CONST.MAX_PERIODS) {
+            setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
+        }
+        if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
+            setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed -1]);
+        }
+
     }
 
     const updatePeriodYieldsData = (

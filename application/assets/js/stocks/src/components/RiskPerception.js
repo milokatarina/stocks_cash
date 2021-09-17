@@ -13,7 +13,7 @@ export const RiskPerception = ({currentYear, setIsRiskPercVisible, setRp, invest
                 borderLeft: 'none',
                 borderRight: 'none'
             }}>
-                {text} ({currentYear}. GODINA)
+                {text} ({currentYear}.GODINA)
             </div>
             <Auto5RadioQuestion
                 question="Koliko rizičnim percipirate Vaše prethodno ulaganje"
