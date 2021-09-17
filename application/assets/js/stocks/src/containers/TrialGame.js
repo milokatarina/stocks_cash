@@ -10,6 +10,7 @@ import * as CONST from "../constants";
 import {EndGame} from "./EndGame";
 import PeriodYieldsGraph from "../components/PeriodYieldsGraph";
 import {RiskPerception} from "../components/RiskPerception";
+import * as api from "../api";
 
 const TrialGame = ({yearsRevenue, onScreenChange}) => {
     const initCashBalance = 1000;
@@ -30,22 +31,30 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
         window.scrollTo(0, 0)
     }, [])
     const invest = () => {
-        const nextNumberOfYearsPlayed = numberOfPeriodsPlayedTrial + 1;
-        setNumberOfPeriodsPlayedTrial(nextNumberOfYearsPlayed);
-        setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
         const depositBalance = currentDepositBalance * currentYearRevenue.deposit_revenue / 100;
         const stockBalance = currentStocksBalance * currentYearRevenue.stocks_revenue / 100;
+
         const lastRevenue = parseFloat((
             depositBalance
             + stockBalance).toFixed(2));
         setLastRevenue(
             lastRevenue
         );
+
         const calculatedCashBalance = parseFloat((currentCashBalance + lastRevenue).toFixed(2));
         setCurrentCashBalance(calculatedCashBalance);
+        updatePeriodYieldsData(numberOfPeriodsPlayedTrial + 1, depositBalance, stockBalance, lastRevenue);
         setDepositPercent(50);
         setStocksPercent(50);
-        updatePeriodYieldsData(nextNumberOfYearsPlayed, depositBalance, stockBalance, lastRevenue);
+        setCurrentDepositBalance(calculatedCashBalance / 2);
+        setCurrentStocksBalance(calculatedCashBalance / 2);
+        const nextNumberOfYearsPlayed = numberOfPeriodsPlayedTrial + 1;
+
+        setNumberOfPeriodsPlayedTrial(nextNumberOfYearsPlayed);
+
+        if (numberOfPeriodsPlayedTrial <= CONST.MAX_PERIODS) {
+            setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
+        }
     }
     const updatePeriodYieldsData = (
         nextNumberOfYearsPlayed, depositBalance, stockBalance, lastRevenue
