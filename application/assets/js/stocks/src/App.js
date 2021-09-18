@@ -12,8 +12,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const App = ({yearsRevenue}) => {
     const [screenNumber, setScreenNumber] = useState(1);
-    const [playId, setPlayId] = useState(10);
-    const [userId, setUserId] = useState(10);
+    const [playId, setPlayId] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [finalBalance, setFinalBalance] = useState(0);
 
     const onNextRSSurvey = ({rs1, rs2, rs3, rs4, rs5, rs6, rs7}) => {
