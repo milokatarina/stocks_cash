@@ -85,10 +85,10 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange, setFinalRevenue}) =
         if (nextNumberOfYearsPlayed === 11 || nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
             setShowModal(true);
         }
-        if (numberOfPeriodsPlayed <= CONST.MAX_PERIODS) {
+        if (nextNumberOfYearsPlayed < CONST.MAX_PERIODS) {
             setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
         }
-        if (numberOfPeriodsPlayed === CONST.MAX_PERIODS) {
+        if (nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
             setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed -1]);
         }
 

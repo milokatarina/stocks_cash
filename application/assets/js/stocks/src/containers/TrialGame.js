@@ -52,8 +52,11 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
 
         setNumberOfPeriodsPlayedTrial(nextNumberOfYearsPlayed);
 
-        if (numberOfPeriodsPlayedTrial <= CONST.MAX_PERIODS) {
+        if (nextNumberOfYearsPlayed < CONST.MAX_PERIODS) {
             setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed]);
+        }
+        if (nextNumberOfYearsPlayed === CONST.MAX_PERIODS) {
+            setCurrentYearRevenue(yearsRevenue[initYearsRange + nextNumberOfYearsPlayed -1]);
         }
     }
     const updatePeriodYieldsData = (
