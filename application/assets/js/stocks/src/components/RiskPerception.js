@@ -6,13 +6,7 @@ import {Button} from "@material-ui/core";
 export const RiskPerception = ({currentYear, setIsRiskPercVisible, setRp, invest, onBack, text}) => {
     return (
         <StyledContainer>
-            <div className="mainHeader" style={{
-                borderTop: 'none',
-                borderBottom: 'white',
-                border: '1px solid',
-                borderLeft: 'none',
-                borderRight: 'none'
-            }}>
+            <div className="mainHeader">
                 {text} ({currentYear}.GODINA)
             </div>
             <Auto5RadioQuestion

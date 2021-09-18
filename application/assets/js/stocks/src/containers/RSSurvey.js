@@ -22,13 +22,7 @@ const RSSurvey = ({onNextChange}) => {
     }
     return (
         <StyledContainer>
-            <div className="mainHeader" style={{
-                borderTop: 'none',
-                borderBottom: 'white',
-                border: '1px solid',
-                borderLeft: 'none',
-                borderRight: 'none'
-            }}>
+            <div className="mainHeader">
                 EKSPERIMENTALNO ULAGANJE
             </div>
             <MainContent>

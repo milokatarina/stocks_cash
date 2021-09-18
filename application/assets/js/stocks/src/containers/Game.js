@@ -158,13 +158,7 @@ const Game = ({yearsRevenue, userId, playId, onScreenChange, setFinalRevenue}) =
 
     return (
         <StyledContainer>
-            <div className="mainHeader" style={{
-                borderTop: 'none',
-                borderBottom: 'white',
-                border: '1px solid',
-                borderLeft: 'none',
-                borderRight: 'none'
-            }}>
+            <div className="mainHeader" style={{borderBottom: '1px solid'}}>
                 EKSPERIMENTALNO ULAGANJE ({currentYearRevenue.year}.GODINA)
             </div>
             <div>

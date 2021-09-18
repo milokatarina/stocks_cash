@@ -107,14 +107,8 @@ const TrialGame = ({yearsRevenue, onScreenChange}) => {
     }
     return (
         <StyledContainer>
-            <div className="mainHeader" style={{
-                borderTop: 'none',
-                borderBottom: 'white',
-                border: '1px solid',
-                borderLeft: 'none',
-                borderRight: 'none'
-            }}>
-                EKSPERIMENTALNO ULAGANJE - PROBNI PERIOD ({parseInt(currentYearRevenue.year) + 3}. GODINA)
+            <div className="mainHeader" style={{borderBottom: '1px solid'}}>
+                EKSPERIMENTALNO ULAGANJE - PROBNI PERIOD ({parseInt(currentYearRevenue.year) + 3}.GODINA)
             </div>
             <div>
                 <div className="mainHeader" style={{height: '100px'}}>
