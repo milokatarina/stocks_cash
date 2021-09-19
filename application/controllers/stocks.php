@@ -236,8 +236,8 @@ class Stocks extends MY_Controller
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
                 $modifiedRow = $row;
-                $startSlice = array_values(array_slice($modifiedRow, 0, 18));
-                $endSlice = array_values(array_slice($modifiedRow, 20, count($modifiedRow)));
+                $startSlice = array_values(array_slice($modifiedRow, 0, 19));
+                $endSlice = array_values(array_slice($modifiedRow, 21, count($modifiedRow)));
                 $preparedStocksP = array_values(explode(",", $modifiedRow['stocksP']));
                 $preparedRisksP = array_values(explode(",", $modifiedRow['riskP']));
                 $prepended = array_merge($startSlice, $preparedStocksP, $preparedRisksP, $endSlice);
